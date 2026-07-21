@@ -21,6 +21,8 @@ typedef struct {
   char rest[MAX_LINE_LEN + 1];
 } ParsedLine;
 
+#endif
+
 
 Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln);
 int  operands_split(char *rest, char *ops[], int max_ops, const char *file, int ln);
