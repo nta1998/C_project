@@ -58,4 +58,9 @@
 #define ENTRIES_FILE_EXTENSION ".ent"
 #define EXTERNALS_FILE_EXTENSION ".ext"
 
+typedef enum Bool{
+    FALSE = 0,
+    TRUE = 1
+};
+
 #endif
