@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <stdio.h>
 #include <string.h>
 #include "../Headers/globals.h"
@@ -101,3 +102,6 @@ Bool is_reserved_word(const char *s){};
 Bool parse_number(const char *s, long *out){};
 int parse_register(const char *s){};
 int operands_split(char *rest, char *ops[], int max_ops, const char *file, int ln){};
+=======
+
+>>>>>>> 107e2118174d5d4b6c481133841fc32be75a95f4
