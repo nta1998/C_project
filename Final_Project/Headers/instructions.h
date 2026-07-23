@@ -4,21 +4,17 @@
 #include <stddef.h>
 #include "globals.h"
 
-/* תבנית האופרנדים הצפויה בשורת המקור, לפי סוגי הפקודות שהוגדרו במסמך:
- *   OPERANDS_R_ARITH    - שלושה רגיסטרים: add/sub/and/or/nor          (rs, rt, rd)
- *   OPERANDS_R_COPY     - שני רגיסטרים: move/mvhi/mvlo                 (rs=dest, rd=src - ראו הערה במימוש)
- *   OPERANDS_REG_IMM_REG- רגיסטר, מיידי, רגיסטר: addi/subi/andi/ori/nori
- *                          *וגם* lb/sb/lw/sw/lh/sh - מבחינת מבנה
- *                          האופרנדים והשדות (rs=אופרנד1, immed=אופרנד2,
- *                          rt=אופרנד3) שתי הקבוצות זהות לחלוטין; ההבדל
- *                          ביניהן הוא סמנטי בלבד (תוצאה אריתמטית מול
- *                          כתובת בזיכרון), ולכן קידוד משותף להן חוסך שכפול קוד.
- *   OPERANDS_I_BRANCH   - רגיסטר, רגיסטר, תווית: bne/beq/blt/bgt
- *   OPERANDS_J_JUMP     - תווית *או* רגיסטר יחיד: jmp
- *   OPERANDS_J_LABEL    - תווית יחידה בלבד: la/call
- *   OPERANDS_NONE       - ללא אופרנדים: hlt
+/*  
+ *   OPERANDS_R_ARITH     - Arithmetic and Logical  add/sub/and/or/nor      3 register (rs, rt, rd)
+ *   OPERANDS_R_COPY      - Copy                    move/mvhi/mvlo          2 register (rs=dest, rd=src)
+ *   OPERANDS_I_ARITH     - Arithmetic and Logical  addi/subi/andi/ori/nori 2 register (rs, rt)
+ *   OPERANDS_I_MEM       - Memore                  lb/sb/lw/sw/lh/sh       2 register (rs=Mem[rt+immed])
+ *   OPERANDS_I_BRANCH    - Conditional branching   bne/beq/blt/bgt         2 register (rs, rt)
+ *   OPERANDS_J_JUMP      - jmp label or one register
+ *   OPERANDS_J_LABEL     - la/call label only
+ *   OPERANDS_J_NONE      - hlt 
  */
-typedef enum {
+typedef enum InstClass{
   R_ARITH, 
   R_COPY, 
   I_ARITH,
@@ -28,6 +24,12 @@ typedef enum {
   /*OPERANDS_NONE*/
 } InstClass;
 
+/*  
+ *   name     - the name of the instruction  
+ *   cls      - the instruction type InstClass                 
+ *   opcode   - Unique code for Identification
+ *   funct    - Unique code for Identification (Only relevant in instructions of type R)
+ */
 typedef struct {
   const char *name;
   InstClass cls;
@@ -35,8 +37,11 @@ typedef struct {
   int funct;
 } InstInfo;
 
-/* מחפשת פקודה לפי שם מילת הפעולה. מחזירה מצביע לרשומה הקבועה בטבלה, או
- * NULL אם השם אינו מילת פעולה מוכרת. */
+/**
+ * This function find the info for a commend 
+ * @param name a pointer of char the commend name we need to find
+ * @return a InstInfo object or NULL if not found 
+ */
 const InstInfo *inst_find(const char *name);
 
 #endif

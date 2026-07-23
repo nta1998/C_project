@@ -58,12 +58,9 @@
 #define ENTRIES_FILE_EXTENSION ".ent"
 #define EXTERNALS_FILE_EXTENSION ".ext"
 
-<<<<<<< HEAD
 typedef enum Bool{
     FALSE = 0,
     TRUE = 1
-};
+} Bool;
 
-=======
->>>>>>> 107e2118174d5d4b6c481133841fc32be75a95f4
 #endif
