@@ -32,13 +32,13 @@
 #define COMMANDES_COUNT 27
 
 /* The number of R type commandes */
-#define COMMANDES_COUNT 8
+#define R_TYPE_COMMANDES_COUNT 8
 
 /* The number of I type commandes */
-#define COMMANDES_COUNT 15
+#define I_TYPE_COMMANDES_COUNT 15
 
 /* The number of J type commandes */
-#define COMMANDES_COUNT 4
+#define J_TYPE_COMMANDES_COUNT 4
 
 /* The Size of Byte: 8 bits */
 #define BYTE_SIZE 8

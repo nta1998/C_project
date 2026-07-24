@@ -46,17 +46,25 @@ const InstInfo commends_list[] =
 };
 
 const InstInfo *inst_find(const char *name){
-    int i = 0;
+    int i;
+    int j;
     /* the sum of commends is 27 going over all of them to find a match*/
-    for (i; i <= 28; i++)
+    for (j = 0; j <= 26; j++)
     {
-        /*if match found*/
-        if (commends_list[i].name == "name")
+        for (i = 0; *(name+i) != '\0'; i++)
         {
-            return &commends_list[i]; /*need test*/
+           if (commends_list[j].name[i] == *(name + i))
+           {
+                continue;
+           }
+           else
+           {
+            break;   
+           }
         }
+ 
         
     }
     /*if match not found*/
     return NULL;
-};
+}

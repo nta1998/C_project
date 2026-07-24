@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include "../Headers/instructions.h"
 #include "../Headers/globals.h"
 #include "../Headers/parser.h"
 
 Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
 
     int i = 0;
+    int j = 0;
     
     Bool label_flag = FALSE;
     Bool directive_flag = FALSE;
@@ -24,19 +27,21 @@ Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
         }
 
         /*the line can be a directive or invalid */
-        else if (raw[i] == '.' || directive_flag)
+        if (raw[i] == '.' || directive_flag)
         {
             directive_flag = TRUE;
-            out->name = out->name + raw[i];
+            out->name[j] = raw[i];
+            j++;
             i++;
             continue;
         }
 
         /*the line can be directive or instuction or invalid*/
-        else if (raw[i] == ':'||(raw[i] <= 'A' && raw[i] >= 'Z')||(raw[i] <= 'a' && raw[i] >= 'z') || label_flag)
+        if (raw[i] == ':' || (raw[i] >= 'A' && raw[i] <= 'Z') || (raw[i] >= 'a' && raw[i] <= 'z') || label_flag)
         { 
             label_flag = TRUE;
-            out->label = out->label + raw[i];
+            out->label[j] = raw[i];
+            j++;
             i++;
             continue;
         }
@@ -67,8 +72,10 @@ Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
         /*if the label is valid we need to add the rest of the chars in the raw too the name */
         if (is_valid_label(out->label)){
             /*adding too name until we get to the end or the farst ' ' char */
+            j = 0;
             while (raw[i] != ' ' && raw[i] != '\0'){
-                out->name = out->name + raw[i];
+                out->name[j] = raw[i];
+                j++;
                 i++;
                 continue;                
             }
@@ -82,10 +89,12 @@ Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
             if (is_reserved_word(out->label))
             {
                 out->kind = LINE_INSTRUCTION;
-                out->name = out->label;
-                out->label = '';
+                strcpy(out->name, out->label);
+                out->label[0] = '\0';
+                j = 0;
                 while (raw[i] != '\0'){
-                    out->rest = out->rest + raw[i];
+                    out->rest[j] = raw[i];
+                    j++;
                     i++;
                     continue; 
                 }
@@ -108,9 +117,11 @@ Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
         if (is_reserved_word(out->name))
         {   
             out->kind = LINE_DIRECTIVE;
+            j = 0;
             while (raw[i] != '\0')
             {
-                out->rest = out->rest + raw[i];
+                out->rest[j] = raw[i];
+                j++;
                 i++;
                 continue; 
             }
@@ -120,19 +131,23 @@ Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
     }
     out->kind = LINE_INVALID;
     return FALSE;
-};
+}
 
 /* if it is a valid label its need to end in the char ':' and be the unice */
 Bool is_valid_label(const char *s){
-
+    int i = 0;
     /* check if the label ends in char ':' */
-    if (s[sizeof(s)] == ':' && s[sizeof(s)-1] != ' ' && !is_reserved_word(s) && sizeof(s) <= 32)
+    while ( *(s+i) != ' ' && *(s+i) != '\0') 
+    {
+        i++;
+    } 
+    if (*(s+i-1) == ':' && !is_reserved_word(s) && i <= 32)
     {
         return TRUE;
     }
 
     return FALSE;
-};
+}
 
 Bool is_reserved_word(const char *s){
     /*if the word is a reserve word its can be a insttruction or a saved label*/
@@ -153,7 +168,7 @@ Bool is_reserved_word(const char *s){
     }
     
     
-};
+}
 
 Bool parse_number(const char *s, long *out){
 
@@ -182,14 +197,13 @@ Bool parse_number(const char *s, long *out){
     };
 
     /*all the string is a valid number */
-    int value = atsol(s);
-    out = value;
+    *out = atol(s);    
     return TRUE;
-};
+}
 
 int parse_register(const char *s){
     int i = 1;
-
+    long value;
     if (s[0] != '$')
     {
         return FALSE;
@@ -208,13 +222,13 @@ int parse_register(const char *s){
         }
         i++;
     }
-    int value = atsol(s+1);
+    value = atol(s+1);
     if (value >= 0 && value <= 31)
     {
         return value;
     };
     return FALSE;
-};
+}
 
 int operands_split(char *rest, char *ops[], int max_ops, const char *file, int ln){
     
@@ -262,4 +276,4 @@ int operands_split(char *rest, char *ops[], int max_ops, const char *file, int l
     }
     return j;
     
-};
+}

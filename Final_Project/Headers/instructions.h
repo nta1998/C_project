@@ -21,8 +21,7 @@ typedef enum InstClass{
   I_BRANCH, 
   I_MEM, 
   J_TYPE
-  /*OPERANDS_NONE*/
-} InstClass;
+}InstClass;
 
 /*  
  *   name     - the name of the instruction  
