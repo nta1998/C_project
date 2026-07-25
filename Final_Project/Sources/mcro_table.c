@@ -11,21 +11,29 @@
 #include "mcro_table.h"
 
 /* Static variable (limited to this file only) – store the current macro table. */
-static Mcro table[MAX_MCROS];
-static int mcro_count= 0;
+static Mcro *head = NULL;
 
 void mcro_table_reset(void){
-    mcro_count= 0;
+    Mcro *curr = head;
+    Mcro *next_node;
+    while (curr != NULL){
+        next_node = curr->next; 
+        free(curr);
+        curr = next_node;
+    }
+    head = NULL;
 }
 
 Mcro *mcro_add(const char *name){
-    if (mcro_count >= MAX_MCROS){
+    Mcro *new_mcro = malloc(sizeof(Mcro));
+    if (new_mcro == NULL){
         return NULL;
     }
-    strcpy(table[mcro_count].mcro_name, name);
-    table[mcro_count].line_counter= 0;
-    mcro_count++;
-    return &table[mcro_count-1];
+    strcpy(new_mcro->mcro_name, name);
+    new_mcro->line_counter = 0;
+    new_mcro->next = head;
+    head = new_mcro;
+    return new_mcro;
 }
 
 Bool mcro_add_line(Mcro *mcro, const char*line){
@@ -38,11 +46,12 @@ Bool mcro_add_line(Mcro *mcro, const char*line){
 }
 
 Mcro *mcro_search(const char *name){
-    int i;
-    for(i=0; i<mcro_count; i++){
-        if(strcmp(table[i].mcro_name, name) == 0){
-            return &table[i];
+    Mcro *curr = head;
+    while (curr != NULL){
+        if (strcmp(curr->mcro_name, name) == 0){
+            return curr;
         }
+        curr = curr->next;
     }
     return NULL;
 }

@@ -1,24 +1,26 @@
-#ifndef FINAL_PROJECT_MEMORY_IMAGE_H
-#define FINAL_PROJECT_MEMORY_IMAGE_H
+#ifndef MEMORY_IMAGE_H
+#define MEMORY_IMAGE_H
 
 #include "globals.h"
 #include "symbol_table.h"
 
 typedef struct {
-  unsigned char bytes[CODE_IMG_MAX];
-  long ic;
-} CodeImage;
+    int address;
+    char source_code[MAX_LINE_LEN+1];
+    unsigned long machine_code;
+} CODE_LINE;
 
 typedef struct {
-  unsigned char bytes[DATA_IMG_MAX];
-  long dc;
-} DataImage;
-
-void code_init(CodeImage *c);
-Bool code_add_word(CodeImage *c, unsigned long word);
-void code_patch_word(CodeImage *c, long address,unsigned long word);
-
-void data_init(DataImage *d);
-Bool data_add(DataImage *d, long value, int size_bytes);
+    int address;
+    unsigned long machine_code;
+} DATA_LINE;
 
 #endif
+
+void code_init(CODE_LINE *c);
+Bool code_add_word(CODE_LINE *c, unsigned long word);
+void code_patch_word(CODE_LINE *c, long address,unsigned long word);
+
+void data_init(DATA_LINE *d);
+Bool data_add(DATA_LINE *d, long value, int size_bytes);
+

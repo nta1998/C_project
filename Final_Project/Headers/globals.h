@@ -13,7 +13,7 @@
 #define MAX_LINE_LEN 81
 
 /* Default IC value - start address: 100 */
-#define IC_INIT_VALUE 100
+#define START_ADDRESS 100
 
 /* Define opcode length in bits */
 #define OPCODE_BITS 6
@@ -52,7 +52,6 @@
 #define MAX_CODE_IMAGE_BYTES 4096
 #define MAX_DATA_IMAGE_BYTES 4096
 #define MAX_LINES 256
-#define MAX_MCROS 50
 #define MAX_MCRO_LINES 50
 
 /* Ending files */
