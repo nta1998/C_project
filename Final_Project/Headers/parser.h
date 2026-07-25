@@ -16,12 +16,10 @@ typedef enum {
 /* Definition of a structure of type 'LineKind' */
 typedef struct {
   LineKind kind;
-  char label[MAX_LABEL_LEN + 1];
-  char name[MAX_LINE_LEN + 1];
-  char rest[MAX_LINE_LEN + 1];
+  char label[MAX_LABEL_LENGTH + 1];
+  char name[MAX_LABEL_LENGTH + 1];
+  char rest[MAX_LINE_LENGTH + 1];
 } ParsedLine;
-
-#endif
 
 
 Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln);
@@ -30,3 +28,5 @@ Bool is_valid_label(const char *s);
 Bool is_reserved_word(const char *s);
 int  parse_register(const char *s);
 Bool parse_number(const char *s, long *out);
+
+#endif
