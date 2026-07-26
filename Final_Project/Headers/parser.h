@@ -15,7 +15,7 @@ typedef enum LineKind{
 }LineKind;
 
 /* Definition of a structure of type 'LineKind' */
-typedef struct {
+typedef struct ParsedLine{
   LineKind kind;
   char label[MAX_LABEL_LENGTH + 1];
   char name[MAX_LABEL_LENGTH + 1];
@@ -31,6 +31,8 @@ typedef struct {
 * @return a Bool TRUE/FALSE
  */
 Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln);
+
+Bool line_split_2(const char *raw, ParsedLine *out, const char *file, int ln);
 
 /**
  * This function check if the given string is a valid label 
@@ -75,6 +77,8 @@ int  operands_split(char *rest, char *ops[], int max_ops, const char *file, int 
  * @return the register number or -1 if error
  */
 int  parse_register(const char *s);
+
+Bool is_directive_word(const char *s);
 
 #endif
  

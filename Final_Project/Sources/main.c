@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     while (fgets(buffer, sizeof(buffer), f) != NULL) {
         line_no++;
-        if (line_split(buffer, &pl, argv[1], line_no))
+        if (line_split_2(buffer, &pl, argv[1], line_no))
             printf("%d: kind=%d label=[%s] name=[%s] rest=[%s]\n",
                    line_no, pl.kind, pl.label, pl.name, pl.rest);
         else

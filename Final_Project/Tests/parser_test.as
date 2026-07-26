@@ -1,6 +1,8 @@
-.
+hlt
+END: hlt
+;
 add $3, $19, $8
-   add    $3 ,$19,   $8
+    add    $3 ,$19,   $8
 LOOP: add $1,$2,$3
 hlt
 END: hlt
@@ -11,10 +13,8 @@ STR: .asciz "hello"
 ARR: .dh 5, -1, 130
 .entry MAIN
 .extern val1
-
 ; שורת הערה שלמה - אמורה להיות COMMENT
     ; גם זו הערה עם רווחים לפני
-
 ; --- שורות ריקות (EMPTY) ---
 
 	

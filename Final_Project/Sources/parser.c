@@ -6,149 +6,134 @@
 #include "../Headers/parser.h"
 
 Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
-
+    
     int i = 0;
     int j = 0;
+
+    out->label[0] = '\0';
+    out->name[0] = '\0';
+    out->rest[0] = '\0';
+
+
+    while (raw[i] == ' '||raw[i] == '\t'||raw[i] == '\n'){i++;}
     
-    Bool label_flag = FALSE;
-    Bool directive_flag = FALSE;
-
-    /*skiping all the speas in the start*/
-    while (raw[i] == ' '){i++;}
-
-    /*if the loop end and the flag is not on so it can be only empty line */
-    while (raw[i] != ' ' && raw[i] != '\0'){
-
-        /*the line is a commennt if its start in the char ';' and all the flags are off */
-        if (raw[i] == ';' && !label_flag && !directive_flag)
-        {   
-            out->kind = LINE_COMMENT;
-            return TRUE;
-        }
-
-        /*the line can be a directive or invalid */
-        if (raw[i] == '.' || directive_flag)
-        {
-            directive_flag = TRUE;
-            out->name[j] = raw[i];
-            j++;
-            i++;
-            continue;
-        }
-
-        /*the line can be directive or instuction or invalid*/
-        if (raw[i] == ':' || (raw[i] >= 'A' && raw[i] <= 'Z') || (raw[i] >= 'a' && raw[i] <= 'z') || label_flag)
-        { 
-            label_flag = TRUE;
-            out->label[j] = raw[i];
-            j++;
-            i++;
-            continue;
-        }
-
-        /* if the start of a line is not starting in a leter or '.' or ';' is invalid line */
-        else{
-            out->kind = LINE_INVALID;
-            return FALSE;
-        }
-   
-        
-    };
-
-    /* testing the line is ended whit all the flag off so it can be only empty line*/
-    if (!label_flag && !directive_flag && raw[i] == '\0')
-    {
+    if(raw[i] == '\0'){
         out->kind = LINE_EMPTY;
-        return TRUE;   
-    };
-
-    /* if the label flag is on so the kind of the line can be invalid or directive or instuction */
-    if (label_flag)
-    {
-        /*the char in raw[i] can be only ' ' the while loop in line 17 stop so we need to move the i counter by 1 */
-        i++;
-        /*moveing to the farst char*/
-        while (raw[i] == ' '){i++;}
-        /*if the label is valid we need to add the rest of the chars in the raw too the name */
-        if (is_valid_label(out->label)){
-            /*adding too name until we get to the end or the farst ' ' char */
-            j = 0;
-            while (raw[i] != ' ' && raw[i] != '\0'){
-                out->name[j] = raw[i];
-                j++;
-                i++;
-                continue;                
-            }
-
-        } 
-
-        /* if the label is not valid and the directive flag is off its can be only instruction line or invalid */
-        else if (!directive_flag)
-        {   
-            /* if the word is reserved and we know the line canot be directive so the line is most likely too be instruction if not is invalid*/
-            if (is_reserved_word(out->label))
-            {
-                out->kind = LINE_INSTRUCTION;
-                strcpy(out->name, out->label);
-                out->label[0] = '\0';
-                j = 0;
-                while (raw[i] != '\0'){
-                    out->rest[j] = raw[i];
-                    j++;
-                    i++;
-                    continue; 
-                }
-                return TRUE;
-            }
-            
-            out->kind = LINE_INVALID;
-            return FALSE;
-        }
-        
+        return TRUE;
     }
-    /*if the directive flag is on we can get only directive or invalid*/
-    else if (directive_flag)
-    {
-        /*the char in raw[i] can be only ' ' the while loop in line 17 stop so we need to move the i counter by 1 */
-        i++;
-        /*moveing to the farst char*/
-        while (raw[i] == ' '){i++;}
-        /* if the word is reserved and we know the line is not instruction so the line is most likely too be directive if not is invalid*/
-        if (is_reserved_word(out->name))
-        {   
-            out->kind = LINE_DIRECTIVE;
-            j = 0;
-            while (raw[i] != '\0')
-            {
-                out->rest[j] = raw[i];
-                j++;
-                i++;
-                continue; 
-            }
-            return TRUE;
-        }
-        
-    }
-    out->kind = LINE_INVALID;
-    return FALSE;
-}
-
-/* if it is a valid label its need to end in the char ':' and be the unice */
-Bool is_valid_label(const char *s){
-    int i = 0;
-    /* check if the label ends in char ':' */
-    while ( *(s+i) != ' ' && *(s+i) != '\0') 
-    {
-        i++;
-    } 
-    if (*(s+i-1) == ':' && !is_reserved_word(s) && i <= 32)
-    {
+    if (raw[i] == ';')
+    {   
+        out->kind = LINE_COMMENT;
         return TRUE;
     }
 
+    while (raw[i] != ' ' && raw[i] != '\0' && raw[i] != '\n' && j <= MAX_LABEL_LENGTH)
+    {
+        out->label[j] = raw[i];
+        j++;
+        i++;
+        continue;
+    }
+    out->label[j] = '\0';
+    j = 0;
+    
+    if (!is_valid_label(out->label)){
+        
+        if (is_reserved_word(out->label) || is_directive_word(out->label)){
+            while(out->label[j] != '\0')
+            {     
+                out->name[j] = out->label[j];
+                out->label[j] = '\0';
+                j++;
+            }
+            out->name[j] = '\0';
+        }
+        else
+        {
+            out->kind = LINE_INVALID;
+            return FALSE;
+        }    
+    }
+        
+    while (raw[i] == ' '){i++;}
+
+    j = 0;
+    if (out->label[0] != '\0')
+    {
+        while (raw[i] != ' ' && raw[i] != '\0')
+        {
+            if(raw[i] != '\n' && raw[i] != ' ')
+            {
+                out->name[j] = raw[i];
+                j++;
+            }
+            i++;
+            
+        }
+        out->name[j] = '\0';
+    }
+
+    while (raw[i] == ' '){i++;}
+    j = 0;
+    while (raw[i] != '\0')
+    {    
+        if(raw[i] != '\n' && raw[i] != ' ')
+        {
+            out->rest[j] = raw[i];
+            j++;
+        }
+        i++;
+       
+    }
+    out->rest[j] = '\0';
+    char *ops[4];
+    if (operands_split(out->rest,ops,3,file,ln) >= 0)
+    {
+        if (out->label[0] == '.' && is_directive_word(out->name)){
+            out->kind = LINE_DIRECTIVE;
+        }
+        else if (is_valid_label(out->label)){
+            if (out->name[0] == '.' && is_directive_word(out->name))
+            {
+            out->kind = LINE_DIRECTIVE;
+            return TRUE;
+            }
+            else 
+            {
+                if(is_reserved_word(out->name))
+                {
+                    out->kind = LINE_INSTRUCTION;
+                    return TRUE;
+                }
+                out->kind = LINE_INVALID;
+                return FALSE;
+            }
+        }
+        return TRUE; 
+    }
     return FALSE;
 }
-
+/* if it is a valid label its need to end in the char ':' and be the unice */
+Bool is_valid_label(const char *s){
+    int i = 0;
+    char s_tmp[32];
+    if((s[0] >= 'A' && s[0] <= 'Z') || (s[0] >= 'a' && s[0] <= 'z'))
+    {
+        /* check if the label ends in char ':' */
+        while ( *(s+i) != ' ' && *(s+i) != '\0') 
+        {
+            s_tmp[i] = *(s+i);
+            i++;
+        } 
+        s_tmp[i-1] = '\0';
+        if (*(s+i-1) == ':' && !is_reserved_word(s_tmp) && i <= 32)
+        {
+            return TRUE;
+        }
+        return FALSE;
+    }
+    return FALSE;
+}
 Bool is_reserved_word(const char *s){
     /*if the word is a reserve word its can be a insttruction or a saved label*/
 
@@ -169,7 +154,6 @@ Bool is_reserved_word(const char *s){
     
     
 }
-
 Bool parse_number(const char *s, long *out){
 
     int i = 0;
@@ -200,7 +184,18 @@ Bool parse_number(const char *s, long *out){
     *out = atol(s);    
     return TRUE;
 }
-
+Bool is_directive_word(const char *s){
+    if (s[0] != '.' )
+    {
+        return FALSE;
+    }
+    else if (s[1] == 'd'||s[1] == 'a'|| s[1] == 'e')
+    {
+        return TRUE;
+    }   
+    else 
+        return FALSE;
+}
 int parse_register(const char *s){
     int i = 1;
     long value;
@@ -229,7 +224,6 @@ int parse_register(const char *s){
     };
     return FALSE;
 }
-
 int operands_split(char *rest, char *ops[], int max_ops, const char *file, int ln){
     
     int i = 0;
@@ -275,5 +269,5 @@ int operands_split(char *rest, char *ops[], int max_ops, const char *file, int l
         return -1;
     }
     return j;
-    
+ 
 }

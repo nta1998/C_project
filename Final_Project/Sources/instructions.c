@@ -3,7 +3,7 @@
 #include "../Headers/globals.h"
 #include "../Headers/instructions.h"
 
-const InstInfo commends_list[] = 
+const InstInfo commands_list[] = 
 {
     /*R_ARITH: the Arithmetic and Logical R type the opcode is 0 and 3 register (rs, rt, rd) and funct */
     {"add",  R_ARITH,  0, 1},
@@ -44,27 +44,23 @@ const InstInfo commends_list[] =
     {"call", J_TYPE,   32, 0},
     {"hlt",  J_TYPE,   63, 0}
 };
-
-const InstInfo *inst_find(const char *name){
+#define COMMANDS_COUNT (sizeof(commands_list) / sizeof(commands_list[0]))
+const InstInfo *inst_find(const char *name)
+{
     int i;
-    int j;
-    /* the sum of commends is 27 going over all of them to find a match*/
-    for (j = 0; j <= 26; j++)
+
+    if (name == NULL)
     {
-        for (i = 0; *(name+i) != '\0'; i++)
-        {
-           if (commends_list[j].name[i] == *(name + i))
-           {
-                continue;
-           }
-           else
-           {
-            break;   
-           }
-        }
- 
-        
+        return NULL;
     }
-    /*if match not found*/
+
+    for (i = 0; i < (int)COMMANDS_COUNT; i++)
+    {
+        if (strcmp(commands_list[i].name, name) == 0)
+        {
+            return &commands_list[i];
+        }
+    }
+
     return NULL;
 }
