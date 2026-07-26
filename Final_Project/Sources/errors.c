@@ -1,4 +1,3 @@
-
 /**
  * @file errors.c
  * @brief This file contains the implementation of error handling functions for the assembler.

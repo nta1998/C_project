@@ -16,9 +16,9 @@ typedef enum {
 /* Definition of a structure of type 'LineKind' */
 typedef struct {
   LineKind kind;
-  char label[MAX_LABEL_LENGTH + 1];
-  char name[MAX_LABEL_LENGTH + 1];
-  char rest[MAX_LINE_LENGTH + 1];
+  char label[MAX_LABEL_LEN + 1];
+  char name[MAX_LABEL_LEN + 1];
+  char rest[MAX_LINE_LEN + 1];
 } ParsedLine;
 
 

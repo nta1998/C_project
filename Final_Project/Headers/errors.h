@@ -48,7 +48,7 @@ typedef enum {
     ERR_CODE_29,
     ERR_CODE_30,
     ERR_CODE_31,
-    ERR_CODE_LAST,
+    ERR_CODE_LAST
 } ERROR_CODES;
 
 /**
