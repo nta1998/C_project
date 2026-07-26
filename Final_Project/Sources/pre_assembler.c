@@ -7,10 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "../Headers/globals.h"
 #include "../Headers/pre_assembler.h"
-#include "../Headers/mcro_table.h"
-#include "../Headers/errors.h"
 #include "../Headers/parser.h"
 #include "../Headers/instructions.h"
 
@@ -48,7 +45,7 @@ void expand_mcro_call(const char *line, FILE *curr_am_file){
     int i;
     sscanf(line, "%s", first_word);
     found = mcro_search(first_word);
-    for (i=0; i < found -> line_counter; i++){fputs(found->data_lines[i], curr_am_file);}
+    for (i=0; i < found -> line_counter; i++){fputs(found->data[i], curr_am_file);}
 }
 
 Mcro *start_mcro_def(Line curr_line){

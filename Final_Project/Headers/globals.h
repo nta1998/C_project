@@ -43,6 +43,9 @@
 
 /* The Size of Byte: 8 bits */
 #define BYTE_SIZE 8
+#define DB_BYTE_SIZE 1
+#define DH_BYTE_SIZE 2
+#define DW_BYTE_SIZE 4
 
 /* The minimum and maximum address range (25 bits unsigned) */
 #define MAX_NUM ((1UL << JTYPE_ADDRESS_BITS) - 1)

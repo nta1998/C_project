@@ -1,6 +1,8 @@
 #ifndef INSTRUCTIONS_H
 #define INSTRUCTIONS_H
 
+#include "globals.h"
+
 /**
  * An INSTRUCTION_TYPE enumeration.
  * @param R_A_TYPE: Represents R-type: arithmetic instructions.

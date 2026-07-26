@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../Headers/globals.h"
 #include "../Headers/errors.h"
 
 /* Static variable (limited to this file only) – store the current error count. */

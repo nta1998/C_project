@@ -6,7 +6,6 @@
 #include "mcro_table.h"
 #include "errors.h"
 
-
 /* Possible classifications for a line when we are NOT currently inside a macro definition (curr_mcro == NULL). */
 typedef enum {
     MCRO_START,

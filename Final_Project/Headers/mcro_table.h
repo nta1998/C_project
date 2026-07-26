@@ -5,7 +5,7 @@
 #include "globals.h"
 
 /**
- * An Mcro data structure.
+ * A Mcro data structure.
  * @param mcro_name: a string with the maximum allowed length for a mcro name.
  * @param data_lines: an array—sized according to the maximum number of mcro lines—containing strings of the maximum line length per one.
  * @param line_counter: a line counter for each individual macro.
@@ -14,7 +14,7 @@
 
 typedef struct Mcro {
     char mcro_name[MAX_MCRO_LEN+1];
-    char data_lines[MAX_MCRO_LINES][MAX_LINE_LEN];
+    char data[MAX_MCRO_LINES][MAX_LINE_LEN];
     int line_counter;
     struct Mcro *next;
 } Mcro;

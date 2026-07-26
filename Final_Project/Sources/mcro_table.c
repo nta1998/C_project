@@ -7,7 +7,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "globals.h"
 #include "mcro_table.h"
 
 /* Static variable (limited to this file only) – store the current macro table. */
@@ -40,7 +39,7 @@ Bool mcro_add_line(Mcro *mcro, const char*line){
     if (mcro->line_counter >= MAX_MCRO_LINES){
         return FALSE;
     }
-    strcpy(mcro->data_lines[mcro->line_counter], line);
+    strcpy(mcro->data[mcro->line_counter], line);
     mcro->line_counter++;
     return TRUE;
 }
