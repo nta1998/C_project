@@ -25,7 +25,7 @@ static void reset_all_tables(void){
     memory_image_reset();
 }
 
-int assembler (int argc, char *argv[]) {
+int main (int argc, char *argv[]) {
 
     int i, len;
     char *as_file;
