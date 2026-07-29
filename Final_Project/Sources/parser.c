@@ -50,6 +50,7 @@ Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
         }
         else
         {
+            /* error */
             out->kind = LINE_INVALID;
             return FALSE;
         }    
@@ -74,7 +75,9 @@ Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
     }
 
     while (raw[i] == ' '){i++;}
+
     j = 0;
+    
     while (raw[i] != '\0')
     {    
         if(raw[i] != '\n' && raw[i] != ' ')

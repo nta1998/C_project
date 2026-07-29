@@ -15,12 +15,13 @@ typedef enum LineKind{
 }LineKind;
 
 /* Definition of a structure of type 'LineKind' */
-typedef struct ParsedLine{
+typedef struct Parsed_line{
   LineKind kind;
   char label[MAX_LABEL_LENGTH + 1];
   char name[MAX_LABEL_LENGTH + 1];
   char rest[MAX_LINE_LENGTH + 1];
-} ParsedLine;
+  /*add error*/
+} Parsed_line;
 
 /**
  * This function split the raw row into a ParsedLine
@@ -31,8 +32,6 @@ typedef struct ParsedLine{
 * @return a Bool TRUE/FALSE
  */
 Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln);
-
-Bool line_split_2(const char *raw, ParsedLine *out, const char *file, int ln);
 
 /**
  * This function check if the given string is a valid label 
