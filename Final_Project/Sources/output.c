@@ -8,11 +8,11 @@
 
 #include <stdio.h>
 
-#include "globals.h"
-#include "memory_image.h"
-#include "symbol_table.h"
-#include "external_table.h"
-#include "output.h"
+#include "../Headers/globals.h"
+#include "../Headers/memory_image.h"
+#include "../Headers/symbol_table.h"
+#include "../Headers/external_table.h"
+#include "../Headers/output.h"
 
 /**
  * A static function that writes a single row of the object file - a decimal address followed by

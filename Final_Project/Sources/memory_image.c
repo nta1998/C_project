@@ -8,7 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "memory_image.h"
+#include "../Headers/memory_image.h"
 
 /* Static variables (limited to this file only). */
 

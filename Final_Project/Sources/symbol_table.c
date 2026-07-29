@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "symbol_table.h"
+#include "../Headers/symbol_table.h"
 
 /* Static variable (limited to this file only) – store the current symbol table. */
 static Symbol *head = NULL;
