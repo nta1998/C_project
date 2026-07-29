@@ -1,0 +1,9 @@
+build/
+assembler
+
+*.o
+tests/*.am
+tests/*.ob
+tests/*.ent
+tests/*.ext
+EOF

@@ -27,21 +27,19 @@ typedef enum {
  * @param type: an INSTRUCTION_TYPE indicating the type of the instruction.
  * @param opcode: an integer representing the opcode of the instruction.
  * @param funct: an integer representing the function code of the instruction (if applicable).
- * @param num_operands: an integer indicating the number of operands required by the instruction.
 */
 typedef struct {
   const char *name;
   INSTRUCTION_TYPE type;
   int opcode;
   int funct;
-  int num_operands;
-} INSTRUCTION_INFO;
+} Instruction_info;
 
 /**
  * Searches the instruction table for an instruction by name.
  * @param curr_name: the instruction name to search for.
  * @return a pointer to the matching INSTRUCTION_INFO if found, or NULL if not found.
 */
-INSTRUCTION_INFO *instruction_search(const char *curr_name);
+Instruction_info *instruction_search(const char *curr_name);
 
 #endif
