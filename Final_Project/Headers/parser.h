@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include <stdio.h>
 #include "globals.h"
 
 /* Line types in an input file */

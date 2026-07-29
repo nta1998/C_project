@@ -76,4 +76,4 @@ Symbol *symbol_search(const char *name);
 
 Symbol *symbol_table_get_head(void);
 
-#endif 
+#endif /* SYMBOL_TABLE_H */

@@ -1,7 +1,6 @@
-#ifndef FINAL_PROJECT_INSTRUCTIONS_H
-#define FINAL_PROJECT_INSTRUCTIONS_H
+#ifndef INSTRUCTIONS_H
+#define INSTRUCTIONS_H
 
-#include <stddef.h>
 #include "globals.h"
 
 /*  
@@ -31,10 +30,10 @@ typedef enum InstClass{
  */
 typedef struct {
   const char *name;
-  InstClass cls;
+  INSTRUCTION_TYPE type;
   int opcode;
   int funct;
-} InstInfo;
+} Instruction_info;
 
 /**
  * This function find the info for a commend 
