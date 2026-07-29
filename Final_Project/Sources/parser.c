@@ -141,7 +141,7 @@ Bool is_reserved_word(const char *s){
     /*if the word is a reserve word its can be a insttruction or a saved label*/
 
     /*if the word is a insttruction*/
-    if (inst_find(s) != NULL)
+    if (instruction_search(s) != NULL)
     {
         return TRUE;
     }
