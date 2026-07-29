@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug assembler",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [
+        "Tests/parser_test.as"
+      ],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/home/ubuntu/Desktop/project/C_project/Final_Project",
+      "program": "/home/ubuntu/Desktop/project/C_project/Final_Project/assembler",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/home/ubuntu/Desktop/project/C_project/Final_Project/Sources",
+      "program": "/home/ubuntu/Desktop/project/C_project/Final_Project/Sources/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}

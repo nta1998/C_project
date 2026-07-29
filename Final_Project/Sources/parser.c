@@ -5,7 +5,7 @@
 #include "../Headers/globals.h"
 #include "../Headers/parser.h"
 
-Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
+Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
     
     int i = 0;
     int j = 0;
@@ -27,7 +27,7 @@ Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln){
         return TRUE;
     }
 
-    while (raw[i] != ' ' && raw[i] != '\0' && raw[i] != '\n' && j <= MAX_LABEL_LENGTH)
+    while (raw[i] != ' ' && raw[i] != '\0' && raw[i] != '\n' && j <= MAX_LABEL_LEN)
     {
         out->label[j] = raw[i];
         j++;

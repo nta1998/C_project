@@ -6,10 +6,10 @@
 #define NUM_OF_REG 32
 
 /* Maximum length of a label in command line  */
-#define MAX_LABEL_LENGTH 31
+#define MAX_LABEL_LEN 31
 
 /* Maximum length of a single command line ('\n' include)  */
-#define MAX_LINE_LENGTH 81
+#define MAX_LINE_LEN 81
 
 /* Default IC value - start address: 100 */
 #define IC_INIT_VALUE 100

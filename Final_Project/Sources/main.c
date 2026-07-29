@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
     FILE *f;
     char buffer[82];
     int line_no = 0;
-    ParsedLine pl;
+    Parsed_line pl;
 
     if (argc < 2) {
         printf("usage: %s file.as\n", argv[0]);
