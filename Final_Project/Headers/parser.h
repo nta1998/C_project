@@ -3,70 +3,82 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include <stdio.h>
 #include "globals.h"
 
 /* Line types in an input file */
-typedef enum LineKind {
+typedef enum LineKind{
   LINE_EMPTY, /* Whitespace line */ 
   LINE_COMMENT, /* Comment line */ 
   LINE_DIRECTIVE, /* Directive line */ 
   LINE_INSTRUCTION, /* Instruction line */ 
   LINE_INVALID /* Invalid line */ 
-};
+}LineKind;
 
 /* Definition of a structure of type 'LineKind' */
-typedef struct {
+typedef struct Parsed_line{
   LineKind kind;
   char label[MAX_LABEL_LEN + 1];
-  char name[MAX_LINE_LEN + 1];
+  char name[MAX_LABEL_LEN + 1];
   char rest[MAX_LINE_LEN + 1];
-} ParsedLine;
-
-#endif
-
-
-Bool line_split(const char *raw, ParsedLine *out, const char *file, int ln);
+  /*add error*/
+} Parsed_line;
 
 /**
- * This function copies the content of a macro
- * @param s row pointer to a row in the source file
- * @return a Bool 
+ * This function split the raw row into a ParsedLine
+ * @param raw a pointer to a raw row from the source file
+ * @param out a pointer of ParsedLine type 
+ * @param file a pointer to the source file
+ * @param ln the line number of the row in the source file
+* @return a Bool TRUE/FALSE
+ */
+Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln);
+
+/**
+ * This function check if the given string is a valid label 
+ * a valid label start with a letter (a-z/A-Z) and contain only letters and numbers
+ * and not longer than MAX_LABEL_LENGTH
+ * and end with a ':' char without any white spaces before it.
+ * @param s row pointer to a string
+ * @return a Bool TRUE/FALSE
  */
 Bool is_valid_label(const char *s);
 
 /**
- * This function copies the content of a macro
- * @param s row pointer to a row in the source file
- * @return a Bool 
+ * This function check if the given string is a reserved word 
+ * reserved words are operands types (R,I,J) 
+ * @param s a pointer to a string we need to check
+ * @return a Bool TRUE/FALSE
  */
 Bool is_reserved_word(const char *s);
 
 /**
- * This function copies the content of a macro
- * @param s row pointer to a row in the source file
- * @param out a pointer of ParsedLine type 
- * @return a Bool 
+ * This function check if the given string is a valid number (whole numbers positive or negative only) 
+ * @param s a pointer to a string we need to check
+ * @param out a pointer of long type 
+ * @return a Bool TRUE/FALSE
  */
 Bool parse_number(const char *s, long *out); 
 
 /**
- * This function copies the content of a macro
- * @param raw row pointer to a row in the source file
- * @param out a pointer of ParsedLine type 
- * @param file a pointer to t
- * @param ln a pointer to the line number from which we are reading the 
- * @param ln a pointer to the line number from which we are reading the 
- * @return a Bool 
+ * This function split the operands part of a line into an array of strings
+ * @param rest a pointer to the operands part of a line
+ * @param out a pointer to an array to store the operands pointers 
+ * @param max_ops the maximum number of operands
+ * @param file a pointer to the source file
+ * @param ln the line number of the row in the source file
+ * @return number of operands found or -1 if error
  */
 int  operands_split(char *rest, char *ops[], int max_ops, const char *file, int ln);
 
 /**
- * This function copies the content of a macro
- * @param raw row pointer to a row in the source file
- * @param out a pointer of ParsedLine type 
- * @param file a pointer to t
- * @param ln a pointer to the line number from which we are reading the 
- * @return a Bool 
+ * This function parse a register name and return the register number
+ * @param s a pointer to a string we need to parse
+ * @return the register number or -1 if error
  */
 int  parse_register(const char *s);
-Bool parse_number(const char *s, long *out);
+
+Bool is_directive_word(const char *s);
+
+#endif
+ 

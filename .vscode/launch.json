@@ -2,14 +2,43 @@
   "version": "0.2.0",
   "configurations": [
     {
+<<<<<<< HEAD
+=======
+      "name": "Debug assembler",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [
+        "Tests/parser_test.as"
+      ],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/home/ubuntu/Desktop/project/C_project/Final_Project",
+      "program": "/home/ubuntu/Desktop/project/C_project/Final_Project/assembler",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+>>>>>>> netanel
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
+<<<<<<< HEAD
       "cwd": "/home/ubuntu/Desktop/project/C_project",
       "program": "/home/ubuntu/Desktop/project/C_project/build/Debug/outDebug",
+=======
+      "cwd": "/home/ubuntu/Desktop/project/C_project/Final_Project/Sources",
+      "program": "/home/ubuntu/Desktop/project/C_project/Final_Project/Sources/build/Debug/outDebug",
+>>>>>>> netanel
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "external_table.h"
+#include "../Headers/external_table.h"
 
 /* Static variable (limited to this file only) – store the current symbol table of all symbols that have the attribute: S_EXTERNAL. */
 static External *head = NULL;
