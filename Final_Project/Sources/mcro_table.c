@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "mcro_table.h"
+#include "../Headers/mcro_table.h"
 
 /* Static variable (limited to this file only) – store the current macro table. */
 static Mcro *head = NULL;
