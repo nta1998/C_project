@@ -1,61 +1,66 @@
-/**
- * @file instructions.c
- * @brief  This file contains the implementation of the instruction search function.
- * It defines a table of instruction information and provides a function to search for instructions by name.
-*/
-
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
+#include "../Headers/globals.h"
+#include "../Headers/instructions.h"
 
-#include "instructions.h"
+const InstInfo commands_list[] = 
+{
+    /*R_ARITH: the Arithmetic and Logical R type the opcode is 0 and 3 register (rs, rt, rd) and funct */
+    {"add",  R_ARITH,  0, 1},
+    {"sub",  R_ARITH,  0, 2},
+    {"and",  R_ARITH,  0, 3},
+    {"or",   R_ARITH,  0, 4},
+    {"nor",  R_ARITH,  0, 5},
 
-/**
- * A static array of INSTRUCTION_INFO structures representing the instruction table.
- * Each entry contains the instruction name, type, opcode, function code, and number of operands.
-*/
-static INSTRUCTION_INFO instruction_table[] = {
-    {"add", R_A_TYPE, 0, 1, 3},
-    {"sub", R_A_TYPE, 0, 2, 3},
-    {"and", R_A_TYPE, 0, 3, 3},
-    {"or", R_A_TYPE, 0, 4, 3},
-    {"nor", R_A_TYPE, 0, 5, 3},
+    /*R_COPY: the Copy R type the opcode is 1 and he have 3 register (rs, rt, rd) and funct */
+    {"move", R_COPY,   1, 1},
+    {"mvhi", R_COPY,   1, 2},
+    {"mvlo", R_COPY,   1, 3},
+    
+    /*I_ARITH: the Arithmetic and Logical I type the opcode is starting from 10 too 14 and he have 2 register (rs, rt) and funct is 0*/
+    {"addi", I_ARITH,  10, 0},
+    {"subi", I_ARITH,  11, 0},
+    {"andi", I_ARITH,  12, 0},
+    {"ori",  I_ARITH,  13, 0},
+    {"nori", I_ARITH,  14, 0},
 
-    {"move", R_C_TYPE, 1, 1, 2},
-    {"mvhi", R_C_TYPE, 1, 2, 2},
-    {"mvlo", R_C_TYPE, 1, 3, 2},
+    /*I_BRANCH: the Conditional branching I type the opcode is starting from 15 too 18 and he have 2 register (rs, rt) and funct is 0*/
+    {"bne",  I_BRANCH, 15, 0},
+    {"beq",  I_BRANCH, 16, 0},
+    {"blt",  I_BRANCH, 17, 0},
+    {"bgt",  I_BRANCH, 18, 0},
 
-    {"addi", I_A_TYPE, 10, -1, 2},
-    {"subi", I_A_TYPE, 11, -1, 2},
-    {"andi", I_A_TYPE, 12, -1, 2},
-    {"ori", I_A_TYPE, 13, -1, 2},
-    {"nori", I_A_TYPE, 14, -1, 2},
+    /*I_MEM: the Memore I type the opcode is starting from 19 too 24 and he have 2 register (rs, rt) and funct is 0*/
+    {"lb",   I_MEM,    19, 0},
+    {"sb",   I_MEM,    20, 0},
+    {"lw",   I_MEM,    21, 0},
+    {"sw",   I_MEM,    22, 0},
+    {"lh",   I_MEM,    23, 0},
+    {"sh",   I_MEM,    24, 0},
 
-    {"bne", I_B_TYPE, 15, -1, 2},
-    {"beq", I_B_TYPE, 16, -1, 2},
-    {"blt", I_B_TYPE, 17, -1, 2},
-    {"bgt", I_B_TYPE, 18, -1, 2},
-
-    {"lb", I_M_TYPE, 19, -1, 2},
-    {"sb", I_M_TYPE, 20, -1, 2},
-    {"lw", I_M_TYPE, 21, -1, 2},
-    {"sw", I_M_TYPE, 22, -1, 2},
-    {"lh", I_M_TYPE, 23, -1, 2},
-    {"sh", I_M_TYPE, 24, -1, 2},
-
-    {"jmp", J_TYPE, 30, -1, 1},
-    {"la", J_TYPE, 31, -1, 1},
-    {"call", J_TYPE, 32, -1, 1},
-    {"hlt", J_TYPE, 63, -1, 0}
+    /*J_TYPE: the J type gets opcode and reg and address */
+    {"jmp",  J_TYPE,   30, 0},
+    {"la",   J_TYPE,   31, 0},
+    {"call", J_TYPE,   32, 0},
+    {"hlt",  J_TYPE,   63, 0}
 };
-
-INSTRUCTION_INFO *instruction_search(const char *curr_name){
+#define COMMANDS_COUNT (sizeof(commands_list) / sizeof(commands_list[0]))
+const InstInfo *inst_find(const char *name)
+{
     int i;
-    for(i=0; i<COMMANDES_COUNT; i++){
-        if(strcmp(instruction_table[i].name, curr_name) == 0){
-            return &instruction_table[i];
+
+    if (name == NULL)
+    {
+        return NULL;
+    }
+
+    for (i = 0; i < (int)COMMANDS_COUNT; i++)
+    {
+        if (strcmp(commands_list[i].name, name) == 0)
+        {
+            return &commands_list[i];
         }
     }
+
     return NULL;
 }
-
