@@ -12,11 +12,11 @@
 
 /* Static variables (limited to this file only). */
 
-static CODE_LINE code_image[MAX_LINES];     /* Array to store code lines in the memory image. */
+static Code_line code_image[MAX_LINES];     /* Array to store code lines in the memory image. */
 static int IC_address = START_ADDRESS;      /* Current instruction counter (IC) address. Start at 100. */
 static int IC_counter = 0;                  /* The number of code lines added to the code image. */
 
-static DATA_LINE data_image[MAX_LINES];     /* Array to store data lines in the memory image. */
+static Data_line data_image[MAX_LINES];     /* Array to store data lines in the memory image. */
 static int DC_address = 0;                  /* Current data counter (DC) address. */
 static int DC_counter = 0;                  /* The number of data lines added to the data image. */
 
@@ -59,12 +59,27 @@ int get_DC(void){
     return DC_address;
 }
 
-const CODE_LINE *get_code_image(void){
+const Code_line *get_code_image(void){
     return code_image;
 }
 
-const DATA_LINE *get_data_image(void){
+Bool update_code_machine_code(int index, unsigned long machine_code) {
+    if (index < 0 || index >= get_IC_count()) {
+        return FALSE;
+    }
+    code_image[index].machine_code = machine_code;
+    return TRUE;
+}
+
+const Data_line *get_data_image(void){
     return data_image;
+}
+
+void data_image_table_shift_data(long final_ic){
+    int i;
+    for (i=0; i<(sizeof(data_image)/sizeof(data_image[0])); i++){
+        data_image[i].address += final_ic;
+    }
 }
 
 int get_IC_count(void){

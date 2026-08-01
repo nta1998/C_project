@@ -7,21 +7,21 @@
 #include "globals.h"
 
 /* Line types in an input file */
-typedef enum LineKind{
+typedef enum {
   LINE_EMPTY, /* Whitespace line */ 
   LINE_COMMENT, /* Comment line */ 
   LINE_DIRECTIVE, /* Directive line */ 
   LINE_INSTRUCTION, /* Instruction line */ 
   LINE_INVALID /* Invalid line */ 
-}LineKind;
+} LINE_TYPE;
 
 /* Definition of a structure of type 'LineKind' */
-typedef struct Parsed_line{
-  LineKind kind;
-  char label[MAX_LABEL_LEN + 1];
-  char name[MAX_LABEL_LEN + 1];
-  char rest[MAX_LINE_LEN + 1];
-  /*add error*/
+typedef struct {
+  LINE_TYPE type;
+  char label[MAX_LABEL_LEN+1];
+  char name[MAX_LABEL_LEN+1];
+  char rest[MAX_LINE_LEN+1];
+  int error;
 } Parsed_line;
 
 /**

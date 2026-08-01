@@ -3,6 +3,8 @@
 #include "../Headers/globals.h"
 #include "../Headers/instructions.h"
 
+#define COMMANDS_COUNT (sizeof(commands_list) / sizeof(commands_list[0]))
+
 const Instruction_info commands_list[] = 
 {
     /*R_ARITH: the Arithmetic and Logical R type the opcode is 0 and 3 register (rs, rt, rd) and funct */
@@ -44,20 +46,15 @@ const Instruction_info commands_list[] =
     {"call", J_TYPE,   32, 0},
     {"hlt",  J_TYPE,   63, 0}
 };
-#define COMMANDS_COUNT (sizeof(commands_list) / sizeof(commands_list[0]))
+
 Instruction_info *instruction_search(const char *curr_name)
 {
     int i;
 
-    if (curr_name == NULL)
-    {
-        return NULL;
-    }
+    if (curr_name == NULL) {return NULL;}
 
-    for (i = 0; i < (int)COMMANDS_COUNT; i++)
-    {
-        if (strcmp(commands_list[i].name, curr_name) == 0)
-        {
+    for (i = 0; i < (int)COMMANDS_COUNT; i++){
+        if (strcmp(commands_list[i].name, curr_name) == 0){
             return &commands_list[i];
         }
     }

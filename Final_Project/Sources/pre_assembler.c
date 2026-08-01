@@ -1,6 +1,6 @@
 /**
  * @file pre_assembler.c
- * @brief This file role is to perform the pre-assembly stage of the assembler
+ * @brief This file role is to perform the pre-assembly stage of the assembler.
  */
 
 #include <stdio.h>
@@ -11,7 +11,26 @@
 #include "../Headers/parser.h"
 #include "../Headers/instructions.h"
 
-MCRO_OFF mcro_off(const char *line){
+/* Possible classifications for a line when we are NOT currently inside a macro definition (curr_mcro == NULL). */
+typedef enum {
+    MCRO_START,
+    MCRO_CALL,
+    REGULAR
+} MCRO_OFF;
+
+/* Possible classifications for a line when we ARE currently inside a macro definition (curr_mcro != NULL). */
+typedef enum {
+    MCRO_BODY,
+    MCRO_END
+} MCRO_ON;
+
+/**
+ * Static function that called only if the flag `curr_mcro` == `NULL`,
+ * and its role is to return the type of row involved : MCRO_START, MCRO_CALL or MCRO_END.
+ * @param line: pointer to the current line.
+ * @return an MCRO_OFF indicating the type of the line (MCRO_START, MCRO_CALL, or REGULAR).
+*/
+static MCRO_OFF mcro_off(const char *line){
     char first_word[MAX_MCRO_LEN+1];
     sscanf(line, "%s", first_word);
     if (strcmp(first_word, "mcro") == 0){return MCRO_START;}
@@ -19,27 +38,105 @@ MCRO_OFF mcro_off(const char *line){
     return REGULAR;
 }
 
-MCRO_ON mcro_on(const char *line){
+/**
+ * Static function that called only if the flag `curr_mcro` != `NULL`,
+ * and its role is to return the type of row involved : MCRO_BODY or MCRO_END.
+ * @param line: pointer to the current line.
+ * @return an MCRO_ON indicating the type of the line (MCRO_BODY or MCRO_END).
+*/
+static MCRO_ON mcro_on(const char *line){
     char first_word[MAX_MCRO_LEN+1];
     sscanf(line, "%s", first_word); 
     if (strcmp(first_word, "mcroend") == 0){return MCRO_END;}
     return MCRO_BODY;
 }
 
-Bool valid_mcro_def_line(const char *curr_line_data){
+/**
+ * Static function that checks whether the current line is a valid macro definition line.
+ * @param curr_line_data: pointer to the current line data.
+ * @return a Bool indicating whether the line is valid (TRUE) or not (FALSE).
+*/
+static Bool valid_mcro_def_line(const char *curr_line_data){
     char extra[MAX_LINE_LEN+1];
     if (sscanf(curr_line_data, "%*s %*s %s", extra) == 1){ return FALSE;}
     return TRUE;
 }
 
-Bool valid_mcroend_def_line(const char *curr_line_data){
+/**
+ * Static function that checks whether the current line is a valid macroend definition line.
+ * @param curr_line_data: pointer to the current line data.
+ * @return a Bool indicating whether the line is valid (TRUE) or not (FALSE).
+*/
+static Bool valid_mcroend_def_line(const char *curr_line_data){
     char extra[MAX_LINE_LEN+1];
     if (sscanf(curr_line_data, "%*s %s", extra) == 1){ return FALSE;}
     return TRUE;
 }
 
+/**
+ * Static function that checks whether the current mcro name start with a letter.
+ * @param name: pointer to the current mcro name.
+ * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
+*/
+static Bool start_with_letter(char *name){
+    if (!(name[0] >= 'A' && name[0] <= 'Z') || 
+        !(name[0] >= 'a' && name[0] <= 'z')) {
+        return FALSE;
+    }
+    return TRUE;
+}
 
-void expand_mcro_call(const char *line, FILE *curr_am_file){
+/**
+ * Static function that checks whether the current mcro name contains letters/numbers/'_' only.
+ * @param name: pointer to the current mcro name.
+ * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
+*/
+static Bool all_chars_valid(char *name){
+    const char *allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+    if (strspn(name, allowed) != strlen(name)) {return FALSE;}
+    return TRUE;
+}
+
+/**
+ * Static function that checks whether the current mcro name is within the specified maximum length.
+ * @param name: pointer to the current mcro name.
+ * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
+*/
+static Bool is_len_valid(char *name){
+    if (strlen(name) > MAX_MCRO_LEN) {return FALSE;}
+    return TRUE;
+}
+
+/**
+ * Static function that checks whether the current mcro name is instruction word.
+ * @param name: pointer to the current mcro name.
+ * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
+*/
+static Bool is_instruction_word(const char *name){
+    if (instruction_search(name) != NULL) {return TRUE;}
+    return FALSE;
+}
+
+/**
+ * Static function that checks whether the current mcro name is reserved word.
+ * @param name: pointer to the current mcro name.
+ * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
+*/
+static Bool is_reserved_word(const char *name){
+    int i;
+    const char *reserved_words[] = {"dh", "dw", "db", "asciz", "entry", "extern"};
+    for (i=0; i<sizeof(reserved_words); i++){
+        if(strcmp(name,reserved_words[i]) == 0){return TRUE;} 
+    }
+    return FALSE;
+}
+
+/**
+ * Static function that expands a macro call by writing the corresponding macro lines to the output file.
+ * @param line: pointer to the current line containing the macro call.
+ * @param curr_am_file: pointer to the output file where the expanded macro lines will be written.
+*/
+static void expand_mcro_call(const char *line, FILE *curr_am_file){
     char first_word[MAX_MCRO_LEN+1];
     Mcro *found;
     int i;
@@ -48,7 +145,12 @@ void expand_mcro_call(const char *line, FILE *curr_am_file){
     for (i=0; i < found -> line_counter; i++){fputs(found->data[i], curr_am_file);}
 }
 
-Mcro *start_mcro_def(Line curr_line){
+/**
+ * Static function that checks whether the current line is a valid macro definition line.
+ * @param curr_line: the current line's context (passed by value).
+ * @return Mcro structure if the line is valid, or NULL if it is not.
+*/
+static Mcro *start_mcro_def(Line curr_line){
     char mcro_name[MAX_MCRO_LEN+1];
     sscanf(curr_line.data, "%*s %s", mcro_name);
 
@@ -56,24 +158,28 @@ Mcro *start_mcro_def(Line curr_line){
         err_report(curr_line, ERR_CODE_1);
         return NULL;
     } 
-    if (instruction_search(mcro_name) != NULL){
+    if (is_instruction_word(&mcro_name)){
         err_report(curr_line, ERR_CODE_3);
         return NULL;
     } 
-    if (!start_with_char(mcro_name)){
+    if (is_reserved_word(&mcro_name)){
         err_report(curr_line, ERR_CODE_4);
         return NULL;
     } 
-    if (!all_chars_valid(mcro_name)){
+    if (!start_with_letter(&mcro_name)){
         err_report(curr_line, ERR_CODE_5);
         return NULL;
     } 
-    if (strlen(mcro_name) > MAX_MCRO_LEN){
+    if (!all_chars_valid(&mcro_name)){
         err_report(curr_line, ERR_CODE_6);
         return NULL;
     } 
-    if (mcro_search(mcro_name) != NULL){
+    if (!is_len_valid(&mcro_name)){
         err_report(curr_line, ERR_CODE_7);
+        return NULL;
+    } 
+    if (mcro_search(mcro_name) != NULL){
+        err_report(curr_line, ERR_CODE_8);
         return NULL;
     } 
     return mcro_add(mcro_name);

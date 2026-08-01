@@ -8,6 +8,7 @@
 /* Maximum length of a label or mcro name in command line  */
 #define MAX_LABEL_LEN 31
 #define MAX_MCRO_LEN 31
+#define MAX_NAME_LEN 31
 
 /* Maximum length of a single command line ('\n' include)  */
 #define MAX_LINE_LEN 81
@@ -56,6 +57,7 @@
 #define MAX_DATA_IMAGE_BYTES 4096
 #define MAX_LINES 256
 #define MAX_MCRO_LINES 50
+#define MAX_OPERANDS 3
 
 /* Ending files */
 #define SOURCE_FILE_EXTENSION ".as"

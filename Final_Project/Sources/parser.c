@@ -13,17 +13,18 @@ Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
     out->label[0] = '\0';
     out->name[0] = '\0';
     out->rest[0] = '\0';
+    out->error = 0;
 
 
     while (raw[i] == ' '||raw[i] == '\t'||raw[i] == '\n'){i++;}
     
     if(raw[i] == '\0'){
-        out->kind = LINE_EMPTY;
+        out->type = LINE_EMPTY;
         return TRUE;
     }
     if (raw[i] == ';')
     {   
-        out->kind = LINE_COMMENT;
+        out->type = LINE_COMMENT;
         return TRUE;
     }
 
@@ -51,7 +52,7 @@ Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
         else
         {
             /* error */
-            out->kind = LINE_INVALID;
+            out->type = LINE_INVALID;
             return FALSE;
         }    
     }
@@ -93,22 +94,22 @@ Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
     if (operands_split(out->rest,ops,3,file,ln) >= 0)
     {
         if (out->label[0] == '.' && is_directive_word(out->name)){
-            out->kind = LINE_DIRECTIVE;
+            out->type = LINE_DIRECTIVE;
         }
         else if (is_valid_label(out->label)){
             if (out->name[0] == '.' && is_directive_word(out->name))
             {
-            out->kind = LINE_DIRECTIVE;
+            out->type = LINE_DIRECTIVE;
             return TRUE;
             }
             else 
             {
                 if(is_reserved_word(out->name))
                 {
-                    out->kind = LINE_INSTRUCTION;
+                    out->type = LINE_INSTRUCTION;
                     return TRUE;
                 }
-                out->kind = LINE_INVALID;
+                out->type = LINE_INVALID;
                 return FALSE;
             }
         }

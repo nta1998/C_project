@@ -38,3 +38,7 @@ debug:
 	@echo "SRC_DIR  = $(SRC_DIR)"
 	@echo "SOURCES  = $(SOURCES)"
 	@echo "OBJECTS  = $(OBJECTS)"
+
+test_parser: Tests/test_parser.c Sources/parser.c Sources/instructions.c Sources/errors.c
+	gcc -Wall -ansi -pedantic -g $^ -o build/test_parser
+	./build/test_parser
