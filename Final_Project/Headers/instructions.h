@@ -13,11 +13,11 @@
  * @param J_TYPE: Represents J-type instructions.
 */
 typedef enum {
-  R_A_TYPE, 
-  R_C_TYPE, 
-  I_A_TYPE,
-  I_B_TYPE, 
-  I_M_TYPE, 
+  R_A_TYPE , 
+  R_C_TYPE , 
+  I_A_TYPE ,
+  I_B_TYPE , 
+  I_M_TYPE , 
   J_TYPE
 } INSTRUCTION_TYPE;
 
@@ -31,8 +31,8 @@ typedef enum {
 typedef struct {
   const char *name;
   INSTRUCTION_TYPE type;
-  int opcode;
-  int funct;
+  unsigned long opcode;
+  unsigned long funct;
 } Instruction_info;
 
 /**
@@ -40,6 +40,6 @@ typedef struct {
  * @param curr_name: the instruction name to search for.
  * @return a pointer to the matching INSTRUCTION_INFO if found, or NULL if not found.
 */
-Instruction_info *instruction_search(const char *curr_name);
+const Instruction_info* instruction_search(const char *curr_name);
 
 #endif

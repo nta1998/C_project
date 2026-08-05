@@ -12,6 +12,12 @@
 /* Maximum length of a single command line ('\n' include)  */
 #define MAX_LINE_LEN 81
 
+/* Maximum length of a single name */
+#define MAX_NAME_LEN 7
+
+/* Maximum length of a rest */
+#define MAX_REST_LEN 26
+
 /* Default IC value - start address: 100 */
 #define START_ADDRESS 100
 
@@ -75,6 +81,6 @@ typedef struct {
     char *data;
 } Line;
 
-#define WHITE_SPACE " "
+#define WHITE_SPACE ' '
 
 #endif 

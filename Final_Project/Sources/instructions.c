@@ -44,11 +44,12 @@ const Instruction_info commands_list[] =
     {"call", J_TYPE,   32, 0},
     {"hlt",  J_TYPE,   63, 0}
 };
+
 #define COMMANDS_COUNT (sizeof(commands_list) / sizeof(commands_list[0]))
-const InstInfo *inst_find(const char *name)
+
+const Instruction_info* instruction_search(const char *curr_name)
 {
     int i;
-
     if (curr_name == NULL)
     {
         return NULL;
@@ -57,8 +58,8 @@ const InstInfo *inst_find(const char *name)
     for (i = 0; i < (int)COMMANDS_COUNT; i++)
     {
         if (strcmp(commands_list[i].name, curr_name) == 0)
-        {
-            return &commands_list[i];
+        { 
+            return &commands_list[i]; 
         }
     }
 

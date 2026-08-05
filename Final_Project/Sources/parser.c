@@ -5,18 +5,19 @@
 #include "../Headers/globals.h"
 #include "../Headers/parser.h"
 
+
 Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
     
     int i = 0;
-    int j = 0;
 
+    /*out clean*/
     out->label[0] = '\0';
     out->name[0] = '\0';
     out->rest[0] = '\0';
 
-
-    while (raw[i] == ' '||raw[i] == '\t'||raw[i] == '\n'){i++;}
-    
+    /*skip all the space*/
+    skip_white_space(raw,&i);
+    /*if the line is comment or empty*/
     if(raw[i] == '\0'){
         out->kind = LINE_EMPTY;
         return TRUE;
@@ -26,94 +27,50 @@ Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
         out->kind = LINE_COMMENT;
         return TRUE;
     }
-
-    while (raw[i] != ' ' && raw[i] != '\0' && raw[i] != '\n' && j <= MAX_LABEL_LEN)
+    /*split the ferst word*/
+    splid_label(raw,out,&i);
+    /*if the label is valid*/
+    if (is_valid_label(out->label))
     {
-        out->label[j] = raw[i];
-        j++;
-        i++;
-        continue;
-    }
-    out->label[j] = '\0';
-    j = 0;
-    
-    if (!is_valid_label(out->label)){
-        
-        if (is_reserved_word(out->label) || is_directive_word(out->label)){
-            while(out->label[j] != '\0')
-            {     
-                out->name[j] = out->label[j];
-                out->label[j] = '\0';
-                j++;
-            }
-            out->name[j] = '\0';
+        skip_white_space(raw,&i);
+        splid_name(raw,out,&i);
+        skip_white_space(raw,&i);
+        splid_rest(raw,out,&i);
+        out->instruction = instruction_search(out->name);
+        kind_test(out);
+        if (out->kind != LINE_INVALID)
+        {
+            return TRUE;  
         }
+        return FALSE;
+    }
+    /*if the label is not valid*/
+    else
+    {   
+
+        out->instruction = instruction_search(out->label);
+        /*if the label is a instruction or directive*/
+        if (out->instruction != NULL || is_directive_word(out->label)){
+            move_form_label_to_name(out);
+            skip_white_space(raw,&i);
+            splid_rest(raw,out,&i); 
+            kind_test(out);
+            if (out->kind != LINE_INVALID)
+            {
+                return TRUE;  
+            }
+            return FALSE;
+        }
+        /*if is not soo is invalid line*/
         else
         {
             /* error */
             out->kind = LINE_INVALID;
             return FALSE;
-        }    
-    }
-        
-    while (raw[i] == ' '){i++;}
-
-    j = 0;
-    if (out->label[0] != '\0')
-    {
-        while (raw[i] != ' ' && raw[i] != '\0')
-        {
-            if(raw[i] != '\n' && raw[i] != ' ')
-            {
-                out->name[j] = raw[i];
-                j++;
-            }
-            i++;
-            
         }
-        out->name[j] = '\0';
     }
-
-    while (raw[i] == ' '){i++;}
-
-    j = 0;
     
-    while (raw[i] != '\0')
-    {    
-        if(raw[i] != '\n' && raw[i] != ' ')
-        {
-            out->rest[j] = raw[i];
-            j++;
-        }
-        i++;
-       
-    }
-    out->rest[j] = '\0';
-    char *ops[4];
-    if (operands_split(out->rest,ops,3,file,ln) >= 0)
-    {
-        if (out->label[0] == '.' && is_directive_word(out->name)){
-            out->kind = LINE_DIRECTIVE;
-        }
-        else if (is_valid_label(out->label)){
-            if (out->name[0] == '.' && is_directive_word(out->name))
-            {
-            out->kind = LINE_DIRECTIVE;
-            return TRUE;
-            }
-            else 
-            {
-                if(is_reserved_word(out->name))
-                {
-                    out->kind = LINE_INSTRUCTION;
-                    return TRUE;
-                }
-                out->kind = LINE_INVALID;
-                return FALSE;
-            }
-        }
-        return TRUE; 
-    }
+    kind_test(out);
     return FALSE;
 }
 /* if it is a valid label its need to end in the char ':' and be the unice */
@@ -139,7 +96,7 @@ Bool is_valid_label(const char *s){
 }
 Bool is_reserved_word(const char *s){
     /*if the word is a reserve word its can be a insttruction or a saved label*/
-
+    
     /*if the word is a insttruction*/
     if (instruction_search(s) != NULL)
     {
@@ -157,11 +114,11 @@ Bool is_reserved_word(const char *s){
     
     
 }
-Bool parse_number(const char *s, long *out){
+Bool parse_number(const char *s){
 
     int i = 0;
     /*if the char heve a sing char like '-' or '+' in the start its approved*/
-    if (s[0] == '+' || s[0] == '-')
+    if (s[0] == '+' || s[0] == '-' || s[0] == '$')
     {
         i++;
     }
@@ -183,8 +140,6 @@ Bool parse_number(const char *s, long *out){
         i++;
     };
 
-    /*all the string is a valid number */
-    *out = atol(s);    
     return TRUE;
 }
 Bool is_directive_word(const char *s){
@@ -199,78 +154,128 @@ Bool is_directive_word(const char *s){
     else 
         return FALSE;
 }
-int parse_register(const char *s){
-    int i = 1;
-    long value;
-    if (s[0] != '$')
-    {
-        return FALSE;
-    };
-    
-    if (s[i] == '\0')
-    {
-        return FALSE;
-    };
+unsigned int parse_register(const char s[]){
 
-    while (s[i] != '\0')
-    {
-        if (s[i] < '0' || s[i] > '9')
-        {
-            return FALSE;
-        }
-        i++;
-    }
-    value = atol(s+1);
+    unsigned int value;
+
+    value = atol(s);
+
     if (value >= 0 && value <= 31)
     {
         return value;
     };
     return FALSE;
 }
-int operands_split(char *rest, char *ops[], int max_ops, const char *file, int ln){
+int operands_split(char *rest, char words[][10]){
     
+    int comma_count = 0; 
+    int word_idx = 0;    
+    int char_idx = 0;    
     int i = 0;
+    char buffer[10];
+    buffer[0] = '\0';
+
+    while (rest[i] != '\0') 
+    {
+        if (rest[i] == ',') 
+        {
+            buffer[char_idx] = '\0';
+            strcpy(words[word_idx],buffer);
+            i++;
+            comma_count++;
+            word_idx++;
+            if (word_idx >= 5 || char_idx == 0) break;
+            char_idx = 0; 
+        } 
+        else {
+            if (char_idx < MAX_LINE_LEN - 1 && rest[i] != '$') {
+                buffer[char_idx] = rest[i];
+                char_idx++;
+            }
+            i++;
+        }
+    }
+    buffer[char_idx] = '\0';
+    strcpy(words[word_idx],buffer);
+    if (comma_count >= word_idx+1 || char_idx == 0)
+    {
+        return -1;
+    }
+    return word_idx+1;
+}
+Bool it_is_space(char c) {
+    return (c == WHITE_SPACE || c == '\n' || c == '\t' || c == '\r');
+}
+void skip_white_space(const char *raw, int *i){
+    while (it_is_space(raw[*i])) {(*i)++;}
+}
+void splid_label(const char *raw, Parsed_line *out ,int *i){
+    
     int j = 0;
-    Bool invalid_stract = FALSE;
-    Bool cumo_nedded = FALSE;
-    while (rest[i] == ' '){i++;}
-    if (rest[i] == ','){return -1;}
-    while (rest[i] != '\0')
+    
+    while (!it_is_space(raw[*i]) && j <= MAX_LABEL_LEN)
     {
-        if (rest[i] == ' ')
+        out->label[j] = raw[*i];
+        j++;
+        (*i)++;
+    }
+    out->label[j] = '\0';
+}
+
+void splid_name(const char *raw, Parsed_line *out ,int *i){
+    
+    int j = 0;
+
+    while (!it_is_space(raw[*i]))
+    {
+        out->name[j] = raw[*i];
+        j++;
+        (*i)++;
+    }
+    out->name[j] = '\0';
+   
+}
+void splid_rest(const char *raw, Parsed_line *out ,int *i){
+
+    int j = 0;
+
+    while (!it_is_space(raw[*i]) && raw[*i] != ';')
+    {    
+        if(raw[*i] != '\n' && raw[*i] != ' ' && raw[*i] != '"' )
         {
-            i++;
-            continue;
-        }
-        else if (rest[i] == ',')
-        {
-            if (invalid_stract)
-            {
-                return -1;
-            }
-            cumo_nedded = FALSE;
-            invalid_stract = TRUE;
-            i++;
+            out->rest[j] = raw[*i];
             j++;
-            continue;
         }
-        else
-        {   
-            if (cumo_nedded)
-            {
-                return -1;
-            }
-            invalid_stract = FALSE;
-            ops[j] = ops[j] + rest[i];
-            i++;
-            continue;
-        }
-        return -1;
+            (*i)++;
     }
-    if (invalid_stract)
+    out->rest[j] = '\0';
+}
+void move_form_label_to_name(Parsed_line *out){
+
+    int j = 0 ;
+    while(out->label[j] != '\0')
+    {     
+        out->name[j] = out->label[j];
+        out->label[j] = '\0';
+        j++;
+    }
+    out->name[j] = '\0';
+}
+void kind_test(Parsed_line *out){
+    char op[10][10];
+    if (out->rest[0] != '\0')
     {
-        return -1;
+        if (is_directive_word(out->name) && operands_split(out->rest,op) != -1)
+        {
+            out->kind = LINE_DIRECTIVE;
+        }
+        else if (is_reserved_word(out->name) && operands_split(out->rest,op) != -1)
+        {
+            out->kind = LINE_INSTRUCTION;
+        }
     }
-    return j;
- 
+    else if (strcmp(out->name,"hlt") == 0)
+    {
+        out->kind = LINE_INSTRUCTION;
+    }
 }
