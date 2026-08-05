@@ -6,4 +6,3 @@ tests/*.ob
 tests/*.ent
 tests/*.ext
 EOF
-.vscode
