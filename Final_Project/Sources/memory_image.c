@@ -67,6 +67,13 @@ const DATA_LINE *get_data_image(void){
     return data_image;
 }
 
+void data_image_table_shift_data(long final_ic){
+    int i;
+    for (i=0; i<(sizeof(data_image)/sizeof(data_image[0])); i++){
+        data_image[i].address += final_ic;
+    }
+}
+
 int get_IC_count(void){
     return IC_counter;
 }

@@ -84,6 +84,9 @@ const CODE_LINE *get_code_image(void);
 
 const DATA_LINE *get_data_image(void);
 
+/**/
+void data_image_table_shift_data(long final_ic);
+
 /**
  * The function returns the number of lines in the code image.
  * @return an integer representing the count of code lines.
