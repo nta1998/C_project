@@ -14,7 +14,7 @@
 #define MAX_LINE_LEN 81
 
 /* Maximum length of a single name */
-#define MAX_NAME_LEN 7
+#define MAX_COMMEND_NAME_LEN 7
 
 /* Maximum length of a rest */
 #define MAX_REST_LEN 26
