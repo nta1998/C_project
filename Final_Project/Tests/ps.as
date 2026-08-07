@@ -1,14 +1,11 @@
 MAIN: add $3,$5,$9
-mcro GEN_MAC
+LOOP: ori $9,-5,$2
       la vall
       jmp NEXT
-mcroend
-LOOP: ori $9,-5,$2
-GEN MAC
 NEXT: move $20,$4
       bgt $4,$2,END
       la K
-      SW $0,4,$10
+      sw $0,4,$10
       bne $31,$9,LOOP
       call vall
       jmp $4

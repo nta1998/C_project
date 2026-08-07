@@ -11,7 +11,8 @@ OBJ_DIR = build
 TARGET  = assembler
 
 # כל קבצי ה-.c שנמצאים ב-src/sources
-SOURCES = $(wildcard $(SRC_DIR)/*.c)
+# main.c הוא דרייבר בדיקה עצמאי ל-parser עם main משלו, ולכן לא נכנס ל-assembler
+SOURCES = $(filter-out $(SRC_DIR)/main.c,$(wildcard $(SRC_DIR)/*.c))
 # רשימת ה-.o המקבילה, בתוך build/
 OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
 # כל קבצי הכותרת - כל .o תלוי בכולם
@@ -30,8 +31,15 @@ $(OBJECTS): | $(OBJ_DIR)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
+# דרייבר בדיקה נפרד ל-parser (Sources/main.c) - נבנה רק ב-'make parser_test'
+parser_test: $(OBJ_DIR)/main.o $(OBJ_DIR)/parser.o $(OBJ_DIR)/instructions.o
+	$(CC) $(CFLAGS) $^ -o parser_test
+
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.c $(HEADERS) | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJ_DIR)/*.o $(TARGET) tests/*.am tests/*.ob tests/*.ent tests/*.ext
+	rm -f $(OBJ_DIR)/*.o $(TARGET) parser_test tests/*.am tests/*.ob tests/*.ent tests/*.ext
 
 .PHONY: clean
 debug:

@@ -6,10 +6,81 @@
             "type": "shell",
             "command": "make",
             "options": {
-                "cwd": "/home/ubuntu/Desktop/project/C_project/Final_Project"
+                "cwd": "${workspaceFolder}/Final_Project"
             },
             "group": { "kind": "build", "isDefault": true },
             "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "build parser_test",
+            "type": "shell",
+            "command": "make parser_test",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "build fp_test",
+            "type": "shell",
+            "command": "gcc -Wall -ansi -pedantic -g Sources/fp_main.c Sources/first_pass.c Sources/parser.c Sources/instructions.c Sources/errors.c Sources/symbol_table.c Sources/memory_image.c -o fp_test",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "prepare debug inputs",
+            "detail": "Strips comments from the .as test files into build/tests/, so the debugger sees exactly what Tests/dump_first_pass.sh feeds first_pass().",
+            "type": "shell",
+            "command": "mkdir -p build/tests && for f in Tests/*.as; do sed 's/;.*$//' \"$f\" > \"build/tests/$(basename $f)\"; done && echo 'prepared:' && ls build/tests",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build fp_test + inputs",
+            "type": "shell",
+            "command": "echo ready",
+            "dependsOrder": "sequence",
+            "dependsOn": ["prepare debug inputs", "build fp_test"],
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "run tests",
+            "type": "shell",
+            "command": "bash Tests/run_tests.sh --mine",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "dump first_pass",
+            "type": "shell",
+            "command": "bash Tests/dump_first_pass.sh Tests/first_pass_valid.as",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "dump first_pass --diff",
+            "type": "shell",
+            "command": "bash Tests/dump_first_pass.sh Tests/first_pass_valid.as --diff",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
         }
     ]
 }

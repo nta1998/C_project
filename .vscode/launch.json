@@ -1,46 +1,122 @@
 {
   "version": "0.2.0",
+  "inputs": [
+    {
+      "id": "asFile",
+      "type": "pickString",
+      "description": "Which .as file should first_pass() read?",
+      "default": "build/tests/first_pass_valid.as",
+      "options": [
+        "build/tests/first_pass_valid.as",
+        "build/tests/first_pass_errors.as",
+        "build/tests/parser_test.as",
+        "build/tests/ps.as",
+        "Tests/first_pass_valid.as",
+        "Tests/first_pass_errors.as"
+      ]
+    }
+  ],
   "configurations": [
     {
-<<<<<<< HEAD
-=======
-      "name": "Debug assembler",
-      "type": "cppdbg",
+      "name": "first_pass - valid file",
+      "type": "lldb",
       "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/fp_test",
+      "args": [
+        "build/tests/first_pass_valid.as"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build fp_test + inputs",
+      "terminal": "integrated"
+    },
+    {
+      "name": "first_pass - errors file",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/fp_test",
+      "args": [
+        "build/tests/first_pass_errors.as"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build fp_test + inputs",
+      "terminal": "integrated"
+    },
+    {
+      "name": "first_pass - pick a file...",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/fp_test",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build fp_test + inputs",
+      "terminal": "integrated"
+    },
+    {
+      "name": "first_pass - stop at entry",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/fp_test",
+      "args": [
+        "build/tests/first_pass_valid.as"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build fp_test + inputs",
+      "stopOnEntry": true,
+      "terminal": "integrated"
+    },
+    {
+      "name": "parser - parser_test.as",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/parser_test",
       "args": [
         "Tests/parser_test.as"
       ],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/ubuntu/Desktop/project/C_project/Final_Project",
-      "program": "/home/ubuntu/Desktop/project/C_project/Final_Project/assembler",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build parser_test",
+      "terminal": "integrated"
     },
     {
->>>>>>> netanel
-      "name": "C/C++ Runner: Debug Session",
+      "name": "parser - pick a file...",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/parser_test",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build parser_test",
+      "terminal": "integrated"
+    },
+    {
+      "name": "assembler",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/assembler",
+      "args": [
+        "Tests/first_pass_valid.as"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build",
+      "terminal": "integrated"
+    },
+
+    {
+      "name": "[official VS Code only] first_pass (cppdbg)",
       "type": "cppdbg",
       "request": "launch",
-      "args": [],
+      "program": "${workspaceFolder}/Final_Project/fp_test",
+      "args": [
+        "build/tests/first_pass_valid.as"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
       "stopAtEntry": false,
       "externalConsole": false,
-<<<<<<< HEAD
-      "cwd": "/home/ubuntu/Desktop/project/C_project",
-      "program": "/home/ubuntu/Desktop/project/C_project/build/Debug/outDebug",
-=======
-      "cwd": "/home/ubuntu/Desktop/project/C_project/Final_Project/Sources",
-      "program": "/home/ubuntu/Desktop/project/C_project/Final_Project/Sources/build/Debug/outDebug",
->>>>>>> netanel
+      "preLaunchTask": "build fp_test + inputs",
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
