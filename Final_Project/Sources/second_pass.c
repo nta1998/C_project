@@ -28,7 +28,7 @@ Bool second_pass(const char *file_name){
     Symbol *curr_symbol;
     Instruction_info *curr_instruction;
     char line[MAX_LINE_LEN+1];
-    const CODE_LINE *code_image;
+    const Code_line *code_image;
     int curr_code_id;
     const char *label_name;
     int distance;

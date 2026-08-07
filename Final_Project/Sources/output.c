@@ -41,8 +41,8 @@ static void flush_row(FILE *file, int address, const unsigned char *row, int row
 
 static void write_object_file(const char *ob_file){
     FILE *file;
-    const CODE_LINE *code = get_code_image();
-    const DATA_LINE *data = get_data_image();
+    const Code_line *code = get_code_image();
+    const Data_line *data = get_data_image();
     int code_count = get_IC_count();
     int data_count = get_DC_count();
     int address = START_ADDRESS;

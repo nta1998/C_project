@@ -3,6 +3,8 @@
 #include "../Headers/globals.h"
 #include "../Headers/instructions.h"
 
+#define COMMANDS_COUNT (sizeof(commands_list) / sizeof(commands_list[0]))
+
 const Instruction_info commands_list[] = 
 {
     /*R_ARITH: the Arithmetic and Logical R type the opcode is 0 and 3 register (rs, rt, rd) and funct */
