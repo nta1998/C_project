@@ -10,6 +10,9 @@
 #include "../Headers/external_table.h"
 #include "../Headers/memory_image.h"
 #include "../Headers/output.h"
+#include "../Headers/first_pass.h"
+#include "../Headers/second_pass.h"
+
 
 static void change_extension(const char *orig_file, char *new_file, const char *new_ext){
     strcpy(new_file, orig_file);
@@ -26,7 +29,9 @@ static void reset_all_tables(void){
 }
 
 int main (int argc, char *argv[]) {
-
+    FILE *am_fp; 
+    int icf, dcf; 
+    Bool first_pass_ok;
     int i, len;
     char *as_file;
     char am_file[256];
@@ -90,8 +95,11 @@ int main (int argc, char *argv[]) {
          *         ואת הקבצים עם הסיומת ent ext תיצור רק במידת הצורך
          *         לאחר מכן תעבור לקובץ הבא
          */
-
-        if (first_pass(as_file, am_file) && second_pass(as_file, am_file)){
+        am_fp = fopen(am_file, "r");
+        if (am_fp == NULL){ continue; }
+        first_pass_ok = first_pass(am_fp, as_file, &icf, &dcf);
+        fclose(am_fp);
+        if (first_pass_ok && second_pass(am_file)){
 
             char ent_file[256], ext_file[256], ob_file[256];
         

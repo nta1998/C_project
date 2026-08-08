@@ -4,10 +4,11 @@
 #include "../Headers/instructions.h"
 #include "../Headers/globals.h"
 #include "../Headers/parser.h"
+#include "../Headers/errors.h"
 
 
-Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
-    
+Bool line_split(const char *raw, Parsed_line *out, Line line){
+  
     int i = 0;
 
     /*out clean*/
@@ -30,14 +31,14 @@ Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
     /*split the ferst word*/
     splid_label(raw,out,&i);
     /*if the label is valid*/
-    if (is_valid_label(out->label))
-    {
+    if (is_valid_label(out))
+    {   
         skip_white_space(raw,&i);
         splid_name(raw,out,&i);
         skip_white_space(raw,&i);
         splid_rest(raw,out,&i);
         out->instruction = instruction_search(out->name);
-        kind_test(out);
+        kind_test(out,line);
         if (out->kind != LINE_INVALID)
         {
             return TRUE;  
@@ -54,7 +55,7 @@ Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
             move_form_label_to_name(out);
             skip_white_space(raw,&i);
             splid_rest(raw,out,&i); 
-            kind_test(out);
+            kind_test(out,line);
             if (out->kind != LINE_INVALID)
             {
                 return TRUE;  
@@ -70,31 +71,24 @@ Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln){
         }
     }
     
-    kind_test(out);
+    kind_test(out,line);
     return FALSE;
 }
 /* if it is a valid label its need to end in the char ':' and be the unice */
-Bool is_valid_label(const char *s){
-    int i = 0;
-    char s_tmp[32];
-    if((s[0] >= 'A' && s[0] <= 'Z') || (s[0] >= 'a' && s[0] <= 'z'))
+Bool is_valid_label(Parsed_line *s){
+    int i = strlen(s->label);
+    if((s->label[0] >= 'A' && s->label[0] <= 'Z') || (s->label[0] >= 'a' && s->label[0] <= 'z'))
     {
-        /* check if the label ends in char ':' */
-        while ( *(s+i) != ' ' && *(s+i) != '\0') 
-        {
-            s_tmp[i] = *(s+i);
-            i++;
-        } 
-        s_tmp[i-1] = '\0';
-        if (*(s+i-1) == ':' && !is_reserved_word(s_tmp) && i <= 32)
-        {
+        if (s->label[i-1] == ':' && !it_is_reserved_word(s->label) && i <= 32)
+        {   
+            s->label[i-1] = '\0';
             return TRUE;
         }
         return FALSE;
     }
     return FALSE;
 }
-Bool is_reserved_word(const char *s){
+Bool it_is_reserved_word(const char *s){
     /*if the word is a reserve word its can be a insttruction or a saved label*/
     
     /*if the word is a insttruction*/
@@ -114,6 +108,7 @@ Bool is_reserved_word(const char *s){
     
     
 }
+/*dell ?*/
 Bool parse_number(const char *s){
 
     int i = 0;
@@ -142,41 +137,60 @@ Bool parse_number(const char *s){
 
     return TRUE;
 }
-Bool is_directive_word(const char *s){
+
+Bool is_directive_word(const char *s)
+{
+    const char *reserved_words[] = {".dh", ".dw", ".db", ".asciz", ".entry", ".extern"};
+    int i ;
+    /*is it the first char id a dot*/
     if (s[0] != '.' )
     {
         return FALSE;
     }
-    else if (s[1] == 'd'||s[1] == 'a'|| s[1] == 'e')
+    /*if the first char is a dot so it need to be one of the directive words */
+    else
     {
-        return TRUE;
+        for (i=0; i < 6; i++)
+        {
+            if(strcmp(s,reserved_words[i]) == 0)
+            {
+                return TRUE;
+            } 
+        }    
     }   
-    else 
-        return FALSE;
+    return FALSE;
 }
-unsigned int parse_register(const char s[]){
+unsigned int parse_register(const char s[],Line line){
 
     unsigned int value;
-
+    /*convert the char to be a number*/
     value = atol(s);
-
+    /*if it is a valide register its need to be up to 31 from 0*/
     if (value >= 0 && value <= 31)
     {
         return value;
-    };
+    }
+    err_report(line,ERR_CODE_14);
     return FALSE;
 }
-int operands_split(char *rest, char words[][10]){
+
+int operands_split(char *rest, char words[][81],Line line){
     
     int comma_count = 0; 
     int word_idx = 0;    
     int char_idx = 0;    
     int i = 0;
-    char buffer[10];
+    char buffer[81];
     buffer[0] = '\0';
-
-    while (rest[i] != '\0') 
+    if (rest[0] == '\0') 
     {
+        words[0][0] = '\0';
+        return 0;
+    }
+    /* runing on the operands part and split it by the char ',' */
+    while (rest[i] != '\0') 
+    {   
+        /*if the char is a ','*/
         if (rest[i] == ',') 
         {
             buffer[char_idx] = '\0';
@@ -187,6 +201,7 @@ int operands_split(char *rest, char words[][10]){
             if (word_idx >= 5 || char_idx == 0) break;
             char_idx = 0; 
         } 
+        /*if the char is not a ',' adding it to the buffer */
         else {
             if (char_idx < MAX_LINE_LEN - 1 && rest[i] != '$') {
                 buffer[char_idx] = rest[i];
@@ -195,81 +210,96 @@ int operands_split(char *rest, char words[][10]){
             i++;
         }
     }
+    /*marck the end of the last info and copy it to the word array*/
     buffer[char_idx] = '\0';
     strcpy(words[word_idx],buffer);
-    if (comma_count >= word_idx+1 || char_idx == 0)
-    {
+    /*one comma it need to between to words if is no its no valid line*/
+    if (comma_count >= word_idx+1)
+    {   
+        err_report(line,ERR_CODE_17);
+        err_report(line,ERR_CODE_18);
         return -1;
     }
     return word_idx+1;
 }
+/*if the char is a space */
 Bool it_is_space(char c) {
-    return (c == WHITE_SPACE || c == '\n' || c == '\t' || c == '\r');
+    return (c == WHITE_SPACE || c == '\n' || c == '\t' || c == '\r' || c == ' ');
 }
+/*skip all the chars if is a space */
 void skip_white_space(const char *raw, int *i){
     while (it_is_space(raw[*i])) {(*i)++;}
 }
+/*splits the first word to a label slot in to Parsed_line varyebol*/
 void splid_label(const char *raw, Parsed_line *out ,int *i){
     
     int j = 0;
-    
-    while (!it_is_space(raw[*i]) && j <= MAX_LABEL_LEN)
+    /*keep going untile the first spase and chack if the len is less from the max len*/
+    while (!it_is_space(raw[*i]) && j < MAX_LABEL_LEN)
     {
         out->label[j] = raw[*i];
         j++;
         (*i)++;
     }
+    /*ending the label word*/
     out->label[j] = '\0';
 }
-
+/*splits the seccond word to a commend name slot in to Parsed_line varyebol*/
 void splid_name(const char *raw, Parsed_line *out ,int *i){
     
     int j = 0;
-
+    /*keep going untile the first spase*/
     while (!it_is_space(raw[*i]))
     {
         out->name[j] = raw[*i];
         j++;
         (*i)++;
     }
+    /*ending the commend name word*/
     out->name[j] = '\0';
    
 }
+/*splits the rest to a rest slot in to Parsed_line varyebol*/
 void splid_rest(const char *raw, Parsed_line *out ,int *i){
 
     int j = 0;
-
-    while (!it_is_space(raw[*i]) && raw[*i] != ';')
+    /*keep going until the end of the line or an ';' char*/
+    while (raw[*i] != '\0' && raw[*i] != ';')
     {    
-        if(raw[*i] != '\n' && raw[*i] != ' ' && raw[*i] != '"' )
+        if(raw[*i] != '\n' && raw[*i] != ' ' && raw[*i] != '"' && raw[*i] != '\r')
         {
             out->rest[j] = raw[*i];
             j++;
         }
             (*i)++;
     }
+    /*ending the rest word*/
     out->rest[j] = '\0';
 }
+/*move the labe info in to the name if the label is not valid but it a valid commend */
 void move_form_label_to_name(Parsed_line *out){
 
     int j = 0 ;
+    /*keep going untile the end of the label chars*/
     while(out->label[j] != '\0')
     {     
         out->name[j] = out->label[j];
         out->label[j] = '\0';
         j++;
     }
+    /*ending the commend name word*/
     out->name[j] = '\0';
 }
-void kind_test(Parsed_line *out){
-    char op[10][10];
+/*chacks the out kind in the end if faild the defulte is invalide line*/
+void kind_test(Parsed_line *out,Line line){
+    char op[10][81];
     if (out->rest[0] != '\0')
     {
-        if (is_directive_word(out->name) && operands_split(out->rest,op) != -1)
+        if (is_directive_word(out->name) && operands_split(out->rest,op,line) != -1)
         {
             out->kind = LINE_DIRECTIVE;
         }
-        else if (is_reserved_word(out->name) && operands_split(out->rest,op) != -1)
+        else if (it_is_reserved_word(out->name) && operands_split(out->rest,op,line) != -1)
         {
             out->kind = LINE_INSTRUCTION;
         }

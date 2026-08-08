@@ -1,0 +1,5 @@
+Error [error_symbols.am:7]: A symbol not defined in the symbol table was used.
+Error [error_symbols.am:8]: A symbol not defined in the symbol table was used.
+Error [error_symbols.am:9]: An external symbol cannot be the target of a conditional branch instruction.
+Error [error_symbols.am:13]: A symbol defined as an '.extern' was redefined as an '.entry'.
+Error [error_symbols.am:14]: A symbol not defined in the symbol table was used.

@@ -12,26 +12,6 @@
             "problemMatcher": ["$gcc"]
         },
         {
-            "label": "build parser_test",
-            "type": "shell",
-            "command": "make parser_test",
-            "options": {
-                "cwd": "${workspaceFolder}/Final_Project"
-            },
-            "group": "build",
-            "problemMatcher": ["$gcc"]
-        },
-        {
-            "label": "build fp_test",
-            "type": "shell",
-            "command": "gcc -Wall -ansi -pedantic -g Sources/fp_main.c Sources/first_pass.c Sources/parser.c Sources/instructions.c Sources/errors.c Sources/symbol_table.c Sources/memory_image.c -o fp_test",
-            "options": {
-                "cwd": "${workspaceFolder}/Final_Project"
-            },
-            "group": "build",
-            "problemMatcher": ["$gcc"]
-        },
-        {
             "label": "prepare debug inputs",
             "detail": "Strips comments from the .as test files into build/tests/, so the debugger sees exactly what Tests/dump_first_pass.sh feeds first_pass().",
             "type": "shell",
@@ -42,11 +22,11 @@
             "problemMatcher": []
         },
         {
-            "label": "build fp_test + inputs",
+            "label": "build + inputs",
             "type": "shell",
             "command": "echo ready",
             "dependsOrder": "sequence",
-            "dependsOn": ["prepare debug inputs", "build fp_test"],
+            "dependsOn": ["prepare debug inputs", "build"],
             "options": {
                 "cwd": "${workspaceFolder}/Final_Project"
             },
@@ -56,6 +36,123 @@
             "label": "run tests",
             "type": "shell",
             "command": "bash Tests/run_tests.sh --mine",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "run e2e tests",
+            "type": "shell",
+            "command": "make e2e",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "build fp_driver",
+            "detail": "Builds build/fp_driver - the isolated first_pass driver. Used as the preLaunchTask of the 'debug first_pass alone' configuration.",
+            "type": "shell",
+            "command": "make fp_driver",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "build parser_driver",
+            "detail": "Builds build/parser_driver - the isolated parser driver. Used as the preLaunchTask of the 'debug parser alone' configuration.",
+            "type": "shell",
+            "command": "make parser_driver",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "build sp_driver",
+            "detail": "Builds build/sp_driver - the second_pass driver. Used as the preLaunchTask of the 'debug second_pass alone' configuration.",
+            "type": "shell",
+            "command": "make sp_driver",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "run parser_driver (pick a file)",
+            "detail": "Runs line_split alone on every line of one file and prints how each line was split: kind, label, name, operands. Touches no symbol table - fully isolated.",
+            "type": "shell",
+            "command": "make parser_driver FILE=${input:asFile}",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "run fp_driver (pick a file)",
+            "detail": "Runs first_pass alone on one file and prints the symbol table, code image and data image it produced - without the pre-assembler or the second pass.",
+            "type": "shell",
+            "command": "make fp_driver FILE=${input:asFile}",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "run sp_driver (pick a file)",
+            "detail": "Runs first_pass then second_pass, printing the tables both times so the difference shows exactly what the second pass changed.",
+            "type": "shell",
+            "command": "make sp_driver FILE=${input:asFile}",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "check - diagnose (pick a case)",
+            "detail": "Runs 'make check' on one case: .as errors with the offending line quoted, then memory errors in the C code located by file:line under valgrind.",
+            "type": "shell",
+            "command": "make check CASE=${input:caseName}",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "check - diagnose all cases",
+            "detail": "Runs 'make check' over every .as file in Tests/e2e, reporting both source errors and memory errors for each.",
+            "type": "shell",
+            "command": "make check",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "check - source errors only (fast)",
+            "detail": "Runs 'make check' without valgrind. Much faster - use while fixing .as-level errors.",
+            "type": "shell",
+            "command": "make check MEM=0",
+            "options": {
+                "cwd": "${workspaceFolder}/Final_Project"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "run e2e - one case (pick)",
+            "detail": "Runs 'make e2e' on a single case and shows expected vs actual side by side.",
+            "type": "shell",
+            "command": "make e2e CASE=${input:caseName}",
             "options": {
                 "cwd": "${workspaceFolder}/Final_Project"
             },
@@ -81,6 +178,42 @@
             },
             "group": "test",
             "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "asFile",
+            "type": "pickString",
+            "description": "Which .as file should be assembled?",
+            "default": "Tests/e2e/valid_basic.as",
+            "options": [
+                "Tests/e2e/valid_basic.as",
+                "Tests/e2e/valid_data.as",
+                "Tests/e2e/valid_macro.as",
+                "Tests/e2e/valid_extern.as",
+                "Tests/e2e/error_macro.as",
+                "Tests/e2e/error_syntax.as",
+                "Tests/e2e/error_symbols.as",
+                "Tests/first_pass_valid.as",
+                "Tests/first_pass_errors.as",
+                "Tests/ps.as"
+            ]
+        },
+        {
+            "id": "caseName",
+            "type": "pickString",
+            "description": "Which e2e case? (empty = all cases)",
+            "default": "valid_macro",
+            "options": [
+                "valid_basic",
+                "valid_data",
+                "valid_macro",
+                "valid_extern",
+                "error_macro",
+                "error_syntax",
+                "error_symbols",
+                ""
+            ]
         }
     ]
 }

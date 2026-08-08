@@ -4,117 +4,220 @@
     {
       "id": "asFile",
       "type": "pickString",
-      "description": "Which .as file should first_pass() read?",
-      "default": "build/tests/first_pass_valid.as",
+      "description": "Which .as file should the assembler read?",
+      "default": "Tests/e2e/valid_basic.as",
       "options": [
-        "build/tests/first_pass_valid.as",
-        "build/tests/first_pass_errors.as",
-        "build/tests/parser_test.as",
-        "build/tests/ps.as",
+        "Tests/e2e/valid_basic.as",
+        "Tests/e2e/valid_data.as",
+        "Tests/e2e/valid_macro.as",
+        "Tests/e2e/valid_extern.as",
+        "Tests/e2e/error_macro.as",
+        "Tests/e2e/error_syntax.as",
+        "Tests/e2e/error_symbols.as",
         "Tests/first_pass_valid.as",
-        "Tests/first_pass_errors.as"
+        "Tests/first_pass_errors.as",
+        "Tests/ps.as"
+      ]
+    },
+    {
+      "id": "caseName",
+      "type": "pickString",
+      "description": "Which e2e case should run? (empty = all cases)",
+      "default": "valid_macro",
+      "options": [
+        "valid_basic",
+        "valid_data",
+        "valid_macro",
+        "valid_extern",
+        "error_macro",
+        "error_syntax",
+        "error_symbols",
+        ""
       ]
     }
   ],
   "configurations": [
+  
     {
-      "name": "first_pass - valid file",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/Final_Project/fp_test",
-      "args": [
-        "build/tests/first_pass_valid.as"
-      ],
-      "cwd": "${workspaceFolder}/Final_Project",
-      "preLaunchTask": "build fp_test + inputs",
-      "terminal": "integrated"
-    },
-    {
-      "name": "first_pass - errors file",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/Final_Project/fp_test",
-      "args": [
-        "build/tests/first_pass_errors.as"
-      ],
-      "cwd": "${workspaceFolder}/Final_Project",
-      "preLaunchTask": "build fp_test + inputs",
-      "terminal": "integrated"
-    },
-    {
-      "name": "first_pass - pick a file...",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/Final_Project/fp_test",
-      "args": [
-        "${input:asFile}"
-      ],
-      "cwd": "${workspaceFolder}/Final_Project",
-      "preLaunchTask": "build fp_test + inputs",
-      "terminal": "integrated"
-    },
-    {
-      "name": "first_pass - stop at entry",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/Final_Project/fp_test",
-      "args": [
-        "build/tests/first_pass_valid.as"
-      ],
-      "cwd": "${workspaceFolder}/Final_Project",
-      "preLaunchTask": "build fp_test + inputs",
-      "stopOnEntry": true,
-      "terminal": "integrated"
-    },
-    {
-      "name": "parser - parser_test.as",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/Final_Project/parser_test",
-      "args": [
-        "Tests/parser_test.as"
-      ],
-      "cwd": "${workspaceFolder}/Final_Project",
-      "preLaunchTask": "build parser_test",
-      "terminal": "integrated"
-    },
-    {
-      "name": "parser - pick a file...",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/Final_Project/parser_test",
-      "args": [
-        "${input:asFile}"
-      ],
-      "cwd": "${workspaceFolder}/Final_Project",
-      "preLaunchTask": "build parser_test",
-      "terminal": "integrated"
-    },
-    {
-      "name": "assembler",
+      "name": "assembler - valid file",
       "type": "lldb",
       "request": "launch",
       "program": "${workspaceFolder}/Final_Project/assembler",
       "args": [
-        "Tests/first_pass_valid.as"
+        "Tests/e2e/valid_basic.as"
       ],
       "cwd": "${workspaceFolder}/Final_Project",
       "preLaunchTask": "build",
       "terminal": "integrated"
     },
-
     {
-      "name": "[official VS Code only] first_pass (cppdbg)",
+      "name": "assembler - errors file",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/assembler",
+      "args": [
+        "Tests/e2e/error_syntax.as"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build",
+      "terminal": "integrated"
+    },
+    {
+      "name": "assembler - pick a file...",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/assembler",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build",
+      "terminal": "integrated"
+    },
+    {
+      "name": "assembler - stop at entry",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/assembler",
+      "args": [
+        "Tests/e2e/valid_basic.as"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build",
+      "stopOnEntry": true,
+      "terminal": "integrated"
+    },
+    {
+      "name": "debug parser - stop on every line",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/assembler",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build",
+      "terminal": "integrated",
+      "initCommands": [
+        "breakpoint set -n line_split"
+      ]
+    },
+    {
+      "name": "debug first_pass - stop at entry",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/assembler",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build",
+      "terminal": "integrated",
+      "initCommands": [
+        "breakpoint set -n first_pass"
+      ]
+    },
+    {
+      "name": "debug second_pass - stop at entry",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/assembler",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build",
+      "terminal": "integrated",
+      "initCommands": [
+        "breakpoint set -n second_pass"
+      ]
+    },
+    {
+      "name": "debug parser alone (parser_driver)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/build/parser_driver",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build parser_driver",
+      "terminal": "integrated",
+      "initCommands": [
+        "breakpoint set -n line_split"
+      ]
+    },
+    {
+      "name": "debug first_pass alone (fp_driver)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/build/fp_driver",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build fp_driver",
+      "terminal": "integrated",
+      "initCommands": [
+        "breakpoint set -n first_pass"
+      ]
+    },
+    {
+      "name": "debug second_pass alone (sp_driver)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/build/sp_driver",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build sp_driver",
+      "terminal": "integrated",
+      "initCommands": [
+        "breakpoint set -n second_pass"
+      ]
+    },
+    {
+      "name": "check - diagnose a case (source + memory)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "make check CASE=${input:caseName}",
+      "cwd": "${workspaceFolder}/Final_Project"
+    },
+    {
+      "name": "e2e - compare expected vs actual",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "make e2e CASE=${input:caseName}",
+      "cwd": "${workspaceFolder}/Final_Project"
+    },
+    {
+      "name": "assembler - debug (stops at memory faults)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/Final_Project/assembler",
+      "args": [
+        "${input:asFile}"
+      ],
+      "cwd": "${workspaceFolder}/Final_Project",
+      "preLaunchTask": "build",
+      "terminal": "integrated",
+      "initCommands": [
+        "settings set target.process.stop-on-sharedlibrary-events false"
+      ]
+    },
+    {
+      "name": "[official VS Code only] assembler (cppdbg)",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/Final_Project/fp_test",
+      "program": "${workspaceFolder}/Final_Project/assembler",
       "args": [
-        "build/tests/first_pass_valid.as"
+        "Tests/e2e/valid_basic.as"
       ],
       "cwd": "${workspaceFolder}/Final_Project",
       "stopAtEntry": false,
       "externalConsole": false,
-      "preLaunchTask": "build fp_test + inputs",
+      "preLaunchTask": "build",
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",
       "setupCommands": [

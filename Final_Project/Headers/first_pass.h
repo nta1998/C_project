@@ -42,10 +42,10 @@ union machine_code_J {
     } fields;
 };
 
-Bool first_pass(FILE *am, const char *filename, Symbol *st, CODE_LINE *code, DATA_LINE *data, int *icf_out, int *dcf_out);
+Bool first_pass(FILE *am, const char *filename, int *icf_out, int *dcf_out);
 
-void add_directive_data(int pram_num , char ops[][10],char name[],int *dc);
+void add_directive_data(int pram_num , char ops[][81],char name[],int *dc);
 
-unsigned long to_binery(Parsed_line pl, char ops[][10]);
+unsigned long to_binery(Parsed_line pl, char ops[][81], Line line);
 
 #endif

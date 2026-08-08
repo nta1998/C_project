@@ -26,7 +26,7 @@ Bool second_pass(const char *file_name){
     Line curr_line;
     Parsed_line parsed_line;
     Symbol *curr_symbol;
-    Instruction_info *curr_instruction;
+    const Instruction_info *curr_instruction;
     char line[MAX_LINE_LEN+1];
     const Code_line *code_image;
     int curr_code_id;
@@ -48,7 +48,7 @@ Bool second_pass(const char *file_name){
     while (fgets(line, sizeof(line), origin_file) != NULL) {
         curr_line.line_num ++;
         curr_line.data = line;
-        line_split(line, &parsed_line, file_name, curr_line.line_num);
+        line_split(line, &parsed_line, curr_line);
 
         if (parsed_line.kind == LINE_INVALID ||
             parsed_line.kind == LINE_EMPTY || 
@@ -85,16 +85,23 @@ Bool second_pass(const char *file_name){
                 if(curr_symbol == NULL) {
                     err_report(curr_line, ERR_CODE_30);
                 }
-                else if ((code_image[curr_code_id].machine_code & ADDRESS_FIELD_MASK) == '?') {
-                    if (curr_symbol->attribute == S_EXTERNAL) {
+                else if (curr_symbol->attribute == S_EXTERNAL)
+                {
+                    if ((code_image[curr_code_id].machine_code & ADDRESS_FIELD_MASK) == '?')
+                    {
                         curr_encode_word = encode_word(code_image[curr_code_id].machine_code, 0, ADDRESS_FIELD_MASK);
                         update_code_machine_code(curr_code_id, curr_encode_word);
-                        external_add(curr_symbol->symbol_name, code_image[curr_code_id].address);
-                        }
-                    else {
-                        curr_encode_word = encode_word(code_image[curr_code_id].machine_code, curr_symbol->value, ADDRESS_FIELD_MASK);
-                        update_code_machine_code(curr_code_id, curr_encode_word);
+                        external_add(curr_symbol->symbol_name, code_image[curr_code_id].address);    
                     }
+                    else
+                    {
+                        external_add(curr_symbol->symbol_name, code_image[curr_code_id].address);
+                    }
+                }
+                else if ((code_image[curr_code_id].machine_code & ADDRESS_FIELD_MASK) == '?')
+                {
+                    curr_encode_word = encode_word(code_image[curr_code_id].machine_code, curr_symbol->value, ADDRESS_FIELD_MASK);
+                    update_code_machine_code(curr_code_id, curr_encode_word);
                 }
             }
         }
