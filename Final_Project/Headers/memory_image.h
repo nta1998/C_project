@@ -74,7 +74,6 @@ int get_DC(void);
  * The function returns a pointer to the code image array.
  * @return a pointer to the array of CODE_LINE structures representing the code image.
 */
-
 const Code_line *get_code_image(void);
 
 /**
@@ -93,6 +92,9 @@ const Code_line *get_code_image(void);
 Bool update_code_machine_code(int index, unsigned long machine_code);
 
 const Data_line *get_data_image(void);
+
+/**/
+void data_image_table_shift_data(long final_ic);
 
 /**/
 void data_image_table_shift_data(long final_ic);

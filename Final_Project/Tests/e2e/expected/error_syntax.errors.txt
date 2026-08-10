@@ -1,0 +1,2 @@
+Error [error_syntax.as:2]: Invalid register name, the register dosen't between $0-$31.
+Error [error_syntax.as:5]: Invalid label definition, there is ' ' between label name and ':'.

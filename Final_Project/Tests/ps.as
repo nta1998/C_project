@@ -1,21 +1,24 @@
+;file ps.as
+;semple source code
+
+.entry NEXT
+.extern wNumber
+STR: .asciz "aBcd"
 MAIN: add $3,$5,$9
-mcro GEN_MAC
+LOOP: ori $9,-5,$2
       la vall
       jmp NEXT
-mcroend
-LOOP: ori $9,-5,$2
-GEN MAC
 NEXT: move $20,$4
+LIST: .db 6,-9
       bgt $4,$2,END
       la K
-      SW $0,4,$10
+      sw $0,4,$10
       bne $31,$9,LOOP
       call vall
       jmp $4
-END: hlt
-STR: .asciz "aBcd"
-LIST: .db 6,-9
-      .dh 27056
-.entry K
-K: .dw 31,-12
+      la wNumber
 .extern vall
+      .dh 27056
+K: .dw 31,-12
+END: hlt
+.entry K

@@ -5,23 +5,26 @@
 #include <stdio.h>
 #include <stdio.h>
 #include "globals.h"
+#include "instructions.h"
+
 
 /* Line types in an input file */
-typedef enum {
+typedef enum LineKind{
+  LINE_INVALID, /* Invalid line */ 
   LINE_EMPTY, /* Whitespace line */ 
   LINE_COMMENT, /* Comment line */ 
   LINE_DIRECTIVE, /* Directive line */ 
-  LINE_INSTRUCTION, /* Instruction line */ 
-  LINE_INVALID /* Invalid line */ 
-} LINE_TYPE;
+  LINE_INSTRUCTION /* Instruction line */ 
+}LineKind;
 
 /* Definition of a structure of type 'LineKind' */
-typedef struct {
-  LINE_TYPE type;
-  char label[MAX_LABEL_LEN+1];
-  char name[MAX_LABEL_LEN+1];
-  char rest[MAX_LINE_LEN+1];
-  int error;
+typedef struct Parsed_line{
+  LineKind kind;
+  const Instruction_info *instruction;
+  char label[MAX_LABEL_LEN + 1];
+  char name[MAX_COMMEND_NAME_LEN + 1];
+  char rest[MAX_REST_LEN + 1];
+  /*add error*/
 } Parsed_line;
 
 /**
@@ -32,7 +35,7 @@ typedef struct {
  * @param ln the line number of the row in the source file
 * @return a Bool TRUE/FALSE
  */
-Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln);
+Bool line_split(const char *raw, Parsed_line *out, Line line);
 
 /**
  * This function check if the given string is a valid label 
@@ -42,7 +45,7 @@ Bool line_split(const char *raw, Parsed_line *out, const char *file, int ln);
  * @param s row pointer to a string
  * @return a Bool TRUE/FALSE
  */
-Bool is_valid_label(const char *s);
+Bool is_valid_label(Parsed_line *s);
 
 /**
  * This function check if the given string is a reserved word 
@@ -50,7 +53,7 @@ Bool is_valid_label(const char *s);
  * @param s a pointer to a string we need to check
  * @return a Bool TRUE/FALSE
  */
-Bool is_reserved_word(const char *s);
+Bool it_is_reserved_word(const char *s);
 
 /**
  * This function check if the given string is a valid number (whole numbers positive or negative only) 
@@ -58,7 +61,7 @@ Bool is_reserved_word(const char *s);
  * @param out a pointer of long type 
  * @return a Bool TRUE/FALSE
  */
-Bool parse_number(const char *s, long *out); 
+Bool parse_number(const char *s); 
 
 /**
  * This function split the operands part of a line into an array of strings
@@ -69,16 +72,25 @@ Bool parse_number(const char *s, long *out);
  * @param ln the line number of the row in the source file
  * @return number of operands found or -1 if error
  */
-int  operands_split(char *rest, char *ops[], int max_ops, const char *file, int ln);
+int operands_split(char *rest, char ops[][81],Line line);
 
 /**
  * This function parse a register name and return the register number
  * @param s a pointer to a string we need to parse
  * @return the register number or -1 if error
  */
-int  parse_register(const char *s);
-
+unsigned int parse_register(const char *s, Line line);
 Bool is_directive_word(const char *s);
+void skip_white_space(const char *raw, int *i);
+void splid_label(const char *raw, Parsed_line *out ,int *i);
+Bool it_is_space(char c);
+void kind_test(Parsed_line *out,Line line);
+void move_form_label_to_name(Parsed_line *out);
+void splid_rest(const char *raw, Parsed_line *out ,int *i);
+void splid_name(const char *raw, Parsed_line *out ,int *i);
+void splid_label(const char *raw, Parsed_line *out ,int *i);
+void skip_white_space(const char *raw, int *i);
+
 
 #endif
  

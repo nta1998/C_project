@@ -10,6 +10,7 @@
 #include "../Headers/pre_assembler.h"
 #include "../Headers/parser.h"
 #include "../Headers/instructions.h"
+#include "../Headers/globals.h"
 
 /* Possible classifications for a line when we are NOT currently inside a macro definition (curr_mcro == NULL). */
 typedef enum {
@@ -31,7 +32,7 @@ typedef enum {
  * @return an MCRO_OFF indicating the type of the line (MCRO_START, MCRO_CALL, or REGULAR).
 */
 static MCRO_OFF mcro_off(const char *line){
-    char first_word[MAX_MCRO_LEN+1];
+    char first_word[MAX_LINE_LEN+1];
     sscanf(line, "%s", first_word);
     if (strcmp(first_word, "mcro") == 0){return MCRO_START;}
     if (mcro_search(first_word)){return MCRO_CALL;}
@@ -79,12 +80,13 @@ static Bool valid_mcroend_def_line(const char *curr_line_data){
  * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
 */
 static Bool start_with_letter(char *name){
-    if (!(name[0] >= 'A' && name[0] <= 'Z') || 
-        !(name[0] >= 'a' && name[0] <= 'z')) {
-        return FALSE;
+    if ((name[0] >= 'A' && name[0] <= 'Z') ||
+        (name[0] >= 'a' && name[0] <= 'z')) {
+        return TRUE;
     }
-    return TRUE;
+    return FALSE;
 }
+
 
 /**
  * Static function that checks whether the current mcro name contains letters/numbers/'_' only.
@@ -122,10 +124,10 @@ static Bool is_instruction_word(const char *name){
  * @param name: pointer to the current mcro name.
  * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
 */
-static Bool is_reserved_word(const char *name){
+Bool is_reserved_word(const char *name){
     int i;
     const char *reserved_words[] = {"dh", "dw", "db", "asciz", "entry", "extern"};
-    for (i=0; i<sizeof(reserved_words); i++){
+    for (i=0; i < (int)(sizeof(reserved_words)/sizeof(reserved_words[0])); i++){
         if(strcmp(name,reserved_words[i]) == 0){return TRUE;} 
     }
     return FALSE;
@@ -158,23 +160,23 @@ static Mcro *start_mcro_def(Line curr_line){
         err_report(curr_line, ERR_CODE_1);
         return NULL;
     } 
-    if (is_instruction_word(&mcro_name)){
+    if (is_instruction_word(mcro_name)){
         err_report(curr_line, ERR_CODE_3);
         return NULL;
     } 
-    if (is_reserved_word(&mcro_name)){
+    if (is_reserved_word(mcro_name)){
         err_report(curr_line, ERR_CODE_4);
         return NULL;
     } 
-    if (!start_with_letter(&mcro_name)){
+    if (!start_with_letter(mcro_name)){
         err_report(curr_line, ERR_CODE_5);
         return NULL;
     } 
-    if (!all_chars_valid(&mcro_name)){
+    if (!all_chars_valid(mcro_name)){
         err_report(curr_line, ERR_CODE_6);
         return NULL;
     } 
-    if (!is_len_valid(&mcro_name)){
+    if (!is_len_valid(mcro_name)){
         err_report(curr_line, ERR_CODE_7);
         return NULL;
     } 

@@ -61,7 +61,7 @@ void err_report(Line line, ERROR_CODES error_code){
 }
 
 Bool err_found(void){
-    return (err_count>0) ? TRUE : FALSE ;
+    return (err_count > 0) ? TRUE : FALSE ;
 }
 
 void print_summary_err(void){

@@ -47,15 +47,21 @@ const Instruction_info commands_list[] =
     {"hlt",  J_TYPE,   63, 0}
 };
 
-Instruction_info *instruction_search(const char *curr_name)
+#define COMMANDS_COUNT (sizeof(commands_list) / sizeof(commands_list[0]))
+
+const Instruction_info* instruction_search(const char *curr_name)
 {
     int i;
+    if (curr_name == NULL)
+    {
+        return NULL;
+    }
 
-    if (curr_name == NULL) {return NULL;}
-
-    for (i = 0; i < (int)COMMANDS_COUNT; i++){
-        if (strcmp(commands_list[i].name, curr_name) == 0){
-            return &commands_list[i];
+    for (i = 0; i < (int)COMMANDS_COUNT; i++)
+    {
+        if (strcmp(commands_list[i].name, curr_name) == 0)
+        { 
+            return &commands_list[i]; 
         }
     }
 

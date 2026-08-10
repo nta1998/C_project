@@ -41,14 +41,14 @@ static void test_all_chars_valid(void)
 
 static void test_is_reserved_word(void)
 {
-    CHECK(is_reserved_word("mov")   != 0);
-    CHECK(is_reserved_word("add")   != 0);
-    CHECK(is_reserved_word("stop")  != 0);
+    CHECK(it_is_reserved_word("mov")   != 0);
+    CHECK(it_is_reserved_word("add")   != 0);
+    CHECK(it_is_reserved_word("stop")  != 0);
 
-    CHECK(is_reserved_word("MAIN")  == 0);
-    CHECK(is_reserved_word("Loop")  == 0);
-    CHECK(is_reserved_word("moving")== 0);   /* לא תת-מחרוזת! */
-    CHECK(is_reserved_word("")      == 0);
+    CHECK(it_is_reserved_word("MAIN")  == 0);
+    CHECK(it_is_reserved_word("Loop")  == 0);
+    CHECK(it_is_reserved_word("moving")== 0);   /* לא תת-מחרוזת! */
+    CHECK(it_is_reserved_word("")      == 0);
 }
 
 int main(void)
