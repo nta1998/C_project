@@ -36,6 +36,9 @@ Mcro *mcro_add(const char *name){
 }
 
 Bool mcro_add_line(Mcro *mcro, const char*line){
+    if (mcro == NULL){
+        return FALSE; 
+    }
     if (mcro->line_counter >= MAX_MCRO_LINES){
         return FALSE;
     }
