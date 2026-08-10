@@ -75,27 +75,23 @@ static Bool valid_mcroend_def_line(const char *curr_line_data){
 }
 
 /**
- * Static function that checks whether the current mcro name start with a letter.
- * @param name: pointer to the current mcro name.
- * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
-*/
-static Bool start_with_letter(char *name){
-    if ((name[0] >= 'A' && name[0] <= 'Z') ||
-        (name[0] >= 'a' && name[0] <= 'z')) {
-        return TRUE;
-    }
-    return FALSE;
-}
-
-
-/**
  * Static function that checks whether the current mcro name contains letters/numbers/'_' only.
  * @param name: pointer to the current mcro name.
  * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
 */
 static Bool all_chars_valid(char *name){
-    const char *allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
-    if (strspn(name, allowed) != strlen(name)) {return FALSE;}
+    int i = 0;
+    while (mcro_name[i] != '\0') {
+        // אם התו הוא לא אות/מספר, וגם אינו קו תחתון - השם לא תקין
+        if (!isalnum(mcro_name[i]) && mcro_name[i] != '_') {
+            return FALSE;
+        }
+        i++;
+    }
+
+    if (strspn(name, allowed) != strlen(name)) {
+        return FALSE;
+    }
     return TRUE;
 }
 
@@ -105,7 +101,9 @@ static Bool all_chars_valid(char *name){
  * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
 */
 static Bool is_len_valid(char *name){
-    if (strlen(name) > MAX_MCRO_LEN) {return FALSE;}
+    if (strlen(name) > MAX_MCRO_LEN) {
+        return FALSE;
+    }
     return TRUE;
 }
 
@@ -115,20 +113,26 @@ static Bool is_len_valid(char *name){
  * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
 */
 static Bool is_instruction_word(const char *name){
-    if (instruction_search(name) != NULL) {return TRUE;}
+    if (instruction_search(name) != NULL) {
+        return TRUE;
+    }
     return FALSE;
 }
 
-/**
- * Static function that checks whether the current mcro name is reserved word.
- * @param name: pointer to the current mcro name.
- * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
-*/
 Bool is_reserved_word(const char *name){
-    int i;
-    const char *reserved_words[] = {"dh", "dw", "db", "asciz", "entry", "extern"};
-    for (i=0; i < (int)(sizeof(reserved_words)/sizeof(reserved_words[0])); i++){
-        if(strcmp(name,reserved_words[i]) == 0){return TRUE;} 
+    int i, num_keywords;
+    const char *keywords[] = {
+        "auto", "break", "case", "char", "const", "continue", "default", "do",
+        "double", "else", "enum", "extern", "float", "for", "goto", "if",
+        "int", "long", "register", "return", "short", "signed", "sizeof", "static",
+        "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"
+    };
+    num_keywords = sizeof(keywords) / sizeof(keywords[0]);
+
+    for (i = 0; i < num_keywords; i++) {
+        if (strcmp(name, keywords[i]) == 0) {
+            return TRUE;
+        }
     }
     return FALSE;
 }
@@ -144,7 +148,9 @@ static void expand_mcro_call(const char *line, FILE *curr_am_file){
     int i;
     sscanf(line, "%s", first_word);
     found = mcro_search(first_word);
-    for (i=0; i < found -> line_counter; i++){fputs(found->data[i], curr_am_file);}
+    for (i=0; i < found -> line_counter; i++){
+        fputs(found->data[i], curr_am_file);
+    }
 }
 
 /**
@@ -168,7 +174,7 @@ static Mcro *start_mcro_def(Line curr_line){
         err_report(curr_line, ERR_CODE_4);
         return NULL;
     } 
-    if (!start_with_letter(mcro_name)){
+    if (!isalpha(mcro_name[0])){
         err_report(curr_line, ERR_CODE_5);
         return NULL;
     } 
