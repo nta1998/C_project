@@ -34,8 +34,12 @@ typedef enum {
 static MCRO_OFF mcro_off(const char *line){
     char first_word[MAX_LINE_LEN+1];
     sscanf(line, "%s", first_word);
-    if (strcmp(first_word, "mcro") == 0){return MCRO_START;}
-    if (mcro_search(first_word)){return MCRO_CALL;}
+    if (strcmp(first_word, "mcro") == 0){
+        return MCRO_START;
+    }
+    if (mcro_search(first_word)){
+        return MCRO_CALL;
+    }
     return REGULAR;
 }
 
@@ -48,7 +52,9 @@ static MCRO_OFF mcro_off(const char *line){
 static MCRO_ON mcro_on(const char *line){
     char first_word[MAX_MCRO_LEN+1];
     sscanf(line, "%s", first_word); 
-    if (strcmp(first_word, "mcroend") == 0){return MCRO_END;}
+    if (strcmp(first_word, "mcroend") == 0){
+        return MCRO_END;
+    }
     return MCRO_BODY;
 }
 
@@ -59,7 +65,9 @@ static MCRO_ON mcro_on(const char *line){
 */
 static Bool valid_mcro_def_line(const char *curr_line_data){
     char extra[MAX_LINE_LEN+1];
-    if (sscanf(curr_line_data, "%*s %*s %s", extra) == 1){ return FALSE;}
+    if (sscanf(curr_line_data, "%*s %*s %s", extra) == 1){
+        return FALSE;
+    }
     return TRUE;
 }
 
@@ -70,7 +78,9 @@ static Bool valid_mcro_def_line(const char *curr_line_data){
 */
 static Bool valid_mcroend_def_line(const char *curr_line_data){
     char extra[MAX_LINE_LEN+1];
-    if (sscanf(curr_line_data, "%*s %s", extra) == 1){ return FALSE;}
+    if (sscanf(curr_line_data, "%*s %s", extra) == 1){
+        return FALSE;
+    }
     return TRUE;
 }
 
@@ -81,15 +91,15 @@ static Bool valid_mcroend_def_line(const char *curr_line_data){
 */
 static Bool all_chars_valid(char *name){
     int i = 0;
-    while (mcro_name[i] != '\0') {
+    while (mcro_name[i] != '\0'){
         // אם התו הוא לא אות/מספר, וגם אינו קו תחתון - השם לא תקין
-        if (!isalnum(mcro_name[i]) && mcro_name[i] != '_') {
+        if (!isalnum(mcro_name[i]) && mcro_name[i] != '_'){
             return FALSE;
         }
         i++;
     }
 
-    if (strspn(name, allowed) != strlen(name)) {
+    if (strspn(name, allowed) != strlen(name)){
         return FALSE;
     }
     return TRUE;
@@ -230,7 +240,8 @@ Bool pre_assembler(const char *as_file, const char *am_file){
             switch (mcro_on(line)){
                 case MCRO_END: {
                     if (!valid_mcroend_def_line(curr_line.data)){
-                        err_report(curr_line, ERR_CODE_2);}
+                        err_report(curr_line, ERR_CODE_2);
+                    }
                     curr_mcro = NULL;
                     break;}
                 case MCRO_BODY:
