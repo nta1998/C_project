@@ -92,7 +92,6 @@ static Bool valid_mcroend_def_line(const char *curr_line_data){
 static Bool all_chars_valid(char *name){
     int i = 0;
     while (mcro_name[i] != '\0'){
-        // אם התו הוא לא אות/מספר, וגם אינו קו תחתון - השם לא תקין
         if (!isalnum(mcro_name[i]) && mcro_name[i] != '_'){
             return FALSE;
         }
@@ -159,11 +158,6 @@ static void expand_mcro_call(const char *line, FILE *curr_am_file){
     int i;
     sscanf(line, "%s", first_word);
     found = mcro_search(first_word);
-    
-    if (found == NULL){
-        err_report(curr_line, ERR_CODE_1);
-        return;
-    }
     for (i=0; i < found -> line_counter; i++){
         fputs(found->data[i], curr_am_file);
     }
