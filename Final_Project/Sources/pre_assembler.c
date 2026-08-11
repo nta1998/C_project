@@ -132,6 +132,7 @@ static Bool is_instruction_word(const char *name){
 Bool is_reserved_word(const char *name){
     int i, num_keywords;
     const char *keywords[] = {
+        "db", "dw", "dh", "asciz", "entry", "extern",
         "auto", "break", "case", "char", "const", "continue", "default", "do",
         "double", "else", "enum", "extern", "float", "for", "goto", "if",
         "int", "long", "register", "return", "short", "signed", "sizeof", "static",
