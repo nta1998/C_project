@@ -159,6 +159,11 @@ static void expand_mcro_call(const char *line, FILE *curr_am_file){
     int i;
     sscanf(line, "%s", first_word);
     found = mcro_search(first_word);
+    
+    if (found == NULL){
+        err_report(curr_line, ERR_CODE_1);
+        return;
+    }
     for (i=0; i < found -> line_counter; i++){
         fputs(found->data[i], curr_am_file);
     }
