@@ -10,46 +10,52 @@ produce any output file.
 
 line  expected code   message
 ----  -------------   ----------------------------------------------
-10    ERR_CODE_22     Invalid label name, does not start with a letter.
-11    ERR_CODE_23     Invalid labal name, there is an unauthorized character.
-12    ERR_CODE_24     Invalid label name, longer than 31 characters.
-13    ERR_CODE_25     Invalid label name, identical to an instruction name.
-14    ERR_CODE_26     Invalid label definition, there is ' ' between labal name and ':'.
-15    ERR_CODE_27     Invalid label definition, misiing ':' after lable name.
+10    ERR_CODE_23     Invalid label name, does not start with a letter.
+11    ERR_CODE_24     Invalid labal name, there is an unauthorized character.
+12    ERR_CODE_25     Invalid label name, longer than 31 characters.
+13    ERR_CODE_26     Invalid label name, identical to an instruction name.
+14    ERR_CODE_28     Invalid label definition, there is ' ' between label name and ':'.
+15    ERR_CODE_27     Invalid label definition, missing ':' after label name.
 16    (no error)      first definition of DUP -> symbol DUP = 100
-17    ERR_CODE_28     Label definition repeats more then once.
+17    ERR_CODE_29     Label definition repeats more than once.
 
-20    ERR_CODE_21     Instruction does not exist.
-21    ERR_CODE_21     Instruction does not exist.   (unknown directive)
+20    ERR_CODE_22     Instruction does not exist.
+21    ERR_CODE_22     Instruction does not exist.   (unknown directive)
 
-24    ERR_CODE_9      Invalid arguments, the number of operands is incorrect.
-25    ERR_CODE_9      Invalid arguments, the number of operands is incorrect.
-26    ERR_CODE_9      Invalid arguments, the number of operands is incorrect.
-27    ERR_CODE_9      Invalid arguments, the number of operands is incorrect.
+24    ERR_CODE_10     Invalid arguments, the number of operands is incorrect.
+25    ERR_CODE_10     Invalid arguments, the number of operands is incorrect.
+26    ERR_CODE_10     Invalid arguments, the number of operands is incorrect.
+27    ERR_CODE_10     Invalid arguments, the number of operands is incorrect.
 
-30    ERR_CODE_10     Invalid arguments, the operand is not suitable for the operation.
-31    ERR_CODE_10     Invalid arguments, the operand is not suitable for the operation.
-32    ERR_CODE_13     Invalid registar name, the register dosent between $0-$31.
-33    ERR_CODE_13     Invalid registar name, the register dosent between $0-$31.
+30    ERR_CODE_11     Invalid arguments, the operand is not suitable for the operation.
+31    ERR_CODE_11     Invalid arguments, the operand is not suitable for the operation.
+32    ERR_CODE_14     Invalid register name, the register dosen't between $0-$31.
+33    ERR_CODE_14     Invalid register name, the register dosen't between $0-$31.
 
-36    ERR_CODE_11     Invalid arguments, the number is not supported.
-37    ERR_CODE_11     Invalid arguments, the number is not supported.
-38    ERR_CODE_12     Invalid arguments, the number is out of range.
-39    ERR_CODE_12     Invalid arguments, the number is out of range.
+36    ERR_CODE_12     Invalid arguments, the number is not supported.
+37    ERR_CODE_12     Invalid arguments, the number is not supported.
+38    ERR_CODE_13     Invalid arguments, the number is out of range.
+39    ERR_CODE_13     Invalid arguments, the number is out of range.
 
-42    ERR_CODE_17     There is more commas then needed.
-43    ERR_CODE_16     Comma in the wrong place.
-44    ERR_CODE_16     Comma in the wrong place.
-45    ERR_CODE_16     Comma in the wrong place.
+42    ERR_CODE_18     There is more commas than needed.
+43    ERR_CODE_17     Comma in the wrong place.
+44    ERR_CODE_17     Comma in the wrong place.
+45    ERR_CODE_17     Comma in the wrong place.
 
-48    ERR_CODE_18     Missing '"' after '.string'.
-49    ERR_CODE_19     Missing '"' at the end of '.string' line.
+48    ERR_CODE_19     Missing '"' after '.string'.
+49    ERR_CODE_20     Missing '"' at the end of '.string' line.
 
-52    ERR_CODE_8      Invalid line length, it is longer then 80 characters.
+52    ERR_CODE_9      Invalid line length, it is longer than 80 characters.
 
 Total: 28 errors  ->  "28 ERRORS WERE FOUND!"
 
 Note: the line numbers assume the file is not edited. Lines 15 and 45
 are the two cases implementations classify differently (LINE_INVALID vs.
-a specific code) - if your parser reports them as ERR_CODE_21 /
-ERR_CODE_9, that is acceptable as long as an error IS reported.
+a specific code) - if your parser reports them as ERR_CODE_22 /
+ERR_CODE_10, that is acceptable as long as an error IS reported.
+
+The codes above are taken from the table in Sources/errors.c. They were
+renumbered once already: an entry was inserted in the middle of the enum
+and this file kept the old numbers, so every row was off by one and the
+comparison reported failures that did not exist. If a code is ever added
+to the enum again, re-check this file against Sources/errors.c.

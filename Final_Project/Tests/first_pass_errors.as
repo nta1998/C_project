@@ -1,9 +1,9 @@
 ; ============================================================
 ; first_pass_errors.as
-; קובץ בדיקה שכל שורה בו מכילה שגיאה אחת שה-first_pass אמור לתפוס.
-; בסוף כל שורה מופיע קוד השגיאה הצפוי (ERR_CODE_x מתוך errors.h).
-; הפונקציה חייבת להחזיר FALSE (step 17).
-; התוצאות הצפויות: Tests/Exepted/first_pass_errors.expected.txt
+; A test file where each line contains one error that first_pass should catch.
+; the end of each line appears the expected code (ERR_CODE_x from errors.h).
+; The function must return FALSE (step 17).
+; Expected results: Tests/Exepted/first_pass_errors.expected.txt
 ; ============================================================
 
 ; --- שגיאות בהגדרת תווית (22-28) ---

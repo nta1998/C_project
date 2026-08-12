@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h> 
+#include <ctype.h>
 #include "../Headers/globals.h"
 #include "../Headers/first_pass.h"
 #include "../Headers/instructions.h"
@@ -9,8 +10,8 @@
 
 Bool first_pass(FILE *am, const char *filename, int *icf_out, int *dcf_out)
 {
-    char line[MAX_LINE_LEN + 1];
-    int line_num = 0;
+    char line[MAX_LINE_LEN];
+    int line_num = 1;
     Parsed_line pl;
     char full_directive_str[MAX_LINE_LEN];
     char full_instruction_str[MAX_LINE_LEN];
@@ -24,24 +25,23 @@ Bool first_pass(FILE *am, const char *filename, int *icf_out, int *dcf_out)
     Line e ;
     e.file_name = filename;
     e.line_num = line_num ;
-    e.data = line;
-
     /* step 2 */
     while (fgets(line, sizeof(line), am) != NULL) 
     {   
+        
+        int has_label = 0;
+        e.data = line;
         if (strlen(line) > MAX_LINE_LEN)
         {
             err_report(e,ERR_CODE_9);
         }
-       int has_label = 0;
 
         if (!line_split(line, &pl, e)) 
         {   e.line_num++;  
-            line_num++; 
             continue; }
 
         /*step 3*/
-        if (pl.kind == LINE_EMPTY || pl.kind ==  LINE_COMMENT || pl.kind == LINE_INVALID){line_num++; continue;}
+        if (pl.kind == LINE_EMPTY || pl.kind ==  LINE_COMMENT || pl.kind == LINE_INVALID){e.line_num++; continue;}
         
         /*step 4*/
         if (pl.label[0] != '\0'){/*step 5*/ has_label = 1;}
@@ -74,14 +74,14 @@ Bool first_pass(FILE *am, const char *filename, int *icf_out, int *dcf_out)
                 }
                 add_data_line('\0',1);
                 dc = dc + 1;
-                line_num++;
+                e.line_num++;
                 continue;
             }
             else
             {   
                int amunt = operands_split(pl.rest,ops,e);
                 add_directive_data(amunt,ops,pl.name,&dc);
-                line_num++;
+                e.line_num++;
                 continue;
             }
         }
@@ -89,14 +89,14 @@ Bool first_pass(FILE *am, const char *filename, int *icf_out, int *dcf_out)
         if(strcmp(pl.name,".entry") == 0)
         {
             /*step 10*/
-            line_num++;
+            e.line_num++;
             continue;
         }
         else if (strcmp(pl.name,".extern") == 0)
         {
             /*step 11*/
             symbol_add(pl.rest,S_EXTERNAL,0);
-            line_num++;
+            e.line_num++;
             continue;   
         }
         
@@ -118,7 +118,7 @@ Bool first_pass(FILE *am, const char *filename, int *icf_out, int *dcf_out)
                 Line e;
                 e.file_name = filename; e.line_num = line_num; e.data = line;
                 err_report(e, ERR_CODE_21);   /* "Instruction does not exist." */
-                line_num++;
+                e.line_num++;
                 continue;
             }
             
@@ -132,6 +132,7 @@ Bool first_pass(FILE *am, const char *filename, int *icf_out, int *dcf_out)
             add_code_line(full_instruction_str,all_in_one);
         
             /*step 16*/
+            e.line_num++;
             ic = ic + 4;
         }
     }
@@ -176,6 +177,19 @@ void add_directive_data(int pram_num , char ops[][81],char name[],int *dc)
         add_data_line(test,size);
         (*dc) = (*dc) + (size);     
     }
+}
+unsigned int parse_register(const char s[],Line line){
+
+    unsigned int value;
+    /*convert the char to be a number*/
+    value = atol(s);
+    /*if it is a valide register its need to be up to 31 from 0*/
+    if (value >= 0 && value <= 31)
+    {
+        return value;
+    }
+    err_report(line,ERR_CODE_14);
+    return FALSE;
 }
 unsigned long to_binery(Parsed_line pl, char ops[][81],Line line){
 
@@ -226,7 +240,7 @@ unsigned long to_binery(Parsed_line pl, char ops[][81],Line line){
         }
         else
         {
-            j_machine_code.fields.reg = (parse_number(ops[0]) == FALSE) ? 0 : 1;
+            j_machine_code.fields.reg = (isdigit(ops[0][0]) == FALSE) ? 0 : 1;
             j_machine_code.fields.address = (j_machine_code.fields.reg == 0 ) ? 63 : parse_register(ops[0],line);
         }
         

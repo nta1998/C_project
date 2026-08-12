@@ -45,23 +45,10 @@ Bool line_split(const char *raw, Parsed_line *out, Line line);
  * @param s row pointer to a string
  * @return a Bool TRUE/FALSE
  */
-Bool is_valid_label(Parsed_line *s);
+Bool is_valid_label(char *s,Line line);
 
-/**
- * This function check if the given string is a reserved word 
- * reserved words are operands types (R,I,J) 
- * @param s a pointer to a string we need to check
- * @return a Bool TRUE/FALSE
- */
-Bool it_is_reserved_word(const char *s);
 
-/**
- * This function check if the given string is a valid number (whole numbers positive or negative only) 
- * @param s a pointer to a string we need to check
- * @param out a pointer of long type 
- * @return a Bool TRUE/FALSE
- */
-Bool parse_number(const char *s); 
+
 
 /**
  * This function split the operands part of a line into an array of strings
@@ -72,25 +59,14 @@ Bool parse_number(const char *s);
  * @param ln the line number of the row in the source file
  * @return number of operands found or -1 if error
  */
-int operands_split(char *rest, char ops[][81],Line line);
+int operands_split(Parsed_line *rest, char ops[][81],Line line);
 
-/**
- * This function parse a register name and return the register number
- * @param s a pointer to a string we need to parse
- * @return the register number or -1 if error
- */
-unsigned int parse_register(const char *s, Line line);
 Bool is_directive_word(const char *s);
 void skip_white_space(const char *raw, int *i);
-void splid_label(const char *raw, Parsed_line *out ,int *i);
-Bool it_is_space(char c);
 void kind_test(Parsed_line *out,Line line);
-void move_form_label_to_name(Parsed_line *out);
 void splid_rest(const char *raw, Parsed_line *out ,int *i);
-void splid_name(const char *raw, Parsed_line *out ,int *i);
-void splid_label(const char *raw, Parsed_line *out ,int *i);
-void skip_white_space(const char *raw, int *i);
-
+void splid_name(const char *raw, Parsed_line *out ,int *i,Line line);
+void splid_label(const char *raw, Parsed_line *out ,int *i,Line line);
 
 #endif
  

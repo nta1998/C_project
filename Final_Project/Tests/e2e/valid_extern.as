@@ -1,5 +1,3 @@
-; בדיקת סמלים חיצוניים: .extern יוצר קובץ .ext עם כל מקום שימוש
-; כל שימוש ב-EXT_FUNC / EXT_DATA אמור להירשם בנפרד בקובץ ה-.ext
 
 .extern EXT_FUNC
 .extern EXT_DATA

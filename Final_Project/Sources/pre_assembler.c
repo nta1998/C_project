@@ -125,10 +125,19 @@ static Bool is_instruction_word(const char *name){
  * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
 */
 Bool is_reserved_word(const char *name){
-    int i;
-    const char *reserved_words[] = {"dh", "dw", "db", "asciz", "entry", "extern"};
-    for (i=0; i < (int)(sizeof(reserved_words)/sizeof(reserved_words[0])); i++){
-        if(strcmp(name,reserved_words[i]) == 0){return TRUE;} 
+    int i, num_keywords;
+    const char *keywords[] = {
+        "auto", "break", "case", "char", "const", "continue", "default", "do",
+        "double", "else", "enum", "extern", "float", "for", "goto", "if",
+        "int", "long", "register", "return", "short", "signed", "sizeof", "static",
+        "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"
+    };
+    num_keywords = sizeof(keywords) / sizeof(keywords[0]);
+
+    for (i = 0; i < num_keywords; i++) {
+        if (strcmp(name, keywords[i]) == 0) {
+            return TRUE;
+        }
     }
     return FALSE;
 }
@@ -204,7 +213,8 @@ Bool pre_assembler(const char *as_file, const char *am_file){
         return FALSE;
     }
 
-    while (fgets(line, MAX_LINE_LEN, origin_file) != NULL){
+
+    while (fgets(line,MAX_LINE_LEN, origin_file) != NULL){
         curr_line.line_num ++;
         curr_line.data = line;
         if(curr_mcro == NULL){
