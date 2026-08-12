@@ -7,6 +7,13 @@
 #include "errors.h"
 
 /**
+ * Function that checks whether the current name is reserved word.
+ * @param name: pointer to the current name.
+ * @return a Bool indicating whether the name is valid (TRUE) or not (FALSE).
+*/
+Bool is_reserved_word(const char *name)
+
+/**
  * The function role is to perform the pre-assembly stage of the assembler.
  * It reads the input assembly file, processes macro definitions and calls,
  * and generates an output file with expanded macros.
