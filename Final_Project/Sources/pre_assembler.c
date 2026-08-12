@@ -220,7 +220,8 @@ Bool pre_assembler(const char *as_file, const char *am_file){
         return FALSE;
     }
 
-    while (fgets(line, MAX_LINE_LEN, origin_file) != NULL){
+
+    while (fgets(line,MAX_LINE_LEN, origin_file) != NULL){
         curr_line.line_num ++;
         curr_line.data = line;
         if(curr_mcro == NULL){

@@ -16,8 +16,9 @@
 # The script never modifies a source file and never writes into Tests/.
 # All assembling happens inside a temporary directory.
 #
-# Output is English on purpose: terminals without BiDi support (the VSCode
-# integrated terminal among them) render Hebrew reversed.
+# The script's own labels are English. Text quoted from the sources is
+# printed in full, with right-to-left runs pre-reversed by strip_rtl so it
+# stays readable on terminals without BiDi support.
 #
 # Usage:
 #   bash Tests/e2e/run_check.sh valid_macro       a case name from Tests/e2e
@@ -37,6 +38,29 @@ trap 'rm -rf "$WORK"' EXIT
 
 RED=$'\033[31m'; GRN=$'\033[32m'; YEL=$'\033[33m'
 BLD=$'\033[1m'; DIM=$'\033[2m'; RST=$'\033[0m'
+
+# ---------------------------------------------------------------------------
+# strip_rtl
+# Reverses right-to-left runs so they survive a terminal without BiDi support.
+#
+# The test sources carry Hebrew comments. A terminal that does not implement
+# the BiDi algorithm - the VSCode integrated terminal among them - prints a
+# Hebrew run in byte order, which reads backwards. Pre-reversing each run
+# cancels that out, so the text arrives readable.
+#
+# Nothing is hidden: every character of the line is printed. Only the order
+# within an RTL run changes, and only to undo the terminal's own reordering.
+# ---------------------------------------------------------------------------
+strip_rtl() {
+    perl -CSD -pe '
+        s/([\x{0590}-\x{05FF}][\x{0590}-\x{05FF}\s\x{200f}\x{200e}]*)/
+            my $r = $1;
+            my ($tail) = $r =~ \/(\s*)$\/;
+            $r =~ s|\s*$||;
+            scalar(reverse($r)) . $tail
+        /ge;
+    ' 2>/dev/null || cat
+}
 
 RUN_MEM=1
 TARGETS=""
@@ -105,7 +129,7 @@ print_source_errors() {
             if [ "$line_no" -gt "$total" ]; then
                 printf '    %s\n' "${DIM}       | ${RST}${YEL}(line $line_no is past the end of the file - only $total lines)${RST}"
             else
-                text=$(sed -n "${line_no}p" "$src")
+                text=$(sed -n "${line_no}p" "$src" | strip_rtl)
                 if [ -z "$(printf '%s' "$text" | tr -d '[:space:]')" ]; then
                     printf '    %s\n' "${DIM}       | ${RST}${YEL}(this line is blank - the reported line number looks wrong)${RST}"
                 else

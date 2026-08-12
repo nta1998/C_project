@@ -1,5 +1,3 @@
-; שגיאות בשלב המעבר השני (ERR_CODE_30 עד ERR_CODE_33)
-; אף קובץ פלט לא אמור להיווצר
 
 .extern EXT_SYM
 .extern BOTH_SYM

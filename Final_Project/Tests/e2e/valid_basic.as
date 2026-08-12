@@ -1,5 +1,3 @@
-; בדיקה בסיסית: הוראות מכל סוג, תוויות ו-.entry
-; מכסה R_A_TYPE, R_C_TYPE, I_A_TYPE, I_B_TYPE, I_M_TYPE, J_TYPE
 
 MAIN:	add $3, $5, $9
 	sub $2, $1, $4

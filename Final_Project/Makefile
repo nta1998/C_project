@@ -102,6 +102,19 @@ e2e-bless: $(TARGET)
 check: $(TARGET)
 	bash Tests/e2e/run_check.sh $(CASE) $(FILE) $(if $(filter 0,$(MEM)),--no-mem,)
 
+# השוואה שורה-שורה מול קובץ הציפיות. בעוד 'check' עונה "כמה שגיאות יש",
+# היעד הזה עונה "איזו שורה שגויה ומה היה אמור לצאת בה" - כלומר מצביע על
+# הבדיקה החסרה בקוד במקום לדווח מספר.
+#
+# הציפיות נקראות ישירות מקובץ ה-.expected.txt, כך שהן קיימות במקום אחד
+# בלבד: עריכת קובץ הבסיס משנה את הבדיקה, בלי עותק שני שיכול להתיישן.
+#
+# כל שורה מסווגת: ok / MISSED (בדיקה חסרה) / wrong code / false positive.
+#   make expect                              כל קובץ שיש לו בסיס
+#   make expect FILE=Tests/first_pass_errors.as
+expect: $(TARGET)
+	bash Tests/e2e/run_expect.sh $(FILE)
+
 # דרייבר מבודד ל-first_pass: מריץ אותו לבד ומדפיס את טבלת הסמלים,
 # תמונת הקוד ותמונת הנתונים. שימושי לאיתור באגים בלי הפרה-אסמבלר.
 #   make fp_driver FILE=Tests/e2e/valid_basic.as
@@ -147,4 +160,4 @@ endif
 # כל הבדיקות יחד
 test: test_parser e2e
 
-.PHONY: clean clean-output debug test e2e e2e-bless check test_parser fp_driver parser_driver sp_driver
+.PHONY: clean clean-output debug test e2e e2e-bless check expect test_parser fp_driver parser_driver sp_driver

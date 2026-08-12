@@ -10,8 +10,9 @@
 # The script never modifies a source file and never writes into Tests/.
 # All assembling happens inside a temporary directory.
 #
-# Output is English on purpose: terminals without BiDi support (the VSCode
-# integrated terminal among them) render Hebrew reversed.
+# The script's own labels are English. Text quoted from the sources is
+# printed in full, with right-to-left runs pre-reversed by strip_rtl so it
+# stays readable on terminals without BiDi support.
 #
 # Usage:
 #   bash Tests/e2e/run_e2e.sh              run all tests
@@ -113,15 +114,19 @@ compare_file() {
 
 # ---------------------------------------------------------------------------
 # side_by_side <expected> <actual>
-# Prints the two files in aligned columns with differing rows marked, so the
-# wrong byte can be spotted by eye without reading diff syntax. Lines are
-# compared by position: these are fixed-format output files, so row N of the
-# expected output should be row N of the actual output.
+# Shows the differing rows stacked - expected above actual - rather than in
+# two columns. Two columns forced every message to be cut to ~32 characters,
+# which hid the part that actually differed; stacking gives each line the
+# full terminal width, so nothing is truncated.
+#
+# Only differing rows are printed, each with a caret marking the first column
+# where the two strings part company. That column is usually the whole story
+# (a wrong line number, a wrong opcode byte).
 # ---------------------------------------------------------------------------
 side_by_side() {
     local expected="$1" actual="$2"
 
-    awk -v red="$RED" -v dim="$DIM" -v rst="$RST" \
+    awk -v red="$RED" -v grn="$GRN" -v dim="$DIM" -v rst="$RST" \
         -v expfile="$expected" -v actfile="$actual" '
     BEGIN {
         ne = 0; na = 0
@@ -129,41 +134,66 @@ side_by_side() {
         while ((getline line < actfile) > 0) { a[++na] = line }
         max = (ne > na) ? ne : na
 
-        # Column width follows the widest real line, clamped so that two
-        # columns plus the gutters still fit an 80-column terminal.
-        w = 5
+        ndiff = 0
         for (i = 1; i <= max; i++) {
-            if (length(e[i]) > w) w = length(e[i])
-            if (length(a[i]) > w) w = length(a[i])
-        }
-        if (w > 32) w = 32
+            le = (i <= ne) ? e[i] : "(missing - expected output has no such line)"
+            la = (i <= na) ? a[i] : "(missing - the assembler printed nothing here)"
+            if (le == la) { nsame++; continue }
 
-        printf "      %-4s %-*s   %-*s\n", "line", w, "expected", w, "actual"
-        printf "      %-4s %-*s   %-*s\n", "----", w, substr(dashes(w), 1, w), w, substr(dashes(w), 1, w)
+            ndiff++
+            # Cap the report. A run that differs everywhere would otherwise
+            # scroll the useful first difference off the screen.
+            if (ndiff > 15) continue
 
-        shown = 0
-        for (i = 1; i <= max; i++) {
-            le = (i <= ne) ? e[i] : "(missing)"
-            la = (i <= na) ? a[i] : "(missing)"
-            same = (le == la)
+            printf "      %sline %d%s\n", red, i, rst
+            printf "        expected: %s\n", le
+            printf "        actual:   %s%s%s\n", red, la, rst
 
-            # Identical rows are context. Show a few, then only differences,
-            # so a one-byte error in a long file stays visible.
-            if (same && shown >= 12) continue
-            shown++
-
-            if (same) {
-                printf "      %-4d %-*s   %-*s\n", i, w, trunc(le, w), w, trunc(la, w)
-            } else {
-                printf "      %s%-4d%s %-*s   %s%-*s%s  %s<-%s\n", \
-                    red, i, rst, w, trunc(le, w), red, w, trunc(la, w), rst, red, rst
+            # Point at the first differing character, when both sides exist.
+            # The caret sits under the text itself, so the padding must match
+            # the "        actual:   " prefix exactly - 8 spaces of indent
+            # plus the 10-character label - or it points at the wrong byte.
+            if (i <= ne && i <= na) {
+                n = (length(le) < length(la)) ? length(le) : length(la)
+                for (c = 1; c <= n; c++)
+                    if (substr(le, c, 1) != substr(la, c, 1)) break
+                printf "%*s%s^ first difference at column %d%s\n", \
+                    18 + c - 1, "", dim, c, rst
             }
         }
-        if (max > shown) printf "      %s... %d more identical line(s)%s\n", dim, max - shown, rst
+
+        if (ndiff > 15)
+            printf "      %s... and %d more differing line(s)%s\n", dim, ndiff - 15, rst
+        if (nsame > 0)
+            printf "      %s(%d line(s) matched)%s\n", dim, nsame, rst
     }
-    function trunc(s, n) { return (length(s) > n) ? substr(s, 1, n - 1) "~" : s }
-    function dashes(n,  s, i) { s = ""; for (i = 0; i < n; i++) s = s "-"; return s }
     '
+}
+
+# ---------------------------------------------------------------------------
+# strip_rtl
+# Reverses right-to-left runs so they survive a terminal without BiDi support.
+#
+# The test sources carry Hebrew comments. A terminal that does not implement
+# the BiDi algorithm - the VSCode integrated terminal among them - prints a
+# Hebrew run in byte order, which reads backwards. Pre-reversing each run
+# cancels that out, so the text arrives readable.
+#
+# Nothing is hidden: every character of the line is printed. Only the order
+# within an RTL run changes, and only to undo the terminal's own reordering.
+# ---------------------------------------------------------------------------
+strip_rtl() {
+    perl -CSD -pe '
+        # Hebrew block U+0590-U+05FF, plus marks and punctuation that belong
+        # to the run. Adjacent spaces are included so words stay together;
+        # trailing space is put back after the reversal.
+        s/([\x{0590}-\x{05FF}][\x{0590}-\x{05FF}\s\x{200f}\x{200e}]*)/
+            my $r = $1;
+            my ($tail) = $r =~ \/(\s*)$\/;
+            $r =~ s|\s*$||;
+            scalar(reverse($r)) . $tail
+        /ge;
+    ' 2>/dev/null || cat
 }
 
 # ---------------------------------------------------------------------------
@@ -201,7 +231,7 @@ show_outputs() {
                 fi
             done < "$f"
         else
-            sed 's/^/      /' "$f"
+            strip_rtl < "$f" | sed 's/^/      /'
         fi
     done
 
@@ -212,7 +242,7 @@ show_outputs() {
     # stdout matters too: it carries the error report when one was printed.
     if [ -s "$sandbox/stdout.txt" ]; then
         printf '  %s\n' "${BLD}stdout${RST}"
-        sed 's/^/      /' "$sandbox/stdout.txt"
+        strip_rtl < "$sandbox/stdout.txt" | sed 's/^/      /'
     fi
 }
 
@@ -277,7 +307,7 @@ run_case() {
         # A valid case must report no errors at all.
         if grep -qE 'Error \[' "$sandbox/stdout.txt"; then
             printf '  %s\n' "${RED}unexpected errors${RST}"
-            grep -E 'Error \[' "$sandbox/stdout.txt" | head -8 | sed 's/^/      /'
+            grep -E 'Error \[' "$sandbox/stdout.txt" | head -8 | strip_rtl | sed 's/^/      /'
             ok=0
         fi
 
