@@ -12,13 +12,13 @@
  * @param LINE_INSTRUCTION:Line starting with a recognized instruction opcode.
  */
  
-typedef enum LineKind{
+typedef enum {
   LINE_INVALID,
   LINE_EMPTY,
   LINE_COMMENT, 
   LINE_DIRECTIVE, 
   LINE_INSTRUCTION 
-}LINE_KIND;
+} LINE_KIND;
 
 /** Holds the result of splitting/parsing a single source line into its components :
  * @param kind:Category of the line (empty, comment, directive, instruction).
