@@ -1,6 +1,8 @@
 /**
  * @file parser.c
- * @brief This file contains ...
+ * @brief This file role is to split a raw source line into a Parsed_line
+ * (label, name and operand text), and to validate and split its operands
+ * according to whether the line is a directive or an instruction.
 */
 
 #include <stdio.h>
@@ -19,13 +21,15 @@
 
 /**
  * Static variable (limited to this file only):
- * @param curr_word : store the current error count.
+ * @param curr_word : buffer that stores the current word extracted from the line being parsed.
 */
 static char curr_word[MAX_LINE_LEN+1];
 
 /**
- * 
- */
+ * Static function that checks whether all characters of name, excluding the last one, are alphanumeric.
+ * @param name: pointer to the current word to check.
+ * @return a Bool indicating whether the characters are valid (TRUE) or not (FALSE).
+*/
 static Bool chars_are_valid(char *name){
     int i;
     for(i=0; i < strlen(name)-1; i++){
@@ -36,6 +40,14 @@ static Bool chars_are_valid(char *name){
     return TRUE;
 }
 
+/**
+ * Static function that checks whether op is a valid signed integer within the range [min, max], and reports an error otherwise.
+ * @param line: the current line's context, used for error reporting.
+ * @param op: pointer to the operand string to validate.
+ * @param min: the minimum allowed value.
+ * @param max: the maximum allowed value.
+ * @return a Bool indicating whether op is a valid number in range (TRUE) or not (FALSE).
+*/
 static Bool is_valid_num(Line line, char *op, long min, long max){
     long val;
     int i = 0;
@@ -63,6 +75,15 @@ static Bool is_valid_num(Line line, char *op, long min, long max){
     return TRUE;
 }
 
+/**
+ * Static function that splits rest into a comma-separated list of numbers, validates each one against [min, max], and stores the results in values_out.
+ * @param rest: pointer to the operand text to split (a comma-separated list of numbers).
+ * @param min: the minimum allowed value for each number.
+ * @param max: the maximum allowed value for each number.
+ * @param line: the current line's context, used for error reporting.
+ * @param values_out: array to fill with the parsed numeric values.
+ * @return the number of values found, or -1 if an error was found.
+*/
 static int nums_are_valid(char *rest, long min, long max, Line line, long values_out[]){
 
     char values[MAX_LINE_LEN];
@@ -127,6 +148,11 @@ static int nums_are_valid(char *rest, long min, long max, Line line, long values
     return count;
 }
 
+/**
+ * Static function that checks whether name matches one of the known directive words (.dh, .dw, .db, .asciz, .entry, .extern).
+ * @param name: pointer to the current word to check.
+ * @return a Bool indicating whether name is a directive word (TRUE) or not (FALSE).
+*/
 static Bool is_directive_word(const char *name){
     int i ;
     const char *directive_words[] = {".dh", ".dw", ".db", ".asciz", ".entry", ".extern"};
@@ -141,6 +167,11 @@ static Bool is_directive_word(const char *name){
     return FALSE;
 }
 
+/**
+ * Static function that checks whether op has valid label syntax: starts with a letter, followed by letters/digits only, and does not exceed the maximum label length.
+ * @param op: pointer to the word to check.
+ * @return a Bool indicating whether op has valid label syntax (TRUE) or not (FALSE).
+*/
 static Bool is_valid_label_syntax(const char *op){
     int i;
     if (!isalpha((unsigned char)op[0])) {
@@ -154,6 +185,12 @@ static Bool is_valid_label_syntax(const char *op){
     return (strlen(op) <= MAX_LABEL_LEN);
 }
 
+/**
+ * Static function that checks whether curr_word is a valid label definition: not empty, made of valid characters, within the maximum length, not an instruction/mcro/reserved name, and ends with ':'. Reports an error otherwise. On success, strips the trailing ':' from curr_word.
+ * @param line: the current line's context, used for error reporting.
+ * @param curr_word: pointer to the label word to validate (including the trailing ':').
+ * @return a Bool indicating whether curr_word is a valid label name (TRUE) or not (FALSE).
+*/
 static Bool is_valid_label_name(Line line, char *curr_word){
 
     if (!curr_word[0]){
@@ -192,6 +229,12 @@ static Bool is_valid_label_name(Line line, char *curr_word){
     return TRUE;
 }
 
+/**
+ * Static function that checks whether op is a valid register operand: starts with '$' followed by digits, within the range [FIRST_REG, LAST_REG]. Reports an error otherwise.
+ * @param line: the current line's context, used for error reporting.
+ * @param op: pointer to the operand string to validate.
+ * @return a Bool indicating whether op is a valid register (TRUE) or not (FALSE).
+*/
 static Bool is_valid_reg(Line line, char *op){
     int i,val;
     if (op[0] != '$' || op[1] == '\0'){
@@ -212,6 +255,16 @@ static Bool is_valid_reg(Line line, char *op){
     return TRUE;
 }
 
+/**
+ * Static function that validates the operand count and syntax of op1, op2 and op3 according to the instruction type stored in curr_line, and reports an error otherwise.
+ * @param op1: pointer to the first operand string.
+ * @param op2: pointer to the second operand string.
+ * @param op3: pointer to the third operand string.
+ * @param curr_line: pointer to the parsed line, used to determine the instruction type and name.
+ * @param count: pointer to the number of operands found.
+ * @param line: the current line's context, used for error reporting.
+ * @return a Bool indicating whether the operands are valid for the instruction (TRUE) or not (FALSE).
+*/
 static Bool is_valid_instruction(char *op1, char *op2, char *op3, Parsed_line *curr_line, int *count, Line line){
 
     if (curr_line->instruction->type == R_A_TYPE){
@@ -223,7 +276,6 @@ static Bool is_valid_instruction(char *op1, char *op2, char *op3, Parsed_line *c
             return FALSE;
         }
     }
-
     if (curr_line->instruction->type == R_C_TYPE){
         if (*count != 1){
             err_report(line, ERR_CODE_10);
@@ -234,7 +286,6 @@ static Bool is_valid_instruction(char *op1, char *op2, char *op3, Parsed_line *c
         }
 
     }
-
     if (curr_line->instruction->type == I_B_TYPE){
         if (*count != 2){
             err_report(line, ERR_CODE_10);
@@ -247,7 +298,6 @@ static Bool is_valid_instruction(char *op1, char *op2, char *op3, Parsed_line *c
             return FALSE;
         }
     }
-
     if ((curr_line->instruction->type == I_A_TYPE) || (curr_line->instruction->type == I_M_TYPE)){
         if (*count != 2){
             err_report(line, ERR_CODE_10);
@@ -257,7 +307,6 @@ static Bool is_valid_instruction(char *op1, char *op2, char *op3, Parsed_line *c
             return FALSE;
         }
     }
-
     if (curr_line->instruction->type == J_TYPE){
         if (strcmp(curr_line->name, "hlt") == 0){
             if (*count != 0){
@@ -294,11 +343,18 @@ static Bool is_valid_instruction(char *op1, char *op2, char *op3, Parsed_line *c
                 }
             }
         }
-
     }
     return TRUE;
 }
 
+/**
+ * Static function that splits curr_line->rest into a comma-separated list of instruction operands, then validates them against the instruction's type.
+ * @param line: the current line's context, used for error reporting.
+ * @param curr_line: pointer to the parsed line, holding the operand text in rest.
+ * @param ops: array to fill with the split operand strings.
+ * @param count_out: pointer to the number of operands found, updated while splitting.
+ * @return a Bool indicating whether the operands were split and validated successfully (TRUE) or not (FALSE).
+*/
 static Bool split_instruction_operands(Line line, Parsed_line *curr_line, char ops[MAX_OPERANDS][MAX_OPERAND_LEN], int *count_out){
 
     int i,j;
@@ -337,10 +393,17 @@ static Bool split_instruction_operands(Line line, Parsed_line *curr_line, char o
         }
     }
     ops[*count_out][j] = '\0';
-
     return is_valid_instruction(ops[0],ops[1],ops[2], curr_line, count_out, line);
 }
 
+/**
+ * Static function that validates and, when relevant, splits curr_line->rest according to the directive stored in curr_line->name (.asciz, .db, .dh or .dw).
+ * @param line: the current line's context, used for error reporting.
+ * @param curr_line: pointer to the parsed line, holding the directive name in name and the operand text in rest.
+ * @param values_out: array to fill with the parsed numeric values (for .db, .dh and .dw).
+ * @param count_out: pointer to the number of values found.
+ * @return a Bool indicating whether the operands are valid for the directive (TRUE) or not (FALSE).
+*/
 static Bool split_directive_operands(Line line, Parsed_line *curr_line, long values_out[], int *count_out){
 
     if (strcmp(curr_line->name, ".asciz") == 0){
@@ -348,12 +411,10 @@ static Bool split_directive_operands(Line line, Parsed_line *curr_line, long val
             err_report(line, ERR_CODE_18);
             return FALSE;
         }
-
         if (curr_line->rest[strlen(curr_line->rest)-1] != '"'){
             err_report(line, ERR_CODE_19);
             return FALSE;
         }
-
         return TRUE;
     }
     if (strcmp(curr_line->name, ".db") == 0){
@@ -368,9 +429,32 @@ static Bool split_directive_operands(Line line, Parsed_line *curr_line, long val
         *count_out = nums_are_valid(curr_line->rest, MIN_DW_OP, MAX_DW_OP, line, values_out);
         return (*count_out != -1);    
     }
-    
     return TRUE;
+}
 
+/**
+ * Static function that advances start_index past any whitespace characters in line.
+ * @param start_index: pointer to the current index within line.data, advanced past whitespace.
+ * @param line: the current line's context.
+*/
+static void skip_white_space(int *start_index, Line line){
+    while (isspace(line.data[*start_index])) {
+        (*start_index)++;}
+}
+
+/**
+ * Static function that copies the next whitespace-delimited word from line.data into curr_word, starting at start_index, and advances start_index past it.
+ * @param start_index: pointer to the current index within line.data, advanced past the copied word.
+ * @param line: the current line's context.
+*/
+static void find_next_word(int *start_index, Line line){
+    int i=0;
+    while (line.data[*start_index] != '\0' && !isspace(line.data[*start_index])) {
+        curr_word[i] =line.data[*start_index];
+        (*start_index)++;
+        i++;
+    }
+    curr_word[i] = '\0';
 }
 
 Bool is_valid_rest_split(Line line, Parsed_line *curr_line, char ops[MAX_OPERANDS][MAX_OPERAND_LEN], long values_out[], int *count_out){
@@ -380,31 +464,13 @@ Bool is_valid_rest_split(Line line, Parsed_line *curr_line, char ops[MAX_OPERAND
     if (curr_line->kind == LINE_DIRECTIVE) {
         operands_ok = split_directive_operands(line, curr_line, values_out, count_out);
     }
-
     if (curr_line->kind == LINE_INSTRUCTION) {
         operands_ok = split_instruction_operands(line, curr_line, ops, count_out);
     }
-
     if (curr_line->label[0] != '\0') {
         return (operands_ok && is_valid_label_name(line, curr_line->label));
     }
-
     return operands_ok;
-}
-
-void skip_white_space(int *start_index, Line line){
-    while (isspace(line.data[*start_index])) {
-        (*start_index)++;}
-}
-
-void find_next_word(int *start_index, Line line){
-    int i=0;
-    while (line.data[*start_index] != '\0' && !isspace(line.data[*start_index])) {
-        curr_word[i] =line.data[*start_index];
-        (*start_index)++;
-        i++;
-    }
-    curr_word[i] = '\0';
 }
 
 Bool split_line(Line line, Parsed_line *curr_line){
@@ -416,29 +482,24 @@ Bool split_line(Line line, Parsed_line *curr_line){
     curr_line->label[0] = '\0';
     curr_line->name[0] = '\0';
     curr_line->rest[0] = '\0';
-
+    
     skip_white_space(&start_index, line);
-
     if (line.data[start_index] == '\0') {
         curr_line->kind = LINE_EMPTY;
         return TRUE;
     }
-
     if (line.data[start_index] == ';') {
         curr_line->kind = LINE_COMMENT;
         return TRUE;
     }
-
     if (strlen(line.data) > MAX_LINE_LEN){
         err_report(line, ERR_CODE_9);
         return FALSE;
     }
-
     while (line.data[start_index] != '\0'){
         j=0;
         find_next_word(&start_index, line);
         curr_info = instruction_search(curr_word);
-
         if (is_directive_word(curr_word)){
             curr_line->kind = LINE_DIRECTIVE;
             strcpy(curr_line->name, curr_word);
@@ -448,13 +509,11 @@ Bool split_line(Line line, Parsed_line *curr_line){
             curr_line->instruction = curr_info;
             strcpy(curr_line->name, curr_word);
         }
-
         else{
             strcpy(curr_line->label, curr_word);
             skip_white_space(&start_index, line);
             continue;
         }
-
         skip_white_space(&start_index, line);
         while (line.data[start_index] != '\0'){
             if (!isspace(line.data[start_index])){
@@ -465,7 +524,5 @@ Bool split_line(Line line, Parsed_line *curr_line){
         }
         curr_line->rest[j] = '\0';
     }
-
-
     return TRUE;
 }
