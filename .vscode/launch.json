@@ -16,7 +16,8 @@
         "Tests/e2e/error_symbols.as",
         "Tests/first_pass_valid.as",
         "Tests/first_pass_errors.as",
-        "Tests/ps.as"
+        "Tests/ps.as",
+        "Tests/e2e/valids/all_mixed.as"
       ]
     },
     {
@@ -32,6 +33,7 @@
         "error_macro",
         "error_syntax",
         "error_symbols",
+        "all_mixed",
         ""
       ]
     }

@@ -14,7 +14,7 @@ const Instruction_info commands_list[] =
     {"or",   R_A_TYPE,  0, 4},
     {"nor",  R_A_TYPE,  0, 5},
 
-    /*R_COPY: the Copy R type the opcode is 1 and he have 3 register (rs, rt, rd) and funct */
+    /*R_COPY: the Copy R type the opcode is 1 and he have 2 register (rs, rd) and funct */
     {"move", R_C_TYPE,   1, 1},
     {"mvhi", R_C_TYPE,   1, 2},
     {"mvlo", R_C_TYPE,   1, 3},
