@@ -14,6 +14,7 @@ static void add_directive_data(int count , long values[], char name[], int *dc){
 
     int i, size ;
     size = 0;
+    i = 0;
 
     if (strcmp(name,".db") == 0){
         size = DB_BYTE_SIZE;
@@ -27,9 +28,9 @@ static void add_directive_data(int count , long values[], char name[], int *dc){
         size = DW_BYTE_SIZE;  
     }
 
-    for (i = 0; i < count; i++){
+    for (;i < count; i++){
         add_data_line(values[i], size);
-        (*dc) = (*dc) + (size);     
+        (*dc) += (size);     
     }
 }
 
@@ -63,9 +64,9 @@ static unsigned long to_binery(Parsed_line curr_line, char ops[MAX_OPERANDS][MAX
     if(curr_line.instruction->type == R_C_TYPE || curr_line.instruction->type == R_A_TYPE ){   
         r_machine_code.all_in_one = 0;
         r_machine_code.Fields.opcode = curr_line.instruction->opcode;
-        r_machine_code.Fields.rs = parse_register(ops[0],line);
-        r_machine_code.Fields.rt = (curr_line.instruction->type == R_C_TYPE) ? 0 : parse_register(ops[1],line);
-        r_machine_code.Fields.rd = (curr_line.instruction->type == R_C_TYPE) ? parse_register(ops[1] ,line): parse_register(ops[2], line);        
+        r_machine_code.Fields.rs = parse_register(ops[RS],line);
+        r_machine_code.Fields.rt = (curr_line.instruction->type == R_C_TYPE) ? 0 : parse_register(ops[RT],line);
+        r_machine_code.Fields.rd = (curr_line.instruction->type == R_C_TYPE) ? parse_register(ops[RT] ,line): parse_register(ops[RD], line);        
         r_machine_code.Fields.funct  = curr_line.instruction->funct;
         r_machine_code.Fields.unuse  = 0;
         
@@ -75,16 +76,16 @@ static unsigned long to_binery(Parsed_line curr_line, char ops[MAX_OPERANDS][MAX
     if(curr_line.instruction->type == I_A_TYPE || curr_line.instruction->type == I_B_TYPE || curr_line.instruction->type == I_M_TYPE){   
         i_machine_code.all_in_one = 0;
         i_machine_code.Fields.opcode = curr_line.instruction->opcode;
-        i_machine_code.Fields.rs = parse_register(ops[0],line);
+        i_machine_code.Fields.rs = parse_register(ops[RS],line);
 
         if (curr_line.instruction->type == I_A_TYPE || curr_line.instruction->type == I_M_TYPE){
-            i_machine_code.Fields.rt = parse_register(ops[2], line);
-            i_machine_code.Fields.immed = (unsigned int) strtol(ops[1], &endptr, 10);
+            i_machine_code.Fields.rt = parse_register(ops[RD], line);
+            i_machine_code.Fields.immed = (unsigned int) strtol(ops[RT], &endptr, DEC_BASE);
         }  
 
         if (curr_line.instruction->type == I_B_TYPE){
-            i_machine_code.Fields.rt = parse_register(ops[1], line);   
-            i_machine_code.Fields.immed = 63;
+            i_machine_code.Fields.rt = parse_register(ops[RT], line);   
+            i_machine_code.Fields.immed = QUESTION_MARK;
         
         }  
 
@@ -102,7 +103,7 @@ static unsigned long to_binery(Parsed_line curr_line, char ops[MAX_OPERANDS][MAX
 
         else{
             j_machine_code.Fields.reg = (ops[0][0] == '$') ? 1 : 0;
-            j_machine_code.Fields.address = (j_machine_code.Fields.reg == 1 ) ?  parse_register(ops[0],line) : QUESTION_MARK ;
+            j_machine_code.Fields.address = (j_machine_code.Fields.reg == 1 ) ?  parse_register(ops[RS],line) : QUESTION_MARK ;
         }
         
         return j_machine_code.all_in_one;
@@ -110,7 +111,7 @@ static unsigned long to_binery(Parsed_line curr_line, char ops[MAX_OPERANDS][MAX
     return 0;
 }
 
-Bool first_pass(FILE *am, const char *file_name, int *icf_curr_line, int *dcf_curr_line)
+Bool first_pass(FILE *am, const char *file_name, int *ICF, int *DCF)
 {
     Line line ;
     Parsed_line curr_line;
@@ -120,7 +121,7 @@ Bool first_pass(FILE *am, const char *file_name, int *icf_curr_line, int *dcf_cu
     char full_instruction_str[MAX_LINE_LEN];
     char ops[MAX_OPERANDS][MAX_OPERAND_LEN];
     unsigned long all_in_one;
-    int i,line_num, ic, dc, count;
+    int line_num, ic, dc, count;
     long values[MAX_LINE_LEN];   
 
 
@@ -133,11 +134,7 @@ Bool first_pass(FILE *am, const char *file_name, int *icf_curr_line, int *dcf_cu
 
     while (fgets(copy_line, MAX_LINE_LEN, am) != NULL){   
         count = 0;
-        
-        for (i=0; i < MAX_OPERANDS; i++){
-            ops[i][0] = '\0';
-        }
-        
+        ops[0][0] = '\0';
         is_label_def = FALSE;
         line.data = copy_line;
 
@@ -146,18 +143,18 @@ Bool first_pass(FILE *am, const char *file_name, int *icf_curr_line, int *dcf_cu
             continue; 
         }
 
-        if (curr_line.kind == LINE_EMPTY || curr_line.kind ==  LINE_COMMENT || curr_line.kind ==  LINE_INVALID){
+        if (curr_line.kind == LINE_EMPTY || curr_line.kind ==  LINE_COMMENT){
             line.line_num++; 
             continue;
         }
         
+        if (curr_line.label[0] != '\0'){
+            is_label_def = TRUE;
+        }
+
         if (!is_valid_rest_split(line, &curr_line, ops, values, &count)){
             line.line_num++;
             continue;
-        }
-
-        if (curr_line.label[0] != '\0'){
-            is_label_def = TRUE;
         }
         
         if (curr_line.kind == LINE_DIRECTIVE && strcmp(curr_line.name,".entry") != 0 && strcmp(curr_line.name,".extern") != 0 ){   
@@ -175,16 +172,15 @@ Bool first_pass(FILE *am, const char *file_name, int *icf_curr_line, int *dcf_cu
             if (strcmp(curr_line.name,".asciz") == 0){                      
                 count = 1;
                 while (curr_line.rest[count] != '"'){            
-                    add_data_line(curr_line.rest[count], 1);
+                    add_data_line(curr_line.rest[count], ASCIZ_BYTE_SIZE);
                     count++ ;
-                    dc += 1; 
                 }
-                add_data_line('\0', 1);
-                dc += 1;
+                add_data_line('\0', ASCIZ_BYTE_SIZE);
+                dc += count;
                 line.line_num++;
                 continue;
             }
-            else{   
+            else {   
                 add_directive_data(count, values, curr_line.name, &dc);
                 line.line_num++;
                 continue;
@@ -195,6 +191,7 @@ Bool first_pass(FILE *am, const char *file_name, int *icf_curr_line, int *dcf_cu
             line.line_num++;
             continue;
         }
+
         else if (strcmp(curr_line.name, ".extern") == 0){
             symbol_add(curr_line.rest, S_EXTERNAL, 0);
             line.line_num++;
@@ -217,7 +214,7 @@ Bool first_pass(FILE *am, const char *file_name, int *icf_curr_line, int *dcf_cu
             add_code_line(full_instruction_str, all_in_one);
         
             line.line_num++;
-            ic += 4;
+            ic += HALF_BYTE;
         }
     }
 
@@ -225,10 +222,11 @@ Bool first_pass(FILE *am, const char *file_name, int *icf_curr_line, int *dcf_cu
         return FALSE;
     }
     
-    *icf_curr_line = ic;
-    *dcf_curr_line = dc;
+    *ICF = ic;
+    *DCF = dc;
 
-    symbol_table_shift_data(*icf_curr_line);
+    symbol_table_shift_data(*ICF);
+    data_image_table_shift_data(*ICF);
 
     return TRUE;
 } 

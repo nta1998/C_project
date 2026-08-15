@@ -49,9 +49,7 @@ Bool second_pass(const char *file_name){
         curr_line.data = line;
         split_line(curr_line, &parsed_line);
 
-        if (parsed_line.kind == LINE_INVALID ||
-            parsed_line.kind == LINE_EMPTY || 
-            parsed_line.kind == LINE_COMMENT) {
+        if (parsed_line.kind == LINE_EMPTY || parsed_line.kind == LINE_COMMENT) {
             continue;
         }
 
@@ -106,11 +104,8 @@ Bool second_pass(const char *file_name){
         }
 
         if (curr_instruction->type == I_B_TYPE){
-            label_name = strrchr(parsed_line.rest, ',')+1;
 
-            while (isspace(*label_name)) {
-                *label_name++;
-            }
+            label_name = strrchr(parsed_line.rest, ',')+1;
             curr_symbol = symbol_search(label_name);
             
             if (curr_symbol == NULL){
