@@ -48,7 +48,6 @@ static Error errors[] = {
     {ERR_CODE_31, "A symbol defined as an '.extern' was redefined as an '.entry'."},
     {ERR_CODE_32, "A symbol defined as an '.entry' was redefined as an '.extern'."},
     {ERR_CODE_33, "An external symbol cannot be the target of a conditional branch instruction."},
-    {ERR_CODE_LAST, "CHECK."}, 
 };
 
 void err_reset(void){
