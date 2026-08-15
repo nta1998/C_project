@@ -1,0 +1,3 @@
+Error [error_symbols.am:5]: A symbol not defined in the symbol table was used.
+Error [error_symbols.am:6]: A symbol not defined in the symbol table was used.
+Error [error_symbols.am:7]: A symbol not defined in the symbol table was used.

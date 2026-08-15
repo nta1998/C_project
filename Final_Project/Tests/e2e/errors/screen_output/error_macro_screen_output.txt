@@ -1,0 +1,7 @@
+Error [error_macro.as:3]: Invalid mcro name, identical to an instruction name.
+Error [error_macro.as:7]: Invalid mcro name, does not start with a letter.
+Error [error_macro.as:11]: Invalid mcro name, does not start with a letter.
+Error [error_macro.as:15]: Invalid mcro name, there is an unauthorized character.
+Error [error_macro.as:19]: Extra text on the same line before or after mcro name definition.
+Error [error_macro.as:25]: Extra text on the same line after mcroend.
+Error [error_macro.as:31]: Mcro definition repeats more than once.

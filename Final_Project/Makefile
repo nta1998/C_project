@@ -45,8 +45,8 @@ clean:
 # מחיקתם לא הייתה נראית כשגיאה - הבדיקות פשוט היו מדווחות
 # 'not verified' ועוברות, כלומר הופכות לירוקות בלי לבדוק דבר.
 #
-# ההחרגה תופסת גם 'expected' וגם 'Exepted' (שגיאת כתיב שקיימת בפרויקט),
-# כי התאמה לפי שם מדויק הייתה מחמיצה את השנייה ומוחקת קבצים אמיתיים.
+# ההחרגה תופסת כל תיקיית 'expected' בכל עומק (Tests/expected,
+# Tests/e2e/valids/expected, Tests/e2e/errors/expected).
 #
 # הערה על find: אי אפשר להשתמש כאן ב--delete, כי הוא מפעיל -depth
 # אוטומטית ואז -prune מפסיק לעבוד - כלומר קבצי הבסיס היו נמחקים.
@@ -56,7 +56,7 @@ clean:
 # מדולג במפורש, כי פלט זמני לעולם אינו במעקב. גם אם ייווצר בעתיד ספריית
 # בסיס בשם אחר, קבציה לא יימחקו.
 clean-output:
-	@find Tests \( -type d \( -iname 'expected' -o -iname 'exepted' \) -prune \) -o \
+	@find Tests \( -type d -iname 'expected' -prune \) -o \
 		-type f \( -name '*.am' -o -name '*.ob' -o -name '*.ent' -o -name '*.ext' \) \
 		-print | while read -r f; do \
 			if git ls-files --error-unmatch "$$f" >/dev/null 2>&1; then \
@@ -117,7 +117,7 @@ expect: $(TARGET)
 
 # דרייבר מבודד ל-first_pass: מריץ אותו לבד ומדפיס את טבלת הסמלים,
 # תמונת הקוד ותמונת הנתונים. שימושי לאיתור באגים בלי הפרה-אסמבלר.
-#   make fp_driver FILE=Tests/e2e/valid_basic.as
+#   make fp_driver FILE=Tests/e2e/valids/valid_basic.as
 # בלי FILE הוא רק נבנה, ואפשר להריץ ידנית: ./build/fp_driver <file>
 FP_SOURCES = Tests/fp_driver.c Sources/first_pass.c Sources/parser.c \
              Sources/instructions.c Sources/errors.c Sources/symbol_table.c \
@@ -132,7 +132,7 @@ endif
 # דרייבר מבודד ל-parser: מריץ את line_split על כל שורה ומדפיס איך היא
 # פורקה - סוג, תווית, שם ואופרנדים. השלב היחיד שבאמת מבודד: הוא אינו
 # נוגע בטבלת הסמלים ולא בתמונת הזיכרון.
-#   make parser_driver FILE=Tests/e2e/valid_basic.as
+#   make parser_driver FILE=Tests/e2e/valids/valid_basic.as
 PARSER_SOURCES = Tests/parser_driver.c Sources/parser.c \
                  Sources/instructions.c Sources/errors.c
 
@@ -145,7 +145,7 @@ endif
 # דרייבר ל-second_pass: מריץ first_pass ואז second_pass, ומדפיס את
 # הטבלאות פעמיים כדי שיהיה אפשר לראות מה המעבר השני שינה. אינו מבודד -
 # second_pass קורא את הטבלאות ש-first_pass בנה ולכן חייב לרוץ אחריו.
-#   make sp_driver FILE=Tests/e2e/valid_basic.as
+#   make sp_driver FILE=Tests/e2e/valids/valid_basic.as
 SP_SOURCES = Tests/sp_driver.c Sources/first_pass.c Sources/second_pass.c \
              Sources/parser.c Sources/instructions.c Sources/errors.c \
              Sources/symbol_table.c Sources/memory_image.c \

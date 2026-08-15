@@ -34,6 +34,21 @@ cd "$(dirname "$0")/../.." || exit 1
 ASSEMBLER="./assembler"
 CASE_DIR="Tests/e2e"
 WORK="$(mktemp -d)"
+
+# Cases live in Tests/e2e/valids/ or Tests/e2e/errors/.
+case_subdir() {
+    case "$1" in
+        error_*) printf 'errors' ;;
+        *)       printf 'valids' ;;
+    esac
+}
+
+# find_case <name> - resolves a bare case name to its .as path in either
+# subdirectory, or prints nothing if it does not exist in either.
+find_case() {
+    local f="$CASE_DIR/$(case_subdir "$1")/$1.as"
+    [ -f "$f" ] && printf '%s' "$f"
+}
 trap 'rm -rf "$WORK"' EXIT
 
 RED=$'\033[31m'; GRN=$'\033[32m'; YEL=$'\033[33m'
@@ -244,7 +259,7 @@ printf '%s\n\n' "${BLD}Diagnostic check${RST}"
 
 found=0
 if [ -z "$TARGETS" ]; then
-    for src in "$CASE_DIR"/*.as; do
+    for src in "$CASE_DIR"/valids/*.as "$CASE_DIR"/errors/*.as; do
         [ -f "$src" ] || continue
         found=1
         check_one "$src"
@@ -252,10 +267,11 @@ if [ -z "$TARGETS" ]; then
 else
     for t in $TARGETS; do
         # Accept either a bare case name or a path to any .as file.
+        case_path="$(find_case "$t")"
         if [ -f "$t" ]; then
             found=1; check_one "$t"
-        elif [ -f "$CASE_DIR/$t.as" ]; then
-            found=1; check_one "$CASE_DIR/$t.as"
+        elif [ -n "$case_path" ]; then
+            found=1; check_one "$case_path"
         else
             printf '%s\n' "${RED}not found:${RST} $t"
         fi

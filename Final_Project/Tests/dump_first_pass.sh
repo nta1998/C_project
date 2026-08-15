@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================================
 # dump_first_pass.sh - print what first_pass() actually produced, laid out the
-# same way as Tests/Exepted/*.expected.txt so the two can be compared.
+# same way as Tests/expected/*.expected.txt so the two can be compared.
 #
 #   bash Tests/dump_first_pass.sh Tests/first_pass_valid.as
 #       print the actual result
@@ -224,7 +224,7 @@ PYEOF
 
 if [ "$MODE" = "diff" ]; then
     base=$(basename "$AS_FILE" .as)
-    EXP="Tests/Exepted/$base.expected.txt"
+    EXP="Tests/expected/$base.expected.txt"
     if [ ! -f "$EXP" ]; then
         echo "no expected file at $EXP" >&2
         exit 2

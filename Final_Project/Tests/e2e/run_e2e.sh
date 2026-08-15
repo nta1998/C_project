@@ -30,7 +30,6 @@ cd "$(dirname "$0")/../.." || exit 1
 
 ASSEMBLER="./assembler"
 CASE_DIR="Tests/e2e"
-EXPECTED_DIR="Tests/e2e/expected"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
@@ -61,6 +60,12 @@ is_error_case() {
         error_*) return 0 ;;
         *)       return 1 ;;
     esac
+}
+
+# Cases live in Tests/e2e/valids/ or Tests/e2e/errors/, split by the same
+# rule as is_error_case. Each subdirectory carries its own expected/.
+case_subdir() {
+    if is_error_case "$1"; then printf 'errors'; else printf 'valids'; fi
 }
 
 # ---------------------------------------------------------------------------
@@ -251,7 +256,9 @@ show_outputs() {
 # ---------------------------------------------------------------------------
 run_case() {
     local name="$1"
-    local src="$CASE_DIR/$name.as"
+    local subdir="$(case_subdir "$name")"
+    local src="$CASE_DIR/$subdir/$name.as"
+    local expected_dir="$CASE_DIR/$subdir/expected"
     local sandbox="$WORK/$name"
     local ok=1
 
@@ -297,11 +304,11 @@ run_case() {
         fi
         # The reported error list is still compared, so regressions show up.
         if [ "$BLESS" = "1" ]; then
-            mkdir -p "$EXPECTED_DIR"
-            grep -oE 'Error \[[^]]*\]: .*' "$sandbox/stdout.txt" >"$EXPECTED_DIR/$name.errors.txt"
+            mkdir -p "$expected_dir"
+            grep -oE 'Error \[[^]]*\]: .*' "$sandbox/stdout.txt" >"$expected_dir/$name.errors.txt"
         else
             grep -oE 'Error \[[^]]*\]: .*' "$sandbox/stdout.txt" >"$sandbox/errors.txt"
-            compare_file "error list" "$sandbox/errors.txt" "$EXPECTED_DIR/$name.errors.txt" || ok=0
+            compare_file "error list" "$sandbox/errors.txt" "$expected_dir/$name.errors.txt" || ok=0
         fi
     else
         # A valid case must report no errors at all.
@@ -319,13 +326,13 @@ run_case() {
         fi
 
         if [ "$BLESS" = "1" ]; then
-            mkdir -p "$EXPECTED_DIR"
+            mkdir -p "$expected_dir"
             for ext in am ob ent ext; do
-                [ -f "$sandbox/$name.$ext" ] && cp "$sandbox/$name.$ext" "$EXPECTED_DIR/$name.$ext"
+                [ -f "$sandbox/$name.$ext" ] && cp "$sandbox/$name.$ext" "$expected_dir/$name.$ext"
             done
         else
             for ext in am ob ent ext; do
-                compare_file ".$ext" "$sandbox/$name.$ext" "$EXPECTED_DIR/$name.$ext" || ok=0
+                compare_file ".$ext" "$sandbox/$name.$ext" "$expected_dir/$name.$ext" || ok=0
             done
         fi
     fi
@@ -359,7 +366,7 @@ if [ "$BLESS" = "1" ]; then
 fi
 
 found=0
-for src in "$CASE_DIR"/*.as; do
+for src in "$CASE_DIR"/valids/*.as "$CASE_DIR"/errors/*.as; do
     [ -f "$src" ] || continue
     name="$(basename "$src" .as)"
     [ -n "$ONLY" ] && [ "$name" != "$ONLY" ] && continue
@@ -374,7 +381,7 @@ fi
 
 printf '\n'
 if [ "$BLESS" = "1" ]; then
-    printf '%s\n' "Baseline written to $EXPECTED_DIR/"
+    printf '%s\n' "Baseline written to $CASE_DIR/valids/expected/ and $CASE_DIR/errors/expected/"
     exit 0
 fi
 

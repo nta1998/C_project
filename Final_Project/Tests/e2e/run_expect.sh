@@ -107,16 +107,13 @@ ASSEMBLER_ABS="$(cd "$(dirname "$ASSEMBLER")" && pwd)/$(basename "$ASSEMBLER")"
 
 # ---------------------------------------------------------------------------
 # find_baseline <src>
-# A baseline sits next to the sources under Tests/Exepted (sic - the directory
-# name is misspelled in this project) or Tests/expected, named after the case.
+# A baseline sits under Tests/expected, named after the case.
 # ---------------------------------------------------------------------------
 find_baseline() {
-    local name base d
+    local name base
     name="$(basename "$1" .as)"
-    for d in Tests/Exepted Tests/expected Tests/e2e/expected; do
-        base="$d/$name.expected.txt"
-        [ -f "$base" ] && { printf '%s' "$base"; return 0; }
-    done
+    base="Tests/expected/$name.expected.txt"
+    [ -f "$base" ] && { printf '%s' "$base"; return 0; }
     return 1
 }
 
@@ -344,7 +341,7 @@ FAILED=0
 found=0
 
 if [ -z "$TARGETS" ]; then
-    for src in Tests/*.as Tests/e2e/*.as; do
+    for src in Tests/*.as Tests/e2e/valids/*.as Tests/e2e/errors/*.as; do
         [ -f "$src" ] || continue
         b="$(find_baseline "$src")" || continue
         found=1
@@ -359,7 +356,7 @@ else
         else
             b="$(find_baseline "$t")" || {
                 printf '%s\n' "${YEL}no baseline for $t${RST}"
-                printf '%s\n' "${DIM}expected Tests/Exepted/$(basename "$t" .as).expected.txt${RST}"
+                printf '%s\n' "${DIM}expected Tests/expected/$(basename "$t" .as).expected.txt${RST}"
                 FAILED=1; continue
             }
         fi
