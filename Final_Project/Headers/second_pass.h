@@ -8,5 +8,4 @@
 
 Bool second_pass(const char *file_name);
 
-
 #endif

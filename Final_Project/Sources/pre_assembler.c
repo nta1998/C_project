@@ -2,15 +2,18 @@
  * @file pre_assembler.c
  * @brief This file role is to perform the pre-assembly stage of the assembler.
  */
-
+ 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
+#include "../Headers/globals.h"
+#include "../Headers/mcro_table.h"
+#include "../Headers/errors.h"
 #include "../Headers/pre_assembler.h"
 #include "../Headers/parser.h"
 #include "../Headers/instructions.h"
-#include "../Headers/globals.h"
 
 /* Possible classifications for a line when we are NOT currently inside a macro definition (curr_mcro == NULL). */
 typedef enum {
@@ -91,15 +94,11 @@ static Bool valid_mcroend_def_line(const char *curr_line_data){
 */
 static Bool all_chars_valid(char *name){
     int i = 0;
-    while (mcro_name[i] != '\0'){
-        if (!isalnum(mcro_name[i]) && mcro_name[i] != '_'){
+    while (name[i] != '\0'){
+        if (!isalnum(name[i]) && name[i] != '_'){
             return FALSE;
         }
         i++;
-    }
-
-    if (strspn(name, allowed) != strlen(name)){
-        return FALSE;
     }
     return TRUE;
 }
@@ -121,7 +120,7 @@ static Bool is_len_valid(char *name){
  * @param name: pointer to the current mcro name.
  * @return a Bool indicating whether the mcro name is valid (TRUE) or not (FALSE).
 */
-static Bool is_instruction_word(const char *name){
+Bool is_instruction_word(const char *name){
     if (instruction_search(name) != NULL) {
         return TRUE;
     }
@@ -129,18 +128,17 @@ static Bool is_instruction_word(const char *name){
 }
 
 Bool is_reserved_word(const char *name){
-    int i, num_keywords;
-    const char *keywords[] = {
+    int i;
+    const char *key_words[] = {
         "db", "dw", "dh", "asciz", "entry", "extern",
         "auto", "break", "case", "char", "const", "continue", "default", "do",
         "double", "else", "enum", "extern", "float", "for", "goto", "if",
         "int", "long", "register", "return", "short", "signed", "sizeof", "static",
         "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"
     };
-    num_keywords = sizeof(keywords) / sizeof(keywords[0]);
 
-    for (i = 0; i < num_keywords; i++) {
-        if (strcmp(name, keywords[i]) == 0) {
+    for (i = 0; i < KEY_WORDES; i++) {
+        if (strcmp(name, key_words[i]) == 0) {
             return TRUE;
         }
     }
@@ -175,7 +173,7 @@ static Mcro *start_mcro_def(Line curr_line){
     if (!valid_mcro_def_line(curr_line.data)){
         err_report(curr_line, ERR_CODE_1);
         return NULL;
-    } 
+    }
     if (is_instruction_word(mcro_name)){
         err_report(curr_line, ERR_CODE_3);
         return NULL;
@@ -219,7 +217,6 @@ Bool pre_assembler(const char *as_file, const char *am_file){
         fclose(origin_file);
         return FALSE;
     }
-
 
     while (fgets(line,MAX_LINE_LEN, origin_file) != NULL){
         curr_line.line_num ++;

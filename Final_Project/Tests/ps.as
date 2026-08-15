@@ -2,12 +2,17 @@
 ;semple source code
 
 .entry NEXT
+mcro HELLO
+      add $2,$5,$9
+      add $1,$5,$9
+mcroend
 .extern wNumber
 STR: .asciz "aBcd"
 MAIN: add $3,$5,$9
 LOOP: ori $9,-5,$2
       la vall
       jmp NEXT
+      HELLO
 NEXT: move $20,$4
 LIST: .db 6,-9
       bgt $4,$2,END
@@ -17,6 +22,7 @@ LIST: .db 6,-9
       call vall
       jmp $4
       la wNumber
+      HELLO
 .extern vall
       .dh 27056
 K: .dw 31,-12

@@ -1,17 +1,14 @@
 #ifndef PRE_ASSEMBLER_H
 #define PRE_ASSEMBLER_H
 
-#include <stdio.h>
-#include "globals.h"
-#include "mcro_table.h"
-#include "errors.h"
+Bool is_instruction_word(const char *name);
 
 /**
  * Function that checks whether the current name is reserved word.
  * @param name: pointer to the current name.
  * @return a Bool indicating whether the name is valid (TRUE) or not (FALSE).
 */
-Bool is_reserved_word(const char *name)
+Bool is_reserved_word(const char *name);
 
 /**
  * The function role is to perform the pre-assembly stage of the assembler.

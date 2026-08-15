@@ -5,17 +5,16 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "../Headers/second_pass.h"
+#include "../Headers/globals.h"
 #include "../Headers/memory_image.h"
 #include "../Headers/symbol_table.h"
 #include "../Headers/external_table.h"
 #include "../Headers/errors.h"
 #include "../Headers/instructions.h"
 #include "../Headers/parser.h"
-
-#define IMMEDIATE_FIELD_MASK   0xFFFFUL
-#define ADDRESS_FIELD_MASK 0x1FFFFFFUL
 
 static unsigned long encode_word(unsigned long existing_word, long value, unsigned long field_mask){
     return (existing_word & ~field_mask) | ((unsigned long)value & field_mask);
@@ -48,7 +47,7 @@ Bool second_pass(const char *file_name){
     while (fgets(line, sizeof(line), origin_file) != NULL) {
         curr_line.line_num ++;
         curr_line.data = line;
-        line_split(line, &parsed_line, curr_line);
+        split_line(curr_line, &parsed_line);
 
         if (parsed_line.kind == LINE_INVALID ||
             parsed_line.kind == LINE_EMPTY || 
@@ -87,7 +86,7 @@ Bool second_pass(const char *file_name){
                 }
                 else if (curr_symbol->attribute == S_EXTERNAL)
                 {
-                    if ((code_image[curr_code_id].machine_code & ADDRESS_FIELD_MASK) == '?')
+                    if ((code_image[curr_code_id].machine_code & ADDRESS_FIELD_MASK) == QUESTION_MARK)
                     {
                         curr_encode_word = encode_word(code_image[curr_code_id].machine_code, 0, ADDRESS_FIELD_MASK);
                         update_code_machine_code(curr_code_id, curr_encode_word);
@@ -98,7 +97,7 @@ Bool second_pass(const char *file_name){
                         external_add(curr_symbol->symbol_name, code_image[curr_code_id].address);
                     }
                 }
-                else if ((code_image[curr_code_id].machine_code & ADDRESS_FIELD_MASK) == '?')
+                else if ((code_image[curr_code_id].machine_code & ADDRESS_FIELD_MASK) == QUESTION_MARK)
                 {
                     curr_encode_word = encode_word(code_image[curr_code_id].machine_code, curr_symbol->value, ADDRESS_FIELD_MASK);
                     update_code_machine_code(curr_code_id, curr_encode_word);
@@ -108,10 +107,12 @@ Bool second_pass(const char *file_name){
 
         if (curr_instruction->type == I_B_TYPE){
             label_name = strrchr(parsed_line.rest, ',')+1;
-            while (*label_name == ' ') {
-                label_name++;
+
+            while (isspace(*label_name)) {
+                *label_name++;
             }
             curr_symbol = symbol_search(label_name);
+            
             if (curr_symbol == NULL){
                 err_report(curr_line, ERR_CODE_30);
             }
@@ -122,9 +123,9 @@ Bool second_pass(const char *file_name){
                 else {
                     distance = curr_symbol->value - code_image[curr_code_id].address;
                     if (distance < IMMEDIATE_MIN || distance > IMMEDIATE_MAX) {
-                        err_report(curr_line, ERR_CODE_16);
+                        err_report(curr_line, ERR_CODE_15);
                     }
-                    else if ((code_image[curr_code_id].machine_code & IMMEDIATE_FIELD_MASK) == '?') {
+                    else if ((code_image[curr_code_id].machine_code & IMMEDIATE_FIELD_MASK) == QUESTION_MARK) {
                         curr_encode_word = encode_word(code_image[curr_code_id].machine_code, distance, IMMEDIATE_FIELD_MASK);
                         update_code_machine_code(curr_code_id, curr_encode_word);
                     }
