@@ -1,6 +1,11 @@
+/**
+ * @file first_pass.c
+ * @brief This file role is to perform the first pass stage of the assembler.
+ */
+
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <ctype.h>
 
 #include "../Headers/symbol_table.h"
@@ -10,6 +15,14 @@
 #include "../Headers/parser.h"
 #include "../Headers/errors.h"
 
+/**
+ * Adds the values of a numeric data directive (.db/.dh/.dw) to the data image
+ * and advances the data counter by the total number of bytes that were added.
+ * @param count: the number of values to add.
+ * @param values: the values parsed from the directive operands.
+ * @param name: the directive name, which determines the size of each value.
+ * @param dc: in/out-param, the data counter to advance.
+*/
 static void add_directive_data(int count , long values[], char name[], int *dc){
 
     int i, size ;
@@ -34,6 +47,13 @@ static void add_directive_data(int count , long values[], char name[], int *dc){
     }
 }
 
+/**
+ * Converts a register operand into its numeric value.
+ * A register outside the valid range is reported as an error and encoded as 0.
+ * @param op: the operand, with or without a leading '$'.
+ * @param line: the current line, used in error messages.
+ * @return the register number, or 0 if the register is not valid.
+*/
 static unsigned int parse_register(const char op[], Line line){
 
     long value;
@@ -54,6 +74,16 @@ static unsigned int parse_register(const char op[], Line line){
     return 0;
 }
 
+/**
+ * Encodes a single instruction line into its 32-bit machine-code word,
+ * according to the type of the instruction (R, I or J).
+ * Fields whose value depends on a symbol are encoded as QUESTION_MARK and are
+ * completed by the second pass.
+ * @param curr_line: the parsed line holding the instruction info.
+ * @param ops: the operands of the instruction.
+ * @param line: the current line, used in error messages.
+ * @return the encoded word, or 0 if the instruction type is unknown.
+*/
 static unsigned long to_binery(Parsed_line curr_line, char ops[MAX_OPERANDS][MAX_OPERAND_LEN], Line line){
 
     char *endptr;
@@ -83,8 +113,9 @@ static unsigned long to_binery(Parsed_line curr_line, char ops[MAX_OPERANDS][MAX
             i_machine_code.Fields.immed = (unsigned int) strtol(ops[RT], &endptr, DEC_BASE);
         }  
 
+        /* A branch jumps to a label, so the offset is only known in the second pass */
         if (curr_line.instruction->type == I_B_TYPE){
-            i_machine_code.Fields.rt = parse_register(ops[RT], line);   
+            i_machine_code.Fields.rt = parse_register(ops[RT], line);
             i_machine_code.Fields.immed = QUESTION_MARK;
         
         }  
@@ -101,6 +132,7 @@ static unsigned long to_binery(Parsed_line curr_line, char ops[MAX_OPERANDS][MAX
             j_machine_code.Fields.address = 0;
         }
 
+        /* A '$' operand is a register jump, otherwise the operand is a label whose address is only known in the second pass */
         else{
             j_machine_code.Fields.reg = (ops[0][0] == '$') ? 1 : 0;
             j_machine_code.Fields.address = (j_machine_code.Fields.reg == 1 ) ?  parse_register(ops[RS],line) : QUESTION_MARK ;
@@ -125,6 +157,7 @@ Bool first_pass(FILE *am, const char *file_name, int *ICF, int *DCF)
     long values[MAX_LINE_LEN];   
 
 
+    /* The code image starts at address 100, the data counter is relative to the start of the data image */
     line_num = 1;
     ic = START_ADDRESS;   /* 100 */
     dc = 0;
@@ -160,7 +193,9 @@ Bool first_pass(FILE *am, const char *file_name, int *ICF, int *DCF)
         if (curr_line.kind == LINE_DIRECTIVE && strcmp(curr_line.name,".entry") != 0 && strcmp(curr_line.name,".extern") != 0 ){   
             sprintf(full_directive_str, "%s %s %s", curr_line.label, curr_line.name, curr_line.rest);
 
-            if (is_label_def){          
+            /* A data label is recorded relative to the data image, and is
+               shifted to its final address at the end of the pass */
+            if (is_label_def){
                 if (symbol_search(curr_line.label) != NULL){
                     err_report(line , ERR_CODE_29);
                     line.line_num++;
@@ -169,9 +204,11 @@ Bool first_pass(FILE *am, const char *file_name, int *ICF, int *DCF)
                 symbol_add(curr_line.label, S_DATA, dc);
             }
 
-            if (strcmp(curr_line.name,".asciz") == 0){                      
+            /* Adds the characters of the string one by one, starting after the
+               opening quote and stopping at the closing one */
+            if (strcmp(curr_line.name,".asciz") == 0){
                 count = 1;
-                while (curr_line.rest[count] != '"'){            
+                while (curr_line.rest[count] != '"'){
                     add_data_line(curr_line.rest[count], ASCIZ_BYTE_SIZE);
                     count++ ;
                 }
@@ -187,6 +224,8 @@ Bool first_pass(FILE *am, const char *file_name, int *ICF, int *DCF)
             }
         }
 
+        /* '.entry' is handled by the second pass, when the whole symbol table
+           is already known */
         if(strcmp(curr_line.name, ".entry") == 0){
             line.line_num++;
             continue;
@@ -198,8 +237,9 @@ Bool first_pass(FILE *am, const char *file_name, int *ICF, int *DCF)
             continue;   
         }
         
-        if (curr_line.kind ==  LINE_INSTRUCTION){   
-            if (is_label_def){   
+        if (curr_line.kind ==  LINE_INSTRUCTION){
+            /* A code label holds the address of the instruction that follows it */
+            if (is_label_def){
                 if (symbol_search(curr_line.label) != NULL){
                     err_report(line , ERR_CODE_29);
                     line.line_num++;
@@ -225,6 +265,8 @@ Bool first_pass(FILE *am, const char *file_name, int *ICF, int *DCF)
     *ICF = ic;
     *DCF = dc;
 
+    /* The data image is placed right after the code image, so every data
+       address that was counted from 0 is shifted by the final IC */
     symbol_table_shift_data(*ICF);
     data_image_table_shift_data(*ICF);
 
