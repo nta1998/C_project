@@ -1,5 +1,3 @@
-
-/* output_writer.c */
 /**
  * @file output.c
  * @brief This file contains the implementation of the output-writing functions,
