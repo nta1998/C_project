@@ -16,6 +16,13 @@
 #include "../Headers/instructions.h"
 #include "../Headers/parser.h"
 
+/**
+ * Static function that patches field_mask's bits of existing_word with value, leaving the rest of the word unchanged.
+ * @param existing_word: the machine word to patch.
+ * @param value: the resolved value to place inside field_mask's bits.
+ * @param field_mask: the bit-field (IMMEDIATE_FIELD_MASK or ADDRESS_FIELD_MASK) to overwrite within existing_word.
+ * @return the patched machine word.
+*/
 static unsigned long encode_word(unsigned long existing_word, long value, unsigned long field_mask){
     return (existing_word & ~field_mask) | ((unsigned long)value & field_mask);
 }

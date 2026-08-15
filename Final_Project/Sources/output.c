@@ -1,5 +1,3 @@
-
-/* output_writer.c */
 /**
  * @file output.c
  * @brief This file contains the implementation of the output-writing functions,
@@ -58,12 +56,6 @@ static void write_object_file(const char *ob_file){
     fprintf(file, "%d %d\n", get_IC() - START_ADDRESS, get_DC());
 
     for (i = 0; i < code_count; i++){
-        /** זה מה שהלולאה עושה בעצם - עובדת לפי השיטה של littel endian
-         * unsigned char byte0 = (machine_code >> 0)  & 0xFF;   / b=0, b*8=0  /
-         * unsigned char byte1 = (machine_code >> 8)  & 0xFF;   / b=1, b*8=8  /
-         * unsigned char byte2 = (machine_code >> 16) & 0xFF;   / b=2, b*8=16 /
-         * unsigned char byte3 = (machine_code >> 24) & 0xFF;   / b=3, b*8=24 /
-         */
         for (b = 0; b < 4; b++){
             row[row_len] = (code[i].machine_code >> (b * 8)) & 0xFF;
             row_len++;
