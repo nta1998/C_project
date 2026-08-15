@@ -12,6 +12,7 @@
 #include "../Headers/output.h"
 #include "../Headers/first_pass.h"
 #include "../Headers/second_pass.h"
+#include "../Headers/parser.h"
 
 
 static void change_extension(const char *orig_file, char *new_file, const char *new_ext){
@@ -97,7 +98,7 @@ int main (int argc, char *argv[]) {
          */
         am_fp = fopen(am_file, "r");
         if (am_fp == NULL){ continue; }
-        first_pass_ok = first_pass(am_fp, as_file, &icf, &dcf);
+        first_pass_ok = first_pass(am_fp, am_file, &icf, &dcf);
         fclose(am_fp);
         if (first_pass_ok && second_pass(am_file)){
 
