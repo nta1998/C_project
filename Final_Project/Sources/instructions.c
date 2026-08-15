@@ -47,8 +47,6 @@ const Instruction_info commands_list[] =
     {"hlt",  J_TYPE,   63, 0}
 };
 
-#define COMMANDS_COUNT (sizeof(commands_list) / sizeof(commands_list[0]))
-
 const Instruction_info* instruction_search(const char *curr_name)
 {
     int i;
