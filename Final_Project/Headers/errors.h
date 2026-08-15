@@ -10,9 +10,8 @@
  * The error codes are used to identify and report errors encountered during the assembly process.
  * CODE_0 : The only code that reports a valid file.
  * ERR_CODE_1-ERR_CODE_8 : Errors during the PRE-ASSEMBLER stage.
- * ERR_CODE_9-ERR_CODE_29 : Errors during the FIRST-PASS stage.
- * ERR_CODE_30-ERR_CODE_32 : Errors during the SECOND-PASS stage.
- * ERR_CODE_LAST : Save for range check.
+ * ERR_CODE_9-ERR_CODE_30 : Errors during the FIRST-PASS stage.
+ * ERR_CODE_31-ERR_CODE_33 : Errors during the SECOND-PASS stage.
 */
 
 typedef enum {
@@ -50,7 +49,6 @@ typedef enum {
     ERR_CODE_31,
     ERR_CODE_32,
     ERR_CODE_33,
-    ERR_CODE_LAST
 } ERROR_CODES;
 
 /**
