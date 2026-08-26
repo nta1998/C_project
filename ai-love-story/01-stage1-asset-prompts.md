@@ -68,15 +68,6 @@ Soft diffused natural daylight, no artificial lights, no highlights or shine on 
 Same woman in all panels, only angle and crop change. Both hands whole. No plastic CGI skin, no identity change, no clothing change between panels, the suitcase in every full-body panel, no on-image text or labels. 21:9.
 ```
 
-> **תוספת חובה** — הגנרציה הראשונה יצאה עם פנים ריקות בפאנל הקדמי, פאנלים בקנה מידה שונה,
-> כובע שונה מאחור וגלימה שנשפכת לרצפה. הוסף את הבלוק הזה לסוף הפרומפט (פירוט: [`04-asset-qa.md`](04-asset-qa.md)):
-
-```
-CRITICAL: every panel must show a complete, fully rendered, photoreal FACE matching the reference photos — never a blank, smooth, featureless or erased face. The close-up and the front full-body panel both show her face clearly.
-The two full-body panels are at IDENTICAL scale with both figures' feet on ONE shared ground line, both occupying the same frame height. No floating figures, no drop shadows.
-The hat is the SAME hat in all three panels — identical crown height, identical brim width, identical ribbon and feathers.
-The cape ends at mid-calf and hangs clear of the ground — it never pools, never trails, never forms a train.
-```
 
 ---
 
@@ -150,18 +141,23 @@ Style / Quality:
 
 ## הערות עבודה חשובות
 
-1. **הטריק ההיברידי (10% האחרונים):**
+1. **מוחקים את הפנים מפאנלי הגוף המלא.**
+   בפאנלים מרוחקים הפנים יוצאות מרוחות, ופנים מרוחות ברפרנס מתחרות בקלוז-אפ החד
+   ומושכות את המודל לממוצע מטושטש. מחק אותן ידנית והשאר את הקלוז-אפ כמקור הפנים היחיד —
+   המודל ייקח זהות מהקלוז-אפ, ותלבושת ופרופורציות מהפאנלים המלאים.
+
+2. **הטריק ההיברידי (10% האחרונים):**
    דף הדמות מביא אותך ל-90%. אחרי שיש דף טוב — פתח בפוטושופ/Canva והדבק את
    **תמונת הפנים האמיתית** על פאנל הקלוז-אפ (התאם גוון וגודל). את הקובץ המשולב הזה
-   תעלה כ-Element. זה מה שהופך "דומה לכם" ל"זה אתם".
+   תעלה כ-Element. זה מה שהופך "דומה לכם" ל"זה אתם" — ובגלל הכלל שמעליו, זה גם מקור הפנים היחיד של המודל.
 
-2. **דף דמות אחד לכל תקופה.** אל תנסה להשתמש בדף של הנמל לסצנת הרכבת —
+3. **דף דמות אחד לכל תקופה.** אל תנסה להשתמש בדף של הנמל לסצנת הרכבת —
    התלבושת חייבת להיות אפויה בתוך הדף. תריץ את אותו פרומפט עם בלוק ה-Outfit מוחלף.
 
-3. **צלם 3–5 וריאציות** של כל דף דמות ותבחר את זה שהכי דומה. זה הנכס שכל השאר תלוי בו.
+4. **צלם 3–5 וריאציות** של כל דף דמות ותבחר את זה שהכי דומה. זה הנכס שכל השאר תלוי בו.
 
-4. **אור ללא צללים** בדפי הדמות זה לא קפריזה — זה מה שמאפשר למודל הוידאו להאיר את
+5. **אור ללא צללים** בדפי הדמות זה לא קפריזה — זה מה שמאפשר למודל הוידאו להאיר את
    הדמות מחדש בכל סצנה בלי להילחם בצללים אפויים.
 
-5. **לוקיישן = ריק מאנשים** (חוץ מהקרנבל, שם הקהל הוא חלק מהאווירה).
+6. **לוקיישן = ריק מאנשים** (חוץ מהקרנבל, שם הקהל הוא חלק מהאווירה).
    האור בלוח הלוקיישן הוא מה שנועל את האור בכל שוט בסצנה.

@@ -21,7 +21,7 @@
 
 ---
 
-## `@She_cruise` — נכשל, נדרש רה-רול
+## `@She_cruise` — עובר
 
 | דרישה | מצב |
 |---|---|
@@ -29,24 +29,22 @@
 | רקע סטודיו אחיד | ✅ |
 | קלוז-אפ בשלושת-רבעי עם מבט לעדשה | ✅ |
 | תלבושת נאמנה לפרומפט (כובע, גלימה, חולצה, חצאית, מגפיים, מזוודה) | ✅ |
-| **פנים מלאות בכל פאנל שהן נראות בו** | ❌ **הפאנל הקדמי — סגלגל לבן ריק** |
-| שני הפאנלים המלאים באותו קנה מידה, על קו קרקע אחד | ❌ הקדמי גדול בהרבה, לא על אותו קו |
-| הכובע זהה בכל הפאנלים | ❌ הפאנל האחורי — כתר ושוליים שונים |
-| הגלימה באורך שוק, לא נוגעת ברצפה | ❌ נשפכת כשובל בפאנל הקדמי |
+| פנים בפאנל הקדמי | **נמחקו בכוונה** — ראה למטה |
 
-**למה הפנים הריקות חוסמות:** מודל הוידאו קורא את כל התמונה כרפרנס, לא רק את פאנל הקלוז-אפ.
-פנים ריקות בתוך הרפרנס עלולות לדלוף לפריים.
+---
 
-### תוספת לפרומפט לרה-רול
+## הכלל: מחיקת פנים מפאנלים מרוחקים
 
-להוסיף לסוף הפרומפט הקיים ב-`01-stage1-asset-prompts.md`:
+בפאנלים של גוף מלא הפנים תופסות מעט פיקסלים ויוצאות מרוחות. פנים מרוחות ברפרנס
+הן **אות זהות גרוע** — הן מתחרות בקלוז-אפ החד ומושכות את המודל לכיוון ממוצע מטושטש.
 
-```
-CRITICAL: every panel must show a complete, fully rendered, photoreal FACE matching the reference photos — never a blank, smooth, featureless or erased face. The close-up and the front full-body panel both show her face clearly.
-The two full-body panels are at IDENTICAL scale with both figures' feet on ONE shared ground line, both occupying the same frame height. No floating figures, no drop shadows.
-The hat is the SAME hat in all three panels — identical crown height, identical brim width, identical ribbon and feathers.
-The cape ends at mid-calf and hangs clear of the ground — it never pools, never trails, never forms a train.
-```
+לכן: **מוחקים את הפנים מפאנלי הגוף המלא**, ומשאירים את הקלוז-אפ כמקור הפנים היחיד.
+המודל לוקח את הזהות מהפאנל החד, ואת התלבושת והפרופורציות מהפאנלים המלאים.
+
+זה כלל לכל תקופה, לא רק לנמל.
+
+**מסקנה נגזרת:** אם הקלוז-אפ הוא מקור הפנים היחיד, ההיברידיזציה קריטית פי כמה —
+מה שמודבק על פאנל הקלוז-אפ קובע לבד את הזהות בכל הסצנה.
 
 ---
 
@@ -69,8 +67,8 @@ The cape ends at mid-calf and hangs clear of the ground — it never pools, neve
 
 ---
 
-## אחרי הרה-רול — ההיברידיזציה
+## לפני ההעלאה — ההיברידיזציה
 
-לפני ההעלאה ל-Elements, על שני הדפים:
+על שני הדפים:
 פתח בפוטושופ/Canva והדבק את **תמונת הפנים האמיתית** על פאנל הקלוז-אפ,
 התאם גוון וגודל, שמור. את הקובץ המשולב הזה מעלים — לא את המקורי.
