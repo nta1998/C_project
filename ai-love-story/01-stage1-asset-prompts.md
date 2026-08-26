@@ -68,6 +68,16 @@ Soft diffused natural daylight, no artificial lights, no highlights or shine on 
 Same woman in all panels, only angle and crop change. Both hands whole. No plastic CGI skin, no identity change, no clothing change between panels, the suitcase in every full-body panel, no on-image text or labels. 21:9.
 ```
 
+> **תוספת חובה** — הגנרציה הראשונה יצאה עם פנים ריקות בפאנל הקדמי, פאנלים בקנה מידה שונה,
+> כובע שונה מאחור וגלימה שנשפכת לרצפה. הוסף את הבלוק הזה לסוף הפרומפט (פירוט: [`04-asset-qa.md`](04-asset-qa.md)):
+
+```
+CRITICAL: every panel must show a complete, fully rendered, photoreal FACE matching the reference photos — never a blank, smooth, featureless or erased face. The close-up and the front full-body panel both show her face clearly.
+The two full-body panels are at IDENTICAL scale with both figures' feet on ONE shared ground line, both occupying the same frame height. No floating figures, no drop shadows.
+The hat is the SAME hat in all three panels — identical crown height, identical brim width, identical ribbon and feathers.
+The cape ends at mid-calf and hangs clear of the ground — it never pools, never trails, never forms a train.
+```
+
 ---
 
 ## 1.3 — לוח הלוקיישן: הנמל (`@cruise`)
