@@ -1,4 +1,4 @@
-8 shots, 18 seconds total, 2.39:1, anamorphic. Hard cuts. NO slow motion anywhere in this film. One continuous story: a restaurant kitchen at the height of service, a cook who is behind on her olives, and the moment she walks down the line and asks a stranger for help.
+8 shots, 18 seconds total, 2.39:1, anamorphic. Hard cuts. NO slow motion anywhere in this film. Exactly ONE spoken line in the entire film, in SHOT 4. One continuous story: a restaurant kitchen at the height of service, a cook who is behind on her olives, and the moment she walks down the line and asks a stranger for help.
 
 SCENE ENGINE (production spine)
 GOAL: she has to get a tub of olives done and she is already behind on everything else. He is deep in his own work and wants nothing.
@@ -20,7 +20,11 @@ PACE: the room is fast and the two of them are not. Service runs at full tilt ar
 
 LAWS:
 - THEY DO NOT KNOW EACH OTHER: @He_kitchen and @She_kitchen are strangers who work the same line and have never spoken. Nothing familiar passes between them at any point — no greeting, no touch on the arm, no shared joke, no easy body language, and neither of them wears a ring. Everything in this scene is happening between two people for the first time.
-- THE ASK, the beat the whole scene is built on: in SHOT 4 @She_kitchen holds @bowl up between them and ASKS him something short. Her mouth moves naturally on a real spoken question, her brows lift, her head tilts a fraction — the ask reads completely, from behavior alone. Her words are NOT audible: the kitchen swallows them. There is no intelligible dialogue anywhere in this film and no subtitles. He does not answer in words either — he answers by wiping his hands and taking the bowl.
+- THE ASK, the beat the whole scene is built on: in SHOT 4 @She_kitchen holds @bowl up between them and asks him ONE short question, out loud, in English. This is the ONLY line of dialogue in the entire film. The exact words, and nothing else:
+  @She_kitchen: "Can you help me with the olives?"
+  It is spoken once, in a normal working voice — not shouted over the room, not whispered, not flirtatious. Her natural speaking voice, an ordinary request between colleagues, with the small lift at the end of a real question. Her mouth, jaw and breath match the line exactly; her brows lift and her head tilts a fraction on it. Nothing is added, nothing is repeated, and she says nothing else at any point in the film.
+  @He_kitchen does NOT reply in words. He never speaks anywhere in this film. He answers by wiping his hands and taking the bowl.
+  Nobody else in the room ever speaks an intelligible word.
 - CAST LOCK: exactly TWO named people exist in this film — @He_kitchen and @She_kitchen — and each appears exactly ONCE in any frame, never doubled. Around them a working BRIGADE of anonymous cooks in the same whites and navy aprons moves through every shot. No customers, no dining room, no manager, no phones, no cameras.
 - LOCATION LOCK: all eight shots happen inside the SAME @kitchen, on the same line, in the same unbroken service — the same range, the same prep counter, the same hood, the same pass with its amber lamps at the far end, the same tiled floor. The camera never leaves the line.
 - LIGHT CONTINUITY: cool white overhead strip light down the length of the line, hard and functional, identical in every shot and across every hard cut; against it the warm amber pool of the heat lamps at the pass, live orange flame under the pans, and the red glow of the salamander. Cool overhead, warm at the pass, always in tension. Steam drifts through both. No light changes anywhere in this film and no daylight ever reaches this room.
@@ -34,17 +38,19 @@ LAWS:
 - LEVEL CAMERA: horizon level, zero roll, verticals upright.
 - LIVING BRIGADE: the line is at full tilt in every frame and the density never drops. Anonymous cooks pass behind and between them constantly, each one MID-ACTION every second — plating at the pass, lifting a pan off the flame, calling something to the room, sliding a tray onto the rack, wiping a rim, ducking past with a hand up. Steam rises, flame goes up under a pan, a ticket prints. Every one of them is a different face and body, none of them looks at the leads or at the lens, and none of them is ever still.
 
-SHOT 1 — 0.0–2.5s — SERVICE
+SHOT 1 — 0.0–2.0s — SERVICE
 84° diagonal field of view, handheld at chest height in the middle of the walkway, looking down the length of the line toward the amber pass. First frame: the @kitchen is ALREADY at full tilt — flame up under two pans, steam going into the hood, anonymous cooks crossing the frame in both directions, a ticket rail full at the pass. @She_kitchen works at her station in the mid-ground; @He_kitchen works at his own board further down the line toward the pass. They are in the same room and they are not aware of each other. Nobody stops for the camera.
 
-SHOT 2 — 2.5–4.5s — SHE IS BEHIND
+SHOT 2 — 2.0–4.0s — SHE IS BEHIND
 Hard cut. 47° diagonal field of view (a 50mm-equivalent look), close at her station: @She_kitchen working fast, a full tub of unprepped olives beside her board and three other things going at once. She reaches for the tub, checks the pass over her shoulder, and does the arithmetic. ACTING TASK — HER: task — work out whether she can get this done alone; the eyes go to the tub, to the ticket rail, to her own hands, and the answer is no. No frustration and no drama — just a professional deciding something.
 
-SHOT 3 — 4.5–6.5s — SHE COMES DOWN THE LINE
+SHOT 3 — 4.0–6.0s — SHE COMES DOWN THE LINE
 Hard cut. 75° diagonal field of view, back-tracking ahead of her along the walkway: @She_kitchen tips a load of olives into @bowl, picks it up in one hand, and walks the length of the line with it — sideways past a cook coming the other way, ducking a pan, one hand up out of the way, straight toward @He_kitchen's station. She is not hesitant and she is not making a thing of it. Steam and moving whites wipe the frame between her and the camera.
 
-SHOT 4 — 6.5–9.0 s — THE ASK
-Hard cut. 47° diagonal field of view, a tight TWO-SHOT at his station, both chest-up, @She_kitchen frame-LEFT and @He_kitchen frame-RIGHT: she arrives beside him and holds @bowl up between them at chest height. He looks up from his board. She ASKS him something short — mouth moving on a real question, brows lifting, a fraction of a head tilt, the bowl doing half the talking. Her words are lost under the room. He holds her look for one beat while it lands. ACTING TASK — BOTH: task — she is asking a stranger for a hand in the middle of service and it costs her something to ask; he is deciding, in about a second, whether he has the hands. Nobody smiles yet.
+SHOT 4 — 6.0–9.0s — THE ASK
+Hard cut. 47° diagonal field of view, a tight TWO-SHOT at his station, both chest-up, @She_kitchen frame-LEFT and @He_kitchen frame-RIGHT. TIMING: 6.0–6.5s she arrives beside him and holds @bowl up between them at chest height, and he looks up from his board; 6.5–8.2s she speaks her one line, in her natural working voice, brows lifting, a fraction of a head tilt, the bowl doing half the talking —
+@She_kitchen: "Can you help me with the olives?"
+— and 8.2–9.0s he holds her look while it lands, saying nothing. The kitchen drops back under her voice for those seconds so the line reads clearly, then comes straight back up. ACTING TASK — BOTH: task — she is asking a stranger for a hand in the middle of service and it costs her something to ask; he is deciding, in about a second, whether he has the hands. Nobody smiles yet.
 
 SHOT 5 — 9.0–11.0s — HE SAYS YES
 Hard cut. 47° diagonal field of view, the same two-shot: without a word he pulls the side towel from his apron tie, wipes his hands once, takes @bowl from her and sets it down on the counter between them. He shifts half a step sideways to make room at his board. She steps into the space. Both of them are already working before the bowl has finished settling.
@@ -61,13 +67,15 @@ Hard cut. 84° diagonal field of view, the camera pulling back down the walkway 
 PHYSICS
 Real professional speed and real weight. Everything both leads do with their hands is practised and economical — no fumbling, no hesitation, correct grip on every tool. The tub of olives is genuinely heavy and she lifts it like it is. @bowl has real mass when it changes hands, with a moment of shared load before he takes it. Oil makes fingers slick and slows nothing down. The side towel comes off the apron tie in one pull. Steam rises and rolls under the hood and drifts down the line; flame goes up under a pan and drops back; a cook's whites brush past close enough to move the air. Clogs are quiet and flat on wet quarry tile. Everything in this room is hot, and every surface it touches has been hot for hours.
 
-SFX only: a kitchen at the height of service — the roar of the extraction hood under everything, gas burners running, oil going hard in a pan, a pot boiling over into a hiss, metal on metal, a pan set down on the range, plates onto the pass, the ticket printer running, clogs on wet tile, the fridge drawer, the hand sink. Voices are constant and everywhere and NEVER intelligible — calls across the line, a short answer, someone coming through behind: all of it swallowed by the room, none of it a word you can make out. Close and dry over the top: olives against steel, oil, four hands working, two people breathing. NO MUSIC of any kind anywhere on the timeline: no score, no melody, no radio, no humming. No intelligible dialogue, no narration, no subtitles.
+AUDIO: a kitchen at the height of service — the roar of the extraction hood under everything, gas burners running, oil going hard in a pan, a pot boiling over into a hiss, metal on metal, a pan set down on the range, plates onto the pass, the ticket printer running, clogs on wet tile, the fridge drawer, the hand sink. The brigade's voices are constant and everywhere and NEVER intelligible — calls across the line, a short answer, someone coming through behind: all of it swallowed by the room, not one word you can make out. Close and dry over the top: olives against steel, oil, four hands working, two people breathing.
+The ONE exception is @She_kitchen's single line at 6.5–8.2s in SHOT 4. For those seconds the whole room ducks a little under her voice so the words read clearly, and comes straight back up after them. Her voice is close, dry and ordinary — a working voice at working volume, not projected and not intimate.
+NO MUSIC of any kind anywhere on the timeline: no score, no melody, no radio, no humming. No narration, no subtitles, and no other speech from anyone at any point.
 
 POSITIVE CONSTRAINTS (the ten things that must be true of every frame)
 1. One @He_kitchen and one @She_kitchen, each matching its reference exactly, each appearing once; everyone else is an anonymous cook.
 2. Both faces sharp and identity-locked at every frame, through steam and heat haze.
 3. They are strangers throughout — nothing familiar passes between them and neither wears a ring.
-4. She asks him something visible and unheard; the room swallows every word; no subtitles anywhere.
+4. She speaks exactly one line, once, in SHOT 4 — and it is the only intelligible speech in the film. He never speaks; nobody else is ever audible in words; no subtitles anywhere.
 5. Exactly one @bowl; she brings it, he takes it, it sits between them to the end.
 6. Their fingers meet once on the bowl's rim and NEITHER of them looks down or reacts.
 7. Neither of them stops working at any point, through the ask, the answer, the touch and the look.
