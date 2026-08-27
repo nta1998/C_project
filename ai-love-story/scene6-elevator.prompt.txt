@@ -1,0 +1,67 @@
+6 shots, 15 seconds total, 2.39:1, anamorphic. Hard cuts. Slow motion ONLY inside SHOT 1. One continuous story: two strangers in a lift, a melody neither of them can place, and the moment they finally look at each other.
+
+SCENE ENGINE (production spine)
+GOAL: he wants nothing and is asking for nothing — he is simply riding a lift at the end of an ordinary day. She wants to get home. Neither is looking for anyone.
+OBSTACLE: they are strangers with no reason to speak, in a box that will open in fifteen seconds; she is inside her own music and cannot hear the room.
+TACTIC: he does not speak to her, does not look at her, does not try anything. He hums, to himself, without meaning to.
+REVERSAL: the thing that finally reaches her is the one thing he was not doing on purpose.
+VALUE SHIFT: two strangers sharing a lift → why do I know that tune → I have known this person before → and neither of them has the words for it. This is the last scene of a film in which they have found each other across six lifetimes and never once needed to speak.
+
+REFERENCE DEFINITIONS
+@elevator: the interior of a modern passenger lift car — grey stone-textured composite wall panels with fine vertical seams and brushed-steel joint strips, a brushed-steel handrail at hip height along the side walls, a dark speckled stone floor, a flat steel ceiling with a recessed frosted light strip, brushed-steel doors with a centre seam, a slim indicator strip with small amber floor digits above them, a flush button panel beside them. Everyday wear: scuffs on the handrail, fingerprints on the steel, dust in the door track. Geometry, materials and practical light only. Reference.
+@He_elevator: young man, present day — face, hair and wardrobe match the reference exactly in every frame: plain dark charcoal T-shirt under an open muted-olive overshirt with the sleeves rolled once, dark indigo jeans, scuffed low white sneakers, a slim black leather-strap watch on the LEFT wrist, a plain dark canvas backpack on the RIGHT shoulder only with the other strap hanging free. Thick black wavy hair brushed back and tousled, one loose wave on the forehead; short full dark beard. Hands empty. Reference.
+@She_elevator: young woman, present day — face, hair and wardrobe match the reference exactly in every frame: beige fine-knit cardigan worn OPEN over a plain white top, a thin brown leather belt, a grey pleated short skirt above the knee, white ankle socks and white sneakers, a small black shoulder bag on a thin strap on her LEFT shoulder, a fine gold chain necklace. Long thick dark-brown wavy hair worn loose and down past her shoulders; light blue eyes, strong dark brows; minimal daytime make-up. Reference.
+@headphones: a pair of wired white stemmed earbuds joined by a thin white cable that merges at a Y-splitter into one longer cable, with a small in-line control capsule; everyday wear, the white slightly warmed, the cable holding a soft bend memory. Match exactly. Reference.
+
+TECHNICAL BLOCK
+Cinematic photoreal, contemporary and understated. 21:9 — 35mm anamorphic film character: horizontal squeeze and compression, oval elliptical bokeh with stretched highlights, curved barrel edge distortion, subtle chromatic aberration toward the edges — all subtle and moderate; NO lens flares, NO streaks, NO floating bokeh circles. SOFT COLOR GRADE: cool neutral greys and steel with warm skin, cream highlights, lifted soft blacks, low contrast — soft and faded, the same grade as every other era of this film. Shot on 35mm, fine grain. Natural 180-degree shutter cadence; no ghosting, no strobing. ALL HANDHELD, organic, almost still — the smallest possible movement, this scene barely breathes. SFX only.
+
+PACE: this scene is quiet and it stays quiet. Nothing is rushed and nothing is filled. Every shot holds exactly as long as its beat needs and cuts. The piece runs 15 seconds exactly and ends on the frame described in SHOT 6.
+
+LAWS:
+- CAST LOCK: exactly TWO people exist in this film — @He_elevator and @She_elevator — and each appears exactly ONCE in any frame. The lift car contains only the two of them for all 15 seconds. Nobody enters, nobody leaves, and no third person is ever visible, including in any reflection.
+- LOCATION LOCK: all six shots happen inside the SAME @elevator car, in the same 15 unbroken seconds — the same panels, the same handrail, the same doors, the same indicator above them, the same floor. The car never moves position in the frame and the camera never leaves it.
+- LIGHT CONTINUITY: ONE source for the first five shots — the recessed overhead light strip, cool-neutral, soft and even from directly above, with gentle bounce off the pale grey panels; identical across every hard cut. The only light change in the entire film comes in SHOT 6, when the doors part and warm daylight floods in from outside — and even then the overhead strip does not change.
+- STANDING ORDER: they stand side by side facing the doors for the whole scene. @He_elevator is on the LEFT, @She_elevator on the RIGHT, about half a metre apart, both squared to the doors. His head reads clearly higher in frame than hers. This left-right order never flips in any shot.
+- THE EARBUDS: @She_elevator wears both @headphones earbuds at the start, the thin white cord running from both ears down into her bag. In SHOT 4 she removes exactly ONE — the left one — with her LEFT hand, in one clean motion, and holds it hanging on its cord. It stays out and hanging for the rest of the film. The other earbud stays in. She never removes both, never puts either back, and never touches her phone or her bag.
+- THE ONE TOUCH: the backs of their hands brush ONCE, in SHOT 1, and that is the only physical contact in the scene. It is never repeated, and neither of them looks down at it. In every later shot it reads only through the small settling of his near shoulder and the tiny stir in her posture.
+- IDENTITY UNDER MOTION: both faces stay photoreal, sharp and identity-locked in EVERY frame, at every speed. In the slow-motion passage — SHOT 1 — slow motion changes ONLY the speed of time: both hands and both faces hold the exact geometry of their references entering the ramp, through it and leaving it.
+- NOBODY SPEAKS: not one word is spoken in this film. No dialogue, no whispering, no mouthing of words, no lip movement forming speech. The only sound either of them makes is @He_elevator's hum and their breathing.
+- FACE RULE: a lead's visible face fills at least a THIRD of frame height, chest-up or closer, fully inside the frame; eyes never look into the lens.
+- LIVING FACE: the eyes always WORK at a task, never pose; a blink lands ONLY on a change of thought, slow and soft, a few per shot; never a frozen glassy stare.
+- LEVEL CAMERA: horizon level, zero roll, verticals upright.
+
+SHOT 1 — 0.0–2.5s — THE TOUCH — slow motion
+Whole shot in smooth slow motion. 47° diagonal field of view (a 50mm-equivalent look), a tight INSERT at hip height: two hands resting side by side on the brushed-steel handrail of @elevator — his on the LEFT, hers on the RIGHT, a few centimetres apart, the grey panels and the steel seam soft behind them. The lift sways a fraction and the BACKS of their hands brush, once, lightly. Neither hand moves away and neither hand closes. Her white earbud cord hangs down past the edge of frame. Hold on the contact and cut. Nobody's face is in this shot.
+
+SHOT 2 — 2.5–5.5s — THE TWO OF THEM
+Hard cut, real speed. 47° diagonal field of view, a chest-up TWO-SHOT squared to the doors, camera where the doors would be, looking back into the car: @He_elevator frame-LEFT (x≈40%) and @She_elevator frame-RIGHT (x≈60%), bodies square to camera, his head clearly higher in frame, the grey panels and the steel seam behind them, the amber indicator glowing above the frame line. She stands carefree with both @headphones earbuds in, arms relaxed, her gaze drifting slightly UP toward the indicator. He stands beside her, still and composed, eyes forward, his near shoulder just settling back from the touch below the frame line. Neither of them looks at the other. They do not know each other.
+
+SHOT 3 — 5.5–8.0s — HE HUMS
+Hard cut. 29° diagonal field of view (an 85mm-equivalent look) from across the car, a CLOSE-UP on @He_elevator in slight three-quarter, eyes forward on the doors, the grey panels soft behind him. He HUMS — quietly, barely audibly, a slow simple melody, entirely to himself, his lips closed and barely moving. ACTING TASK — HIM: task — pass the time; he is not performing and not aware he is doing it. The eyes stay on the doors, unfocused, somewhere else entirely. One slow blink. He does not look right.
+
+SHOT 4 — 8.0–10.5s — SHE HEARS IT
+Hard cut. 29° diagonal field of view (an 85mm-equivalent look), a CLOSE-UP on @She_elevator in slight three-quarter, the earbud cord white against her dark hair. ACTING TASK — HER: task — work out where she knows that from; her drifting gaze STOPS moving, the eyes go still and focus on nothing; a small crease arrives between the brows. Her LEFT hand comes up and takes the LEFT @headphones earbud out of her ear in one clean motion, and holds it hanging on its cord beside her jaw. The hum is clearer now. She does not turn yet. One slow blink lands exactly on the moment she recognises it without knowing what she is recognising.
+
+SHOT 5 — 10.5–12.5s — THEY LOOK
+Hard cut. 47° diagonal field of view, the same chest-up TWO-SHOT as SHOT 2, same positions, same order — @He_elevator frame-LEFT, @She_elevator frame-RIGHT. SHE turns her head to him first, unhurried, all the way. He stops humming mid-phrase. A beat. Then HE turns his head to her. Their eyes meet — and both of them go completely still. ACTING TASK — BOTH: task — place a face you have never seen before and know anyway. Nothing large happens: his breath goes out of him, her lips part a few millimetres, and neither of them looks away. No smile yet. This is the first time in the present day that they have looked at each other.
+
+SHOT 6 — 12.5–15.0s — THE DOORS
+Hard cut. 47° diagonal field of view, the same TWO-SHOT, holding. Behind the camera the lift settles, the amber indicator changes, and the DOORS PART — warm daylight floods in from outside and washes across both of their faces from behind the lens. Neither of them moves. Neither of them turns toward the doors. They keep looking at each other while the light rises on them. ACTING TASK — BOTH: the smallest possible warm recognition arrives at the same moment in both faces — a fraction of a smile, no more, arriving together. Final frame HELD: the two of them chest-up, side by side, faces turned to each other, the earbud still hanging on its cord beside her jaw, the daylight full on them. This exact frame is the last frame of the film, at 15.0s.
+
+PHYSICS
+Real elevator life: a faint continuous sway in the car, and one small settle at the stop that both bodies absorb through the knees. The handrail contact in SHOT 1 has real light weight — skin against cool steel, no press, no grip. The earbud removal is one clean unhurried motion; the freed cord swings a little and settles against her collarbone, then hangs still. Her loose hair moves with her head turn and settles a beat behind it. Cardigan and overshirt carry natural cloth delay. The backpack shifts a few millimetres on his shoulder when he turns his head. Everything else in the car is still.
+
+SFX only: the small enclosed world of a lift — a faint mechanical hum through the floor, the soft rush of the shaft, the fine creak of the car, the almost inaudible hiss of the light strip. Under it, close and dry: two people breathing, cloth shifting, the tiny plastic click of the earbud leaving her ear, the cord tapping once against her collarbone. @He_elevator's HUM sits low in the mix in SHOT 3, comes forward and clear the instant the earbud is out in SHOT 4, and stops mid-phrase in SHOT 5 — leaving a silence you can hear. At the stop: a soft mechanical settle, a single soft chime, and the doors running open, and the muffled wash of the world outside arriving with the light. NO MUSIC of any kind anywhere on the timeline: no score, no orchestra, no instrument, no song — the hum is a man humming, and it is the only melody in the film. No dialogue, no narration, no subtitles.
+
+POSITIVE CONSTRAINTS (the ten things that must be true of every frame)
+1. One @He_elevator and one @She_elevator, each matching its reference exactly, each appearing once; only the two of them in the car for all 15 seconds.
+2. Both faces sharp and identity-locked at every frame and every speed.
+3. He is on the LEFT and she is on the RIGHT in every shot that holds both; his head reads higher.
+4. Both earbuds in until SHOT 4, then exactly one out, held on its cord, and it stays out.
+5. The hands brush exactly once, in SHOT 1, and neither of them looks down at it.
+6. Not one word is spoken, and no lip movement ever forms speech.
+7. One overhead light strip, identical across every cut, until the doors open in SHOT 6.
+8. The same @elevator car in all six shots, unbroken, the camera never outside it.
+9. Horizon level, verticals upright, zero roll.
+10. Diegetic sound only, and no music of any kind — the hum is the only melody.
