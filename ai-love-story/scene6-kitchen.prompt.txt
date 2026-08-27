@@ -1,0 +1,67 @@
+6 shots, 15 seconds total, 2.39:1, anamorphic. Hard cuts. NO slow motion anywhere in this film. One continuous story: an ordinary evening in a kitchen, and a man hands a woman a bowl of olives.
+
+SCENE ENGINE (production spine)
+GOAL: nobody in this scene wants anything. She is finishing something at the counter; he is putting olives in a bowl. That is all that is happening, and it is the point.
+OBSTACLE: none. There is nothing between them and there has not been for a long time.
+TACTIC: none. Neither of them is trying.
+REVERSAL: this is the film's reversal. Across every era before this one they have been separated — by a liner, by a crowd, by a viaduct, by an arena — and every reunion has been one held breath and one impossible reach. Here they simply live in the same kitchen, and the reach is a bowl passed across a counter without either of them looking up.
+VALUE SHIFT: the audience arrives braced for another near-miss → nothing happens → and that is the happy ending. This is the last scene of a film in which two people found each other across six lifetimes and never once got to keep each other. They kept each other.
+
+REFERENCE DEFINITIONS
+@kitchen: a warm lived-in home kitchen on a Mediterranean evening — a worn butcher-block counter along one wall, a deep white ceramic sink with a brass tap, a small gas hob, pale hand-glazed tiles, two open wooden shelves of mismatched everyday crockery and glass jars, plain wooden cupboards below, a tall old fridge, a small wooden table with two mismatched chairs, a large window above the sink. Lived-in detail everywhere: a board with a knife on it, olive oil, a bowl of lemons, a tea towel on the oven rail, a herb pot on the sill, crumbs not yet wiped. Nothing styled, nothing put away perfectly. Geometry, materials and practical light only. Reference.
+@He_kitchen: young man at home in the evening — face, hair and wardrobe match the reference exactly in every frame: soft heather-grey cotton T-shirt washed thin and slightly loose, dark grey drawstring lounge trousers sitting low, BAREFOOT, a slim black leather-strap watch on the LEFT wrist. Thick black wavy hair unstyled and slightly flattened on one side; short full dark beard a few days past a trim; real skin, faint shadows under the eyes. Reference.
+@She_kitchen: young woman at home in the evening — face, hair and wardrobe match the reference exactly in every frame: oversized cream waffle-knit long-sleeve top with the sleeves pushed to the forearm, hem to mid-thigh and slipping off one shoulder, loose black cotton shorts underneath, BAREFOOT, a fine gold chain at the throat and a thin plain gold band on one finger. Long dark-brown wavy hair loose and slightly undone, pushed back off her face on one side. Completely bare face, no make-up. Reference.
+@bowl: a small hand-thrown ceramic bowl in warm speckled off-white with visible throwing rings and an uneven rim, filled generously with mixed whole green and purple-black table olives glistening with oil, a sprig of thyme and two curls of lemon peel among them. Match exactly. Reference.
+
+TECHNICAL BLOCK
+Cinematic photoreal, contemporary, warm and understated. 21:9 — 35mm anamorphic film character: horizontal squeeze and compression, oval elliptical bokeh with stretched highlights, curved barrel edge distortion, subtle chromatic aberration toward the edges — all subtle and moderate; NO lens flares, NO streaks, NO floating bokeh circles. SOFT COLOR GRADE: warm golden evening light on wood and skin, cream highlights, lifted soft blacks, low contrast — soft and faded, the same grade as every other era of this film. Shot on 35mm, fine grain, gentle halation on the window light. Natural 180-degree shutter cadence; no ghosting, no strobing. ALL HANDHELD, organic, and almost still — the smallest possible movement. SFX only.
+
+PACE: this scene is slow on purpose and it stays slow. Nothing is rushed, nothing is filled, and nothing dramatic is coming. Every shot holds exactly as long as its small beat needs and cuts. NO slow motion anywhere — every other era of this film ramps into slow motion for its biggest moment, and this one deliberately does not, because nothing here is a big moment. The piece runs 15 seconds exactly and ends on the frame described in SHOT 6.
+
+LAWS:
+- CAST LOCK: exactly TWO people exist in this film — @He_kitchen and @She_kitchen — and each appears exactly ONCE in any frame. They are alone in the flat for all 15 seconds. Nobody else is ever visible, including through the window or in any reflection. No children, no pets, no phones, no screens.
+- LOCATION LOCK: all six shots happen inside the SAME @kitchen, in the same unbroken evening — the same counter, the same shelves, the same tiles, the same window, the same table and chairs, the same clutter in the same places. The camera never leaves the room.
+- LIGHT CONTINUITY: ONE key — low golden late-evening sun coming in almost horizontally through the window above the sink, throwing long warm light across the counter and leaving the corners in soft warm shadow; plus one small warm practical bulb over the counter, just switched on and barely competing with it. Identical warmth, level and direction across every hard cut. No light changes anywhere in this film, and nothing outside the window ever draws the eye.
+- THE ONE BOWL: exactly ONE @bowl exists in this film. It is filled in SHOT 2, handed over in SHOT 3, and stays in @She_kitchen's hands from SHOT 3 to the end. It never appears twice, is never set down, is never refilled, and no second bowl, plate or dish is ever passed between them.
+- THE TOUCH THEY DO NOT NOTICE, the heart of the scene: their fingers meet on the rim of @bowl for one second in SHOT 3 as it changes hands. It is exactly the same contact this film has spent six lifetimes reaching for — and here NEITHER OF THEM LOOKS DOWN AT IT, neither reacts to it, and neither of them notices it at all. It is ordinary. That is the whole point of the scene and it must not be dramatised: no lingering, no beat of significance, no held breath, no camera emphasis beyond the framing already described.
+- NOBODY SPEAKS: not one word is spoken. No dialogue, no mouthing of words, no lip movement forming speech. The only sounds either of them makes are breathing, and one small amused exhale from her in SHOT 4.
+- NOBODY PERFORMS: neither of them plays an emotion at any point. No grand smiles, no meaningful looks held for the camera, no tears, no embrace, no kiss. Everything they feel is carried by how ordinary they are with each other — proximity, timing, and the fact that neither has to ask.
+- IDENTITY UNDER MOTION: both faces stay photoreal, sharp and identity-locked in EVERY frame, at every distance.
+- FACE RULE: a lead's visible face fills at least a THIRD of frame height, chest-up or closer, fully inside the frame; eyes never look into the lens.
+- LIVING FACE: the eyes always WORK at a task, never pose; a blink lands ONLY on a change of thought, slow and soft; never a frozen glassy stare.
+- LEVEL CAMERA: horizon level, zero roll, verticals upright.
+
+SHOT 1 — 0.0–2.5s — THE KITCHEN
+47° diagonal field of view (a 50mm-equivalent look), a few steps back, camera at standing chest height looking along the counter toward the window. First frame: BOTH of them are ALREADY in the room and already busy. @She_kitchen stands at the counter in the mid-ground with her back three-quarters to camera, working at something small and ordinary in front of her, hair pushed back off one side of her face. @He_kitchen is nearer the fridge behind and to the left of her, an open jar in one hand, not looking at her. Low golden light lies across the counter between them. Neither of them says anything and neither of them looks up. The room does most of the work.
+
+SHOT 2 — 2.5–4.5s — HIS HANDS
+Hard cut. 29° diagonal field of view (an 85mm-equivalent look), a tight INSERT down at the counter: @He_kitchen's two hands tipping olives from the jar into @bowl, then setting the jar aside and turning the bowl a half-turn on the wood with two fingers, the way you do without thinking about it. His watch on the left wrist, the counter grain, the warm light across the back of his hands. Practised, unhurried, entirely automatic. His face is not in this shot.
+
+SHOT 3 — 4.5–7.0s — HE PASSES IT
+Hard cut. 47° diagonal field of view, a loose TWO-SHOT at the counter, both of them chest-up, @He_kitchen frame-LEFT and @She_kitchen frame-RIGHT, half a metre apart, both still facing their own work. Without turning his body he holds @bowl out sideways toward her. Without looking up from what she is doing, her hand comes across and takes it — she knew it was coming. Their fingers meet on the rim for one second as it changes hands, and NEITHER OF THEM LOOKS DOWN. He lets go and turns back to the counter. She draws the bowl in against her.
+
+SHOT 4 — 7.0–9.5s — SHE EATS ONE
+Hard cut. 29° diagonal field of view (an 85mm-equivalent look), a CLOSE-UP on @She_kitchen in three-quarter, @bowl held at her chest, warm window light down one side of her face. She takes an olive without looking at the bowl, eats it, and only THEN lifts her eyes and looks at him off-frame LEFT. ACTING TASK — HER: task — nothing; she is eating an olive at the end of a Tuesday. What arrives on her face is small and involuntary: one short amused exhale through the nose and a faint warm half-smile, gone almost immediately. One slow blink.
+
+SHOT 5 — 9.5–12.0s — HE IS ALREADY MOVING ON
+Hard cut. 47° diagonal field of view, the same loose two-shot: @He_kitchen has already turned back to the counter, wiping his hands on the tea towel, entirely unaware he is being looked at. @She_kitchen holds the bowl and watches him for a beat longer than she needs to, then looks back down at her own work. ACTING TASK — HER: task — nothing, again; the look is not longing and not significant, it is the ordinary act of looking at someone you live with. He never notices. Neither of them makes anything of it.
+
+SHOT 6 — 12.0–15.0s — THE ROOM
+Hard cut. 84° diagonal field of view, the camera settling back to a wide of the whole @kitchen: the counter, the open shelves, the herb on the sill, the two mismatched chairs, the low golden light lying all the way across the floor. Both of them in it, side by side and separately busy — she with @bowl in one hand, he with the tea towel — neither talking, neither performing, both completely at ease in the same few square metres. Final frame HELD: the two of them small in a warm ordinary room at the end of an ordinary evening. This exact frame is the last frame of the film, at 15.0s.
+
+PHYSICS
+Real domestic weight and timing. The olives tumble from the jar with honest irregular weight and settle; the oil moves slowly. The bowl has real mass in both their hands, and the hand-off has a genuine moment of shared load before he lets go. Bare feet on tile — quiet, flat, no bounce. Loose knit and washed cotton fall and settle with soft everyday delay; her hair moves a beat behind her head turn and settles against her shoulder. Dust drifts slowly in the horizontal window light. Everything in the room is exactly as heavy as it looks and nothing in this scene moves faster than it needs to.
+
+SFX only: the small world of a home at evening — the low hum of the fridge, a tap dripping once into the ceramic sink and stopping, the faint tick of a cooling hob, quiet street sound a long way off outside the window, a bird somewhere. Close and dry: olives tumbling into the bowl and one wet click as they settle, the ceramic base turning on the wood counter, the jar set down, the tea towel pulled off the rail, bare feet shifting on tile, cloth moving, two people breathing in the same room. One short amused exhale from her. And then just the fridge and the room. NO MUSIC of any kind anywhere on the timeline: no score, no melody, no radio, no humming. No dialogue, no narration, no subtitles.
+
+POSITIVE CONSTRAINTS (the ten things that must be true of every frame)
+1. One @He_kitchen and one @She_kitchen, each matching its reference exactly, each appearing once; only the two of them, alone, for all 15 seconds.
+2. Both faces sharp and identity-locked at every frame.
+3. Exactly one @bowl; it changes hands once in SHOT 3 and stays with her to the end.
+4. Their fingers meet once on the bowl's rim and NEITHER of them looks down or reacts.
+5. Not one word is spoken, and no lip movement ever forms speech.
+6. Neither of them performs an emotion; no grand smiles, no held meaningful looks, no embrace, no kiss.
+7. One warm evening key from the window plus one counter bulb, identical across every cut; no light change anywhere.
+8. The same @kitchen in all six shots, unbroken, the camera never outside the room.
+9. No slow motion anywhere; horizon level, verticals upright, zero roll.
+10. Diegetic sound only, and no music of any kind.
