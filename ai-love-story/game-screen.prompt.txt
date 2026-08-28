@@ -1,0 +1,26 @@
+A screenshot of a fictional video game's LEVEL SELECT screen, filling the whole frame, 16:9. Clean, modern, console-style interface — flat panels, soft drop shadows, generous spacing, restrained. Not retro, not pixel art, not neon, not cluttered.
+
+TITLE, across the top, large and unmistakably readable, in a clean bold sans-serif, all caps, white on a dark bar:
+HOW MOM AND DAD MET
+
+Below the title, a 3 x 2 GRID of six large rectangular LEVEL TILES with rounded corners, evenly spaced. Each tile is a small cinematic photographic thumbnail of a scene, slightly desaturated, with a dark gradient across its lower third and a label sitting on that gradient. The six thumbnails, left to right, top row then bottom row:
+1. a wide plank pier running to a great ocean liner under a hazy pale sky
+2. a sun-bleached stone arena with a colossal white-armoured machine standing on the sand
+3. a dark red steam train crossing open scrub, white plume shearing back
+4. a night carnival piazza under criss-crossing lantern strings, fireworks above
+5. the hot stainless line of a restaurant kitchen under amber heat lamps
+6. a dark empty tile, dimmed almost to black with a small closed padlock icon centred on it
+
+LABELS, one per tile, in the same clean sans-serif, all caps, white, sitting on the dark gradient at the bottom of each thumbnail. Every label is the word UNIVERSE followed by a number, and nothing else — no scene names, no era names, no other words anywhere on any tile. Use exactly these, in this order:
+UNIVERSE 047
+UNIVERSE 213
+UNIVERSE 006
+UNIVERSE 512
+UNIVERSE 88
+UNIVERSE 400
+
+The FIFTH tile — the kitchen, UNIVERSE 88 — is the SELECTED one: a bright thin white outline around it, lifted slightly larger than the others, its thumbnail at full brightness while the other five sit slightly dimmed. The sixth tile is locked and its label is dimmed with the rest of it.
+
+Under each of the first five tiles, a small row of three stars, some filled and some hollow. Nothing else on the screen: no menus, no buttons, no health bars, no currency, no scores, no player name, no logos, no watermarks, no additional text of any kind.
+
+STYLE: crisp clean UI render, perfectly legible type, correct and consistent letterforms, every character sharp and unambiguous. Dark charcoal background behind the tiles. Photorealistic thumbnails inside a flat modern interface.
