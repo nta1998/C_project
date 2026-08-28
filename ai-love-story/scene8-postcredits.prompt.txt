@@ -1,4 +1,4 @@
-8 shots, 25 seconds total, 2.39:1, anamorphic. Hard cuts. NO slow motion anywhere. A post-credits scene, present day. Five spoken lines. One continuous story: two brothers are playing a video game about how their parents met — and their parents walk in and finish the joke.
+8 shots, 25 seconds total, 2.39:1, anamorphic. Hard cuts. NO slow motion anywhere. A post-credits scene, present day. SIX spoken lines. One continuous story: two brothers are playing a video game about how their parents met — and their parents walk in and finish the joke.
 
 SCENE ENGINE (production spine)
 GOAL: the younger brother wants to finish the level; the older one wants to know what he is watching; their mother wants them at the table.
@@ -19,7 +19,7 @@ Cinematic photoreal, contemporary, warm and domestic. 21:9 — 35mm anamorphic f
 PACE: relaxed and domestic, and the comedy plays completely straight. Every cut arrives ON an action or ON the end of a line, never after it. NO slow motion anywhere. The piece runs 25 seconds exactly and ends on the frame described in SHOT 8.
 
 LAWS:
-- THE FIVE LINES, in this exact order, with nothing added, nothing repeated and nothing improvised. These are the only speech in the scene:
+- THE SIX LINES, in this exact order, with nothing added, nothing repeated, nothing improvised and none of them dropped. These six are the only speech anywhere in the scene:
   1. SHOT 2, 3.4–4.6s — OLDER BROTHER: "What are you playing?"
   2. SHOT 5, 12.2–13.2s — @She_today: "Boys. Dinner."
   3. SHOT 5, 13.6–15.8s — @She_today: "This universe is the best one. None of the other stories even come close."
@@ -28,7 +28,7 @@ LAWS:
   6. SHOT 8, 21.6–24.0s — @He_today: "That's why it's the best one."
   All of it in ordinary unforced speaking voices at family volume — nobody projects, nobody performs, nobody delivers a punchline as a punchline. The last exchange is played warm and completely straight, the way two people who have said versions of this before would say it.
 - THE JOKE IS NEVER SIGNALLED: nobody winks, nobody smiles at their own line, and neither parent looks at the camera. @She_today's "Except this one" is affectionate and matter-of-fact, not a jab. @He_today's answer is quiet and certain, not triumphant. The scene must never announce that it is funny.
-- THE BOYS DO NOT CARE: neither child ever reacts to what their parents are saying. Through all four parent lines the younger brother keeps playing and the older keeps watching the screen. They are not the audience for this exchange; we are.
+- THE BOYS DO NOT CARE: neither child ever reacts to what their parents are saying. Through all five parent lines the younger brother keeps playing and the older keeps watching the screen. They are not the audience for this exchange; we are.
 - THE SCREEN: whenever the TV is visible, it shows @game exactly as the reference shows it — the same title, the same six tiles, the same UNIVERSE labels, the same selected fifth tile, every character identical and perfectly legible. The screen never changes, never scrolls to another menu, and never shows gameplay, video, faces, a logo, a loading bar or any text that is not in the reference.
 - CAST LOCK: exactly FOUR people exist in this scene — @He_today, @She_today and the two @boys — and each appears exactly ONCE in any frame, never doubled. Nobody else is ever visible, including through the doorway or the window. No pets, no phones, no other screens.
 - LOCATION LOCK: all eight shots happen inside the SAME @livingroom, in the same unbroken evening — the same sofa, rug, TV unit, cushions, bookshelf, doorway and window, the same clutter in the same places. The camera never leaves the room.
@@ -77,13 +77,13 @@ Hard cut. 47° diagonal field of view, back to the loose two-shot of both parent
 PHYSICS
 Ordinary domestic weight and timing. Children sit on the floor the way children actually do — folded, leaning, one knee up, small constant adjustments. The controller has real small thumb movement, never mimed. The tea towel is soft and drags over her hands. Both parents stand with the settled weight of people at the end of a day, one hip loaded. Bare feet on rug and tile — quiet, flat. Loose knit and washed cotton fall and settle with soft everyday delay; her hair moves a beat behind her head turn. Dust drifts slowly in the horizontal window light. The TV's glow flickers gently on both boys' faces and never strobes.
 
-AUDIO: the small world of a family flat at evening — a fridge hum from the kitchen through the doorway, a pot lid, quiet street sound a long way off outside the window, a bird. Close and dry: the plastic click of controller thumbsticks and buttons, a child shifting on a cushion, the tea towel, bare feet on rug, four people breathing in one room. The game itself plays soft, sparse interface sounds only — a low menu tone, nothing musical, no theme, no voices, no effects. All five lines sit close and clear at ordinary family volume, and the room never has to duck for them. NO MUSIC of any kind anywhere on the timeline: no score, no melody, no radio, no game soundtrack. No narration, no subtitles, and no speech beyond the five lines above.
+AUDIO: the small world of a family flat at evening — a fridge hum from the kitchen through the doorway, a pot lid, quiet street sound a long way off outside the window, a bird. Close and dry: the plastic click of controller thumbsticks and buttons, a child shifting on a cushion, the tea towel, bare feet on rug, four people breathing in one room. The game itself plays soft, sparse interface sounds only — a low menu tone, nothing musical, no theme, no voices, no effects. All six lines sit close and clear at ordinary family volume, and the room never has to duck for them. NO MUSIC of any kind anywhere on the timeline: no score, no melody, no radio, no game soundtrack. No narration, no subtitles, and no speech beyond the six lines above.
 
 POSITIVE CONSTRAINTS (the ten things that must be true of every frame)
 1. Exactly four people — @He_today, @She_today and the two @boys — each matching its reference, each appearing once; nobody else anywhere.
 2. All four faces sharp and identity-locked; the parents are the film's two leads, aged fifteen years, never replaced.
 3. The TV shows @game exactly as referenced — same title, same six tiles, same UNIVERSE labels, same selected fifth tile, every character legible and unchanged.
-4. Exactly five lines, in order; nobody else speaks; no subtitles.
+4. Exactly six lines, in order, none dropped — one from the older brother, three from her, two from him; nobody else speaks; no subtitles.
 5. Neither parent winks, smiles at their own line, or looks at the camera; the joke is never signalled.
 6. Neither boy ever reacts to what the parents are saying.
 7. Warm evening room light plus one corner lamp and the kitchen doorway, identical across every cut, with the TV's cool glow on the boys' faces.
