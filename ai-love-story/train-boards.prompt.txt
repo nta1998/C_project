@@ -1,0 +1,11 @@
+Using @train, @He_train and @She_train as references, create ONE hand-drawn storyboard sheet: three panels in a single horizontal row on plain white paper, each panel a clean rectangle with a thin ruled border, evenly spaced with white gutters between them. No text, no labels, no arrows with writing, no numbers, no letters anywhere.
+
+STYLE: rough production storyboard line art — confident sketchy contour lines in dark pencil, loose and energetic, line work only, no colour, at most sparse hatching for shadow. Visible construction lines, authentic storyboard-sheet feel.
+
+PANEL 1 — SCREEN DIRECTION: a wide side-on view of the whole @train seen from its right flank, drawn small and complete — locomotive at frame RIGHT with its steam plume shearing back to the LEFT, six carriages trailing away to frame LEFT, the last carriage at the far left edge. The train reads as travelling LEFT to RIGHT. Open scrub and a low horizon behind it. This panel establishes that the locomotive is always toward frame right and the rear of the train is always toward frame left.
+
+PANEL 2 — THE ROOF MAP: a high three-quarter view down the line of carriage roofs from behind the train, the iron roof walkways running away into depth toward the distant locomotive. Two tiny figures stand on the roofs: the figure drawn from @He_train stands on the FOURTH carriage counting back from the locomotive, nearer to camera; the figure drawn from @She_train stands on the THIRD carriage, further away and closer to the locomotive, with one carriage gap between them. Every roof BEHIND @He_train, back toward the last carriage, is completely empty. Both figures are small and read by silhouette — duster coats and flat-brim hats.
+
+PANEL 3 — THE VIADUCT: a wide view from the side and slightly above, showing the @train crossing a long stone-arched VIADUCT high over open sea. The viaduct runs left to right on tall arches; the water lies far below with a hard drop; a rocky headland with a tunnel portal waits at the frame-right end where the track continues. A single tiny figure stands on one carriage roof at the brink of the roof's seaward edge. This panel establishes the height of the drop and the geometry of bridge, sea and headland.
+
+All three panels in the same rough pencil hand, on one clean white sheet, nothing cropped. 16:9.

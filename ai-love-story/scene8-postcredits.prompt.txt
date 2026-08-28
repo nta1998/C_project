@@ -1,0 +1,92 @@
+8 shots, 25 seconds total, 2.39:1, anamorphic. Hard cuts. NO slow motion anywhere. A post-credits scene, present day. SIX spoken lines. One continuous story: two brothers are playing a video game about how their parents met — and their parents walk in and finish the joke.
+
+SCENE ENGINE (production spine)
+GOAL: the younger brother wants to finish the level; the older one wants to know what he is watching; their mother wants them at the table.
+OBSTACLE: none. This is a family evening.
+REVERSAL: the audience has just watched five impossible lifetimes of reaching, and now learns they were levels — universes — in a game two children play on the rug. And the universe the parents actually live in is the one where nobody had to fight for anything: she simply walked into a kitchen and asked him to open a bucket of olives.
+VALUE SHIFT: a kids' game → those were our five eras → this family is what all of it was for → and the best universe is the easy one. The film has spent its whole length making impossible reaching look romantic; this scene says the ordinary one won.
+
+REFERENCE DEFINITIONS
+@livingroom: the living room of a warm lived-in family flat on a Mediterranean evening — a low oatmeal sofa, a worn kilim rug over pale tile, a dark wood unit carrying a large flat-screen TV, two floor cushions pushed together in front of it, an armchair, a bookshelf, a wide doorway through to a warm-lit kitchen, a tall window with linen curtains half drawn. Lived-in detail everywhere: controllers on the rug, children's books, a hoodie on the sofa arm, a plant that needs turning. Geometry, materials and practical light only. Reference.
+@He_today: the man, early 40s — face, hair and wardrobe match the reference exactly in every frame: soft heather-grey T-shirt under an open navy overshirt with the sleeves pushed up, dark indigo jeans, barefoot, a black leather-strap watch on the LEFT wrist and a plain gold wedding band. Thick dark wavy hair, shorter than it was, grey at the temples; short full beard, greyer than the hair; fine lines at the eyes. Reference.
+@She_today: the woman, around 40 — face, hair and wardrobe match the reference exactly in every frame: an oversized cream waffle-knit long-sleeve top with the sleeves pushed up, loose black lounge trousers, barefoot, a fine gold chain and a plain gold wedding band. Long dark-brown wavy hair worn down and pushed back, a few grey strands at the parting; bare face; fine lines at the eyes. Reference.
+@boys: their two sons — the OLDER about 9, taller and leaner, dark brown eyes, thick dark wavy hair pushed off the forehead, freckles across the nose, forest-green T-shirt and grey jersey shorts, white socks, no shoes; the YOUNGER about 6, shorter and rounder in the face, LIGHT BLUE eyes, the same dark wavy hair cut shorter, one front milk tooth missing, mustard-yellow T-shirt and navy jersey shorts, white socks, no shoes. Both match the reference exactly. Reference.
+@game: the video game's level select screen — a dark charcoal interface, the title HOW MOM AND DAD MET across the top, a 3 x 2 grid of six photographic level tiles each labelled UNIVERSE and a number, the fifth tile bright and selected with a white outline, the sixth locked behind a padlock. Reproduce this screen and its text EXACTLY as it appears in the reference, unchanged, with every character identical. Reference.
+
+TECHNICAL BLOCK
+Cinematic photoreal, contemporary, warm and domestic. 21:9 — 35mm anamorphic film character: horizontal squeeze and compression, oval elliptical bokeh with stretched highlights, curved barrel edge distortion, subtle chromatic aberration toward the edges — all subtle and moderate; NO lens flares, NO streaks, NO floating bokeh circles. SOFT COLOR GRADE: warm golden evening light on wood, wool and skin, cream highlights, lifted soft blacks, low contrast — soft and faded, the same grade as every other era of this film. Shot on 35mm, fine grain, gentle halation on the window light. Natural 180-degree shutter cadence; no ghosting, no strobing. ALL HANDHELD, organic, close and almost still.
+
+PACE: relaxed and domestic, and the comedy plays completely straight. Every cut arrives ON an action or ON the end of a line, never after it. NO slow motion anywhere. The piece runs 25 seconds exactly and ends on the frame described in SHOT 8.
+
+LAWS:
+- THE SIX LINES, in this exact order, with nothing added, nothing repeated, nothing improvised and none of them dropped. These six are the only speech anywhere in the scene:
+  1. SHOT 2, 3.4–4.6s — OLDER BROTHER: "What are you playing?"
+  2. SHOT 5, 12.2–13.2s — @She_today: "Boys. Dinner."
+  3. SHOT 5, 13.6–15.8s — @She_today: "This universe is the best one. None of the other stories even come close."
+  4. SHOT 6, 16.6–18.8s — @He_today: "In every universe, I would fight for you."
+  5. SHOT 7, 19.4–20.6s — @She_today: "Except this one."
+  6. SHOT 8, 21.6–24.0s — @He_today: "That's why it's the best one."
+  All of it in ordinary unforced speaking voices at family volume — nobody projects, nobody performs, nobody delivers a punchline as a punchline. The last exchange is played warm and completely straight, the way two people who have said versions of this before would say it.
+- THE JOKE IS NEVER SIGNALLED: nobody winks, nobody smiles at their own line, and neither parent looks at the camera. @She_today's "Except this one" is affectionate and matter-of-fact, not a jab. @He_today's answer is quiet and certain, not triumphant. The scene must never announce that it is funny.
+- THE BOYS DO NOT CARE: neither child ever reacts to what their parents are saying. Through all five parent lines the younger brother keeps playing and the older keeps watching the screen. They are not the audience for this exchange; we are.
+- THE SCREEN: whenever the TV is visible, it shows @game exactly as the reference shows it — the same title, the same six tiles, the same UNIVERSE labels, the same selected fifth tile, every character identical and perfectly legible. The screen never changes, never scrolls to another menu, and never shows gameplay, video, faces, a logo, a loading bar or any text that is not in the reference.
+- CAST LOCK: exactly FOUR people exist in this scene — @He_today, @She_today and the two @boys — and each appears exactly ONCE in any frame, never doubled. Nobody else is ever visible, including through the doorway or the window. No pets, no phones, no other screens.
+- LOCATION LOCK: all eight shots happen inside the SAME @livingroom, in the same unbroken evening — the same sofa, rug, TV unit, cushions, bookshelf, doorway and window, the same clutter in the same places. The camera never leaves the room.
+- LIGHT CONTINUITY: low golden late-evening sun through the window in a long warm band across the rug, one warm corner lamp already on, and warm light spilling from the kitchen doorway — identical warmth, level and direction across every hard cut. Added to it, the cool blue-white glow of the TV falling on both boys' faces in every shot that includes them. Warm room, cool screen, always in tension. No light changes anywhere.
+- IDENTITY UNDER MOTION: all four faces stay photoreal, sharp and identity-locked in every frame. The parents are the same two people from every earlier era of this film, fifteen years on — aged, never replaced.
+- FACE RULE: a visible face fills at least a THIRD of frame height, chest-up or closer, fully inside the frame; eyes never look into the lens.
+- LIVING FACE: the eyes always WORK at a task, never pose; a blink lands ONLY on a change of thought; never a frozen glassy stare.
+- LEVEL CAMERA: horizon level, zero roll, verticals upright.
+
+SHOT 1 — 0.0–2.5s — THE ROOM
+47° diagonal field of view (a 50mm-equivalent look), camera at sitting height a few steps back on the rug. First frame: both @boys are ALREADY on the floor cushions in front of the TV with their backs three-quarters to camera, the younger with a controller in his hands, the older leaning in beside him. The warm band of evening sun lies across the rug behind them; the kitchen doorway glows at the edge of frame. The TV's cool light is on both their faces. Nobody says anything yet.
+
+SHOT 2 — 2.5–5.0s — "WHAT ARE YOU PLAYING?"
+Hard cut. 47° diagonal field of view, a low two-shot of the boys from the side, TV light across them. TIMING: 2.5–3.4s the older brother looks over at his brother's screen and registers what is on it; 3.4–4.6s he asks it flatly, the way a nine-year-old asks —
+OLDER BROTHER: "What are you playing?"
+— and 4.6–5.0s the younger one does not look away from the TV and does not answer.
+
+SHOT 3 — 5.0–9.5s — THE SCREEN
+Hard cut. 29° diagonal field of view (an 85mm-equivalent look), the TV filling the frame square-on, its bezel just inside the edges, the dark room and a soft reflection of the lamp around it: @game, held long enough to read. The title across the top, the six tiles, the UNIVERSE labels, the bright selected fifth tile, the locked sixth. The camera pushes in a few centimetres and stops. Nothing on the screen moves except the faintest interface breathing on the selected tile.
+
+SHOT 4 — 9.5–11.5s — BACK TO THE BOYS
+Hard cut. 47° diagonal field of view, low behind their shoulders, the TV soft and bright beyond them: the younger brother thumbs the controller; the older watches. Neither of them thinks any of this is remarkable. It is Tuesday.
+
+SHOT 5 — 11.5–16.0s — SHE COMES IN
+Hard cut. 75° diagonal field of view: @She_today comes through the kitchen doorway into the warm room, drying her hands on a tea towel, and stops behind the boys. TIMING: 11.5–12.2s she arrives and looks past them at the screen; 12.2–13.2s —
+@She_today: "Boys. Dinner."
+— 13.2–13.6s neither boy moves; and 13.6–15.8s, still looking at the screen rather than at them, easy and matter-of-fact —
+@She_today: "This universe is the best one. None of the other stories even come close."
+ACTING TASK — HER: task — get them to the table; the second line is thrown out sideways, half to the room, the way you say something you have said before.
+
+SHOT 6 — 16.0–19.0s — HE COMES IN
+Hard cut. 47° diagonal field of view, a loose TWO-SHOT of the parents standing behind the boys, the TV glow low in the frame. TIMING: 16.0–16.6s @He_today comes in behind her and stops at her shoulder, looking at the screen; 16.6–18.8s, quiet and certain, not to the room but to her —
+@He_today: "In every universe, I would fight for you."
+— and 18.8–19.0s she is already turning her head toward him.
+
+SHOT 7 — 19.0–21.0s — "EXCEPT THIS ONE"
+Hard cut. 29° diagonal field of view (an 85mm-equivalent look), a CLOSE-UP on @She_today in three-quarter, his shoulder soft in the near foreground. TIMING: 19.0–19.4s she looks at him; 19.4–20.6s, affectionate and completely matter-of-fact, no edge in it at all —
+@She_today: "Except this one."
+— and 20.6–21.0s one slow blink; she is already half turning back toward the kitchen.
+
+SHOT 8 — 21.0–25.0s — "THAT'S WHY IT'S THE BEST ONE"
+Hard cut. 47° diagonal field of view, back to the loose two-shot of both parents, the boys small and still playing in the near foreground below them. TIMING: 21.0–21.6s he takes it; 21.6–24.0s, unhurried and sure, looking at her —
+@He_today: "That's why it's the best one."
+— and 24.0–25.0s neither of them says anything else. She holds his eyes, and the smallest warmth arrives in both faces at once and neither lets it become a smile. Behind and below them the younger brother is still playing and the older is still watching the screen; the game light moves on both boys' faces. Final frame HELD: two parents standing over their two children in a warm ordinary room. This exact frame is the last frame, at 25.0s.
+
+PHYSICS
+Ordinary domestic weight and timing. Children sit on the floor the way children actually do — folded, leaning, one knee up, small constant adjustments. The controller has real small thumb movement, never mimed. The tea towel is soft and drags over her hands. Both parents stand with the settled weight of people at the end of a day, one hip loaded. Bare feet on rug and tile — quiet, flat. Loose knit and washed cotton fall and settle with soft everyday delay; her hair moves a beat behind her head turn. Dust drifts slowly in the horizontal window light. The TV's glow flickers gently on both boys' faces and never strobes.
+
+AUDIO: the small world of a family flat at evening — a fridge hum from the kitchen through the doorway, a pot lid, quiet street sound a long way off outside the window, a bird. Close and dry: the plastic click of controller thumbsticks and buttons, a child shifting on a cushion, the tea towel, bare feet on rug, four people breathing in one room. The game itself plays soft, sparse interface sounds only — a low menu tone, nothing musical, no theme, no voices, no effects. All six lines sit close and clear at ordinary family volume, and the room never has to duck for them. NO MUSIC of any kind anywhere on the timeline: no score, no melody, no radio, no game soundtrack. No narration, no subtitles, and no speech beyond the six lines above.
+
+POSITIVE CONSTRAINTS (the ten things that must be true of every frame)
+1. Exactly four people — @He_today, @She_today and the two @boys — each matching its reference, each appearing once; nobody else anywhere.
+2. All four faces sharp and identity-locked; the parents are the film's two leads, aged fifteen years, never replaced.
+3. The TV shows @game exactly as referenced — same title, same six tiles, same UNIVERSE labels, same selected fifth tile, every character legible and unchanged.
+4. Exactly six lines, in order, none dropped — one from the older brother, three from her, two from him; nobody else speaks; no subtitles.
+5. Neither parent winks, smiles at their own line, or looks at the camera; the joke is never signalled.
+6. Neither boy ever reacts to what the parents are saying.
+7. Warm evening room light plus one corner lamp and the kitchen doorway, identical across every cut, with the TV's cool glow on the boys' faces.
+8. The same @livingroom in all eight shots; the camera never leaves the room.
+9. No slow motion anywhere; horizon level, verticals upright, zero roll.
+10. Diegetic sound only, and no music of any kind — including from the game.

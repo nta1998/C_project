@@ -1,0 +1,27 @@
+Character sheet of a fictional machine, three views on a seamless neutral gray studio background, one uniform tone, no gradient or vignette: close-up of the head, front full body, back full body.
+
+THE CHARACTER: a colossal ADVANCED COMBAT AUTOMATON — a futuristic war machine, humanoid, enormous and top-heavy. Hard-surface engineering, not fantasy and not steampunk: no rivets, no bronze, no gears.
+
+ARMOUR: thick angular plates of MATTE bone-white ceramic composite over a graphite-dark inner frame, separated by clean panel gaps and recessed seams. Scuffed, carbon-scored and field-repaired, with mismatched replacement panels. Matte throughout — never glossy, never chrome, never plastic-toy clean.
+
+INNER MECHANISM, visible between the plates: dense bundles of dark synthetic muscle fibre, braided hard-line conduit, machined actuator pistons at every joint. Joints are readable engineered assemblies — shoulder and hip rings, elbow and knee actuators, a segmented waist.
+
+THE HEAD: NO FACE. A small smooth armoured sensor head set low between huge shoulders, crossed by one continuous horizontal VISOR BAND of dark glass with a thin cold CYAN-WHITE light behind it. No mouth, no nose, no eyes, no expression.
+
+THE BACK, important: a dorsal spine of exposed actuator bundles and hard-line conduit runs the full length between the shoulder blades, flanked either side by stepped armour ledges. This is the only climbable structure on the machine.
+
+THE CORE: set in the chest, a hexagonal reactor port behind a slotted grille, glowing cold cyan from deep inside, heat shimmer rising off it.
+
+VENTS: thermal vents along the forearms and calves, breathing faint white vapour.
+
+WEAPON: a colossal slab combat blade of dark matte alloy on a heavy haft, held low in the RIGHT hand, blade beside the shin, a single thin cyan line glowing along its cutting edge.
+
+PANELS:
+- Left, CLOSE-UP: the armoured head and shoulders, full front, filling the frame — visor band, panel gaps, carbon scoring and neck conduit readable. Generous margin above the crown.
+- Center, FULL BODY FRONT: head to feet, standing heavy and still, blade low in the right hand, chest core lit, both hands visible and whole.
+- Right, FULL BODY BACK: head to feet, facing directly away — the blank armoured nape, the dorsal spine of actuator bundles, the stepped ledges either side of it.
+Both full-body panels at identical scale, feet on ONE shared ground line, same frame height. No floating figures or drop shadows.
+
+LIGHT — SOFT AND SHADOWLESS: even wrap-around diffused daylight from every direction equally, no readable direction. No shadows anywhere, none on the background. No shine, hotspots or flares on the armour — it reads by its own tone and texture. Matte, low contrast, identical exposure in all panels. Visor and core glow cold cyan by themselves.
+
+Photorealistic hard-surface design, 35mm film grain, soft contrast, no digital sharpness. Real machined metal, ceramic and cable, real weight. No on-image text. 21:9.

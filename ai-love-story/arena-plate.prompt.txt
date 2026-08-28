@@ -1,0 +1,15 @@
+Master location plate, completely empty of named characters, 2.39:1.
+
+A vast sun-bleached stone amphitheatre at high midday, seen from the sand floor. GEOMETRY: an open oval arena floor of pale dusty sand, raked and marked with old craters, drag scars and scattered dark stains. Around it runs a tall perimeter wall of plastered stone painted in faded RED-AND-WHITE bands, chipped and sun-worn. Above the wall rise packed tiers of stone tribunes filled with a roaring crowd, and above those an arched upper gallery with a colonnade of pale columns against a bleached white sky.
+
+THE ROYAL BOX: set into the perimeter wall on one side and raised above it, an elevated marble loggia with slender fluted columns and a carved balustrade, shaded by a stretched awning, with a gilded high-backed throne and a scrolled gilded armrest inside it. It overlooks the sand directly. The box is EMPTY of people.
+
+THE CROWD: the tribunes are packed edge to edge with a roaring antique crowd in sun-bleached linen, ochre, cream and dusty earth tones. Everyone is in motion — standing, shouting, arms raised, leaning over the rail. Every figure is different; no duplicated faces or bodies. The crowd is background texture only, small in frame, never individually featured.
+
+LIGHT: harsh vertical desert sun from almost directly overhead. Hard-edged short shadows straight down under the wall and the loggia awning; the sand blazes; the sky is bleached to near-white with heat haze. Fine dust hangs in the air and catches the light in the backlit depth.
+
+PHYSICS AND MATERIALS: real dust suspended and drifting, real heat shimmer over the sand, plaster flaked from the wall, sand grain and old scars readable on the floor, worn marble and gilding in the loggia.
+
+OPTICS: Arri Alexa Mini LF with anamorphic primes, 2.39:1; camera low on the sand near one end of the arena, about 1.5 m high, looking across the open floor with the royal loggia readable in the mid-distance; centre sharp, edges gently soft; fine organic 35mm grain.
+
+STYLE: photorealistic antique historical-epic cinematography, grounded and unpolished, sun-bleached and dusty. No text, no banners with writing, no modern objects anywhere.
